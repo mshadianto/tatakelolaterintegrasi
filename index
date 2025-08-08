@@ -7,7 +7,7 @@ import numpy as np
 
 # Page configuration
 st.set_page_config(
-    page_title="Tata Kelola Terintegrasi: Compliance POJK & BUMN",
+    page_title="Tata Kelola Terintegrasi: POJK & BUMN - KIM Consulting",
     page_icon="🏢",
     layout="wide",
     initial_sidebar_state="expanded"
@@ -95,6 +95,16 @@ st.markdown("""
 
 st.markdown("""
 <p style="text-align: center; font-size: 1.2rem; color: #666;">Framework McKinsey + Compliance POJK & BUMN untuk Optimalisasi Struktur Korporat</p>
+""", unsafe_allow_html=True)
+
+# Narasumber Information
+st.markdown("""
+<div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 1rem; border-radius: 10px; margin: 1rem 0; text-align: center;">
+<h4>👨‍🏫 Narasumber</h4>
+<h3>M Sopian Hadianto, SE, Ak, MM, CA, QIA, GRCP, GRCA, CACP, CCFA, CGP</h3>
+<p><strong>Senior Partner - KIM Consulting</strong></p>
+<p>Expert in Corporate Governance, Risk Management & Regulatory Compliance</p>
+</div>
 """, unsafe_allow_html=True)
 
 # Section 1: Overview & Compliance Framework
@@ -689,6 +699,38 @@ elif selected_section == "❓ Q&A & Action Plan":
     <h2 class="section-header">Q&A dan Regulatory Action Plan</h2>
     """, unsafe_allow_html=True)
     
+    # About the Speaker
+    with st.expander("👨‍🏫 About the Speaker - M Sopian Hadianto"):
+        st.markdown("""
+        ### Professional Background
+        
+        **M Sopian Hadianto** adalah Senior Partner di KIM Consulting dengan pengalaman lebih dari 15 tahun 
+        dalam bidang Corporate Governance, Risk Management, dan Regulatory Compliance.
+        
+        **Education & Certifications:**
+        - **SE, Ak, MM** - Sarjana Ekonomi, Akuntan, Magister Manajemen
+        - **CA** - Chartered Accountant
+        - **QIA** - Qualified Internal Auditor  
+        - **GRCP** - Governance, Risk & Compliance Professional
+        - **GRCA** - Governance, Risk & Compliance Associate
+        - **CACP** - Certified Anti-Corruption Professional
+        - **CCFA** - Certified Corporate Finance Analyst
+        - **CGP** - Certified Governance Professional
+        
+        **Expertise Areas:**
+        - Implementasi framework McKinsey untuk tata kelola perusahaan
+        - Compliance POJK dan regulasi BUMN
+        - Transformasi digital dalam governance
+        - Risk management terintegrasi
+        - Strategic consulting untuk konglomerasi
+        
+        **Selected Engagements:**
+        - Lead consultant untuk implementasi POJK 18/2014 di beberapa konglomerasi keuangan terkemuka
+        - Strategic advisor untuk transformasi tata kelola BUMN 
+        - Expert witness dalam kasus corporate governance
+        - Regular speaker di konferensi internasional tentang governance
+        """)
+    
     # Enhanced FAQ
     st.markdown("### 🙋‍♀️ Frequently Asked Questions - Regulatory Focus")
     
@@ -757,6 +799,23 @@ elif selected_section == "❓ Q&A & Action Plan":
         st.markdown("#### 🚀 Priority Actions:")
         for i, action in enumerate(priority_actions, 1):
             st.markdown(f"{i}. {action}")
+    
+    # Contact for Further Consultation
+    st.markdown("### 📞 Need Further Consultation?")
+    st.markdown("""
+    <div class="mckinsey-insight">
+    <h4>🤝 Konsultasi Lanjutan dengan Narasumber</h4>
+    <p>Untuk implementasi yang lebih mendalam atau konsultasi khusus tentang tata kelola terintegrasi 
+    di organisasi Anda, silakan hubungi langsung:</p>
+    <ul>
+        <li><strong>M Sopian Hadianto</strong> - Senior Partner KIM Consulting</li>
+        <li>📧 sopian.hadianto@kimconsulting.co.id</li>
+        <li>📱 +62-812-3456-7890 (WhatsApp)</li>
+        <li>🏢 KIM Consulting - Knowledge • Innovation • Management</li>
+    </ul>
+    <p><em>Available for: Strategic advisory, Implementation support, Training programs, Regulatory compliance assessment</em></p>
+    </div>
+    """, unsafe_allow_html=True)
 
 # Footer
 st.markdown("---")
@@ -771,7 +830,46 @@ establish project governance structure.</p>
 </div>
 """, unsafe_allow_html=True)
 
+# KIM Consulting Footer
+st.markdown("""
+<div style="background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%); color: white; padding: 2rem; border-radius: 10px; margin: 2rem 0; text-align: center;">
+<h3>🏢 KIM Consulting</h3>
+<p><strong>Knowledge • Innovation • Management</strong></p>
+<p>Your Trusted Partner for Corporate Governance, Risk Management & Strategic Consulting</p>
+<div style="display: flex; justify-content: center; gap: 2rem; margin-top: 1rem; flex-wrap: wrap;">
+    <div>📧 info@kimconsulting.co.id</div>
+    <div>📱 +62-21-1234-5678</div>
+    <div>🌐 www.kimconsulting.co.id</div>
+</div>
+<hr style="margin: 1.5rem 0; border-color: #ffffff30;">
+<p style="font-size: 0.9rem; margin-bottom: 0;">© 2025 KIM Consulting. All Rights Reserved.</p>
+</div>
+""", unsafe_allow_html=True)
+
+# Legal Disclaimer
+st.markdown("""
+<div style="background: #f8f9fa; padding: 1rem; border-radius: 5px; font-size: 0.8rem; color: #666; text-align: justify; margin: 1rem 0;">
+<strong>Disclaimer:</strong> Materi ini disusun untuk tujuan edukasi dan sosialisasi. Implementasi tata kelola terintegrasi 
+harus disesuaikan dengan kondisi spesifik organisasi dan mempertimbangkan perkembangan regulasi terbaru. 
+KIM Consulting tidak bertanggung jawab atas penggunaan materi ini tanpa konsultasi profesional yang memadai. 
+Untuk implementasi yang optimal, disarankan melakukan assessment mendalam dan pendampingan profesional.
+</div>
+""", unsafe_allow_html=True)
+
 # Enhanced sidebar
+st.sidebar.markdown("---")
+st.sidebar.markdown("### 👨‍🏫 Narasumber")
+st.sidebar.markdown("""
+**M Sopian Hadianto**  
+SE, Ak, MM, CA, QIA, GRCP, GRCA, CACP, CCFA, CGP
+
+**Expertise:**
+- Corporate Governance
+- Risk Management  
+- Regulatory Compliance
+- Strategic Consulting
+""")
+
 st.sidebar.markdown("---")
 st.sidebar.markdown("### 📋 Regulatory References")
 st.sidebar.markdown("""
@@ -785,8 +883,20 @@ st.sidebar.markdown("""
 **Audience:** Board, Management, Compliance
 """)
 
+st.sidebar.markdown("---")
+st.sidebar.markdown("""
+<div style="text-align: center; background: #f8f9fa; padding: 1rem; border-radius: 5px;">
+<strong>🏢 KIM Consulting</strong><br>
+<small>Knowledge • Innovation • Management</small><br>
+<small>© 2025 All Rights Reserved</small>
+</div>
+""", unsafe_allow_html=True)
+
 if st.sidebar.button("📧 Email Regulatory Summary"):
-    st.sidebar.success("Regulatory compliance summary akan dikirim!")
+    st.sidebar.success("Regulatory compliance summary akan dikirim oleh KIM Consulting!")
 
 if st.sidebar.button("💾 Download Compliance Toolkit"):
-    st.sidebar.success("Compliance toolkit package ready!")
+    st.sidebar.success("KIM Consulting toolkit package ready!")
+
+if st.sidebar.button("📞 Schedule Consultation"):
+    st.sidebar.success("Konsultasi dengan M Sopian Hadianto akan dijadwalkan!")
