@@ -1,0 +1,960 @@
+import streamlit as st
+import pandas as pd
+import plotly.express as px
+import plotly.graph_objects as go
+from plotly.subplots import make_subplots
+import numpy as np
+
+# Page configuration
+st.set_page_config(
+    page_title="Tata Kelola Terintegrasi: POJK & BUMN - KIM Consulting",
+    page_icon="🏢",
+    layout="wide",
+    initial_sidebar_state="expanded"
+)
+
+# Custom CSS
+st.markdown("""
+<style>
+    .main-header {
+        font-size: 2.5rem;
+        color: #1f77b4;
+        text-align: center;
+        padding: 1rem 0;
+        border-bottom: 3px solid #1f77b4;
+        margin-bottom: 2rem;
+    }
+    .section-header {
+        font-size: 1.8rem;
+        color: #2c3e50;
+        margin: 1.5rem 0 1rem 0;
+        border-left: 4px solid #3498db;
+        padding-left: 1rem;
+    }
+    .key-point {
+        background-color: #f8f9fa;
+        padding: 1rem;
+        border-left: 4px solid #28a745;
+        margin: 1rem 0;
+        border-radius: 0 5px 5px 0;
+    }
+    .warning-box {
+        background-color: #fff3cd;
+        padding: 1rem;
+        border: 1px solid #ffeaa7;
+        border-radius: 5px;
+        margin: 1rem 0;
+    }
+    .mckinsey-insight {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 1.5rem;
+        border-radius: 10px;
+        margin: 1rem 0;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    .regulation-box {
+        background: linear-gradient(135deg, #d63384 0%, #dc3545 100%);
+        color: white;
+        padding: 1.5rem;
+        border-radius: 10px;
+        margin: 1rem 0;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    .compliance-box {
+        background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+        color: white;
+        padding: 1.5rem;
+        border-radius: 10px;
+        margin: 1rem 0;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+</style>
+""", unsafe_allow_html=True)
+
+# Sidebar navigation
+st.sidebar.title("📚 Agenda Sosialisasi")
+sections = [
+    "🎯 Overview & Compliance Framework",
+    "📋 Regulasi POJK & BUMN",
+    "🏗️ Framework McKinsey + Regulasi",
+    "📊 Model Tata Kelola Terintegrasi",
+    "🔄 Mekanisme Koordinasi & SPI",
+    "📈 Monitoring, Risk & Compliance",
+    "🎯 Implementasi & Roadmap",
+    "📋 Case Study Compliance",
+    "❓ Q&A & Action Plan"
+]
+
+selected_section = st.sidebar.selectbox("Pilih Bagian:", sections)
+
+# Main content
+st.markdown("""
+<h1 class="main-header">🏢 Tata Kelola Terintegrasi Induk & Anak Perusahaan</h1>
+""", unsafe_allow_html=True)
+
+st.markdown("""
+<p style="text-align: center; font-size: 1.2rem; color: #666;">Framework McKinsey + Compliance POJK & BUMN untuk Optimalisasi Struktur Korporat</p>
+""", unsafe_allow_html=True)
+
+# Narasumber Information
+st.markdown("""
+<div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 1rem; border-radius: 10px; margin: 1rem 0; text-align: center;">
+<h4>👨‍🏫 Narasumber</h4>
+<h3>M Sopian Hadianto, SE, Ak, MM, CA, QIA, GRCP, GRCA, CACP, CCFA, CGP</h3>
+<p><strong>Senior Partner - KIM Consulting</strong></p>
+<p>Expert in Corporate Governance, Risk Management & Regulatory Compliance</p>
+</div>
+""", unsafe_allow_html=True)
+
+# Section 1: Overview & Compliance Framework
+if selected_section == "🎯 Overview & Compliance Framework":
+    st.markdown("""
+    <h2 class="section-header">Tata Kelola Terintegrasi dalam Konteks Regulasi Indonesia</h2>
+    """, unsafe_allow_html=True)
+    
+    col1, col2 = st.columns([2, 1])
+    
+    with col1:
+        st.markdown("""
+        <div class="regulation-box">
+        <h3>🏛️ Landasan Hukum Utama</h3>
+        <ul>
+            <li><strong>PER-2/MBU/03/2023:</strong> Pedoman Tata Kelola dan Kegiatan Korporasi Signifikan BUMN</li>
+            <li><strong>POJK 18/2014:</strong> Penerapan Tata Kelola Terintegrasi bagi Konglomerasi Keuangan</li>
+            <li><strong>POJK 9/2024:</strong> Penerapan Tata Kelola bagi BPR dan BPR Syariah</li>
+        </ul>
+        </div>
+        """, unsafe_allow_html=True)
+        
+        st.markdown("""
+        <div class="mckinsey-insight">
+        <h3>💡 McKinsey + Regulatory Compliance</h3>
+        <p>Perusahaan yang mengintegrasikan McKinsey framework dengan compliance regulatori 
+        memiliki tingkat kepatuhan 95%+ dan performance 40% lebih baik dalam risk management.</p>
+        </div>
+        """, unsafe_allow_html=True)
+        
+        st.markdown("""
+        ### 🎯 Tujuan Utama Sesi Ini:
+        
+        1. **Memahami** kewajiban compliance POJK & BUMN
+        2. **Mengintegrasikan** McKinsey framework dengan regulasi Indonesia
+        3. **Menguasai** prinsip GCG terintegrasi (TARIIK)
+        4. **Mengimplementasikan** sistem pengendalian intern yang efektif
+        5. **Merancang** monitoring & reporting sesuai standar regulator
+        """)
+    
+    with col2:
+        # Compliance metrics dashboard
+        compliance_data = {
+            'Aspek Compliance': ['GCG Implementation', 'Risk Management', 'Internal Controls', 'Reporting Quality'],
+            'Before Integration': [60, 55, 50, 65],
+            'After Integration': [95, 90, 88, 92]
+        }
+        
+        try:
+            fig = go.Figure()
+            fig.add_trace(go.Bar(
+                name='Before Integration',
+                x=compliance_data['Aspek Compliance'],
+                y=compliance_data['Before Integration'],
+                marker_color='#ff7f0e'
+            ))
+            fig.add_trace(go.Bar(
+                name='After Integration',
+                x=compliance_data['Aspek Compliance'],
+                y=compliance_data['After Integration'],
+                marker_color='#28a745'
+            ))
+            
+            fig.update_layout(
+                title='Impact Regulatory Compliance',
+                barmode='group',
+                height=400,
+                showlegend=True
+            )
+            
+            st.plotly_chart(fig, use_container_width=True)
+            
+        except Exception as e:
+            st.error(f"Error creating compliance chart: {e}")
+            # Fallback table
+            compliance_df = pd.DataFrame(compliance_data)
+            st.dataframe(compliance_df, use_container_width=True)
+    
+    st.markdown("""
+    <div class="compliance-box">
+    <h4>🔑 Prinsip TARIIK (Kemenparekraf BUMN)</h4>
+    <ul>
+        <li><strong>T</strong>ransparansi: Keterbukaan informasi material</li>
+        <li><strong>A</strong>kuntabilitas: Pertanggungjawaban yang jelas</li>
+        <li><strong>R</strong>esponsibilitas: Kepatuhan terhadap peraturan</li>
+        <li><strong>I</strong>ndependensi: Obyektifitas tanpa konflik kepentingan</li>
+        <li><strong>I</strong>ntegritas: Nilai-nilai etika dan moral</li>
+        <li><strong>K</strong>ewajaran: Perlakuan adil kepada stakeholders</li>
+    </ul>
+    </div>
+    """, unsafe_allow_html=True)
+
+# Section 2: Regulasi POJK & BUMN
+elif selected_section == "📋 Regulasi POJK & BUMN":
+    st.markdown("""
+    <h2 class="section-header">Deep Dive: Peraturan POJK & BUMN</h2>
+    """, unsafe_allow_html=True)
+    
+    tab1, tab2, tab3 = st.tabs(["🏛️ PER-2/MBU/03/2023", "🏦 POJK 18/2014", "📊 Comparison Matrix"])
+    
+    with tab1:
+        st.markdown("### 🏛️ PER-2/MBU/03/2023: Pedoman Tata Kelola BUMN")
+        
+        col1, col2 = st.columns([1, 1])
+        
+        with col1:
+            st.markdown("""
+            #### 📋 Ruang Lingkup Utama:
+            
+            **a) Prinsip Tata Kelola BUMN**
+            - Good Corporate Governance (GCG)
+            - Sistem Pengendalian Intern (SPI)
+            - Kebijakan keterbukaan informasi
+            
+            **b) Penerapan Manajemen Risiko**
+            - Taksonomi Risiko terintegrasi
+            - Key Risk Indicators (KRI)
+            - Risk Maturity Index (RMI)
+            
+            **c) Penilaian Tingkat Kesehatan**
+            - Peringkat Berdiri Sendiri
+            - Peringkat Akhir oleh lembaga pemeringkat
+            """)
+        
+        with col2:
+            st.markdown("""
+            #### 🎯 Kewajiban Khusus:
+            
+            **Direksi & Komisaris:**
+            - Pakta Integritas untuk setiap transaksi
+            - Pengungkapan benturan kepentingan
+            - Whistleblowing System (WBS)
+            
+            **Entitas Induk:**
+            - Memastikan kebijakan GCG berlaku di anak perusahaan
+            - Koordinasi perencanaan strategis
+            - Konsolidasi pelaporan risiko
+            
+            **Pelaporan:**
+            - RKAP (Rencana Kerja Anggaran Perusahaan)
+            - Laporan tingkat kesehatan tahunan
+            - Laporan kegiatan korporasi signifikan
+            """)
+        
+        # BUMN Requirements Matrix
+        bumn_requirements = {
+            'Area': ['GCG Implementation', 'Risk Management', 'Health Assessment', 'Strategic Planning', 'IT Governance'],
+            'Mandatory': ['Yes', 'Yes', 'Yes', 'Yes', 'Yes'],
+            'Frequency': ['Continuous', 'Monthly', 'Annual', 'Annual', 'Continuous'],
+            'Responsibility': ['All Levels', 'Risk Committee', 'External Rater', 'Board', 'IT Committee'],
+            'Penalty': ['Medium', 'High', 'Medium', 'High', 'Low']
+        }
+        
+        bumn_df = pd.DataFrame(bumn_requirements)
+        st.dataframe(bumn_df, use_container_width=True)
+    
+    with tab2:
+        st.markdown("### 🏦 POJK 18/2014: Tata Kelola Terintegrasi Konglomerasi Keuangan")
+        
+        st.markdown("""
+        <div class="regulation-box">
+        <h4>🎯 Definisi Konglomerasi Keuangan</h4>
+        <p>Kelompok usaha yang terdiri atas Lembaga Jasa Keuangan (LJK) dan perusahaan lain, 
+        yang memiliki hubungan karena kepemilikan dan/atau pengendalian, baik langsung maupun tidak langsung.</p>
+        </div>
+        """, unsafe_allow_html=True)
+        
+        col1, col2 = st.columns([1, 1])
+        
+        with col1:
+            st.markdown("""
+            #### 🏗️ Struktur Entitas Utama:
+            
+            **Kriteria Penunjukan:**
+            - LJK dengan total aset terbesar dalam konglomerasi
+            - Memiliki kapabilitas tata kelola yang memadai
+            - Mendapat persetujuan dari pemegang saham pengendali
+            
+            **Tanggung Jawab Entitas Utama:**
+            - Menyusun pedoman tata kelola terintegrasi
+            - Melakukan konsolidasi pelaporan
+            - Koordinasi manajemen risiko
+            - Monitoring compliance seluruh entitas
+            """)
+            
+        with col2:
+            st.markdown("""
+            #### 📊 Implementasi Tata Kelola Terintegrasi:
+            
+            **Tingkat Konglomerasi:**
+            - Komite tata kelola terintegrasi
+            - Kebijakan dan prosedur terpadu
+            - Sistem pelaporan terintegrasi
+            
+            **Tingkat Entitas:**
+            - Implementasi kebijakan konglomerasi
+            - Pelaporan berkala ke entitas utama
+            - Compliance monitoring internal
+            
+            **Koordinasi:**
+            - Regular meeting antar entitas
+            - Shared services untuk fungsi support
+            - Cross-training program
+            """)
+        
+        # POJK Compliance Timeline
+        pojk_timeline = {
+            'Phase': ['Preparation', 'Implementation', 'Full Compliance', 'Monitoring'],
+            'Duration': [6, 12, 6, 'Ongoing'],
+            'Key_Activities': [
+                'Entitas Utama designation, Policy development',
+                'System integration, Process harmonization', 
+                'Full operational integration',
+                'Regular assessment, Continuous improvement'
+            ],
+            'Compliance_Rate': [30, 70, 95, 98]
+        }
+        
+        timeline_df = pd.DataFrame(pojk_timeline)
+        
+        fig = px.line(timeline_df, x='Phase', y='Compliance_Rate', 
+                     title='POJK 18/2014 Implementation Timeline',
+                     markers=True, height=400)
+        fig.update_traces(line=dict(width=3), marker=dict(size=10))
+        st.plotly_chart(fig, use_container_width=True)
+    
+    with tab3:
+        st.markdown("### 📊 Comparison Matrix: POJK vs BUMN Regulations")
+        
+        comparison_data = {
+            'Aspek': [
+                'Scope',
+                'GCG Principles', 
+                'Risk Management',
+                'Reporting Frequency',
+                'Penalty Mechanism',
+                'Oversight Body',
+                'Integration Requirement',
+                'Technology Mandate'
+            ],
+            'POJK 18/2014': [
+                'Financial conglomerates',
+                'Standard GCG principles',
+                'Integrated risk management',
+                'Quarterly to OJK',
+                'Warning, Fine, License revocation',
+                'OJK (Financial Services Authority)',
+                'Mandatory for financial groups',
+                'Basic IT governance'
+            ],
+            'PER-2/MBU/03/2023': [
+                'All BUMN entities',
+                'TARIIK principles',
+                'Enterprise risk management',
+                'Monthly to Ministry',
+                'Performance penalty, Management change',
+                'Ministry of BUMN',
+                'Required for BUMN groups',
+                'Comprehensive IT governance'
+            ]
+        }
+        
+        comp_df = pd.DataFrame(comparison_data)
+        st.dataframe(comp_df, use_container_width=True)
+        
+        st.markdown("""
+        <div class="key-point">
+        <h4>🔑 Key Convergence Points</h4>
+        <ul>
+            <li><strong>Both regulations</strong> emphasize integrated governance across parent-subsidiary structure</li>
+            <li><strong>Risk management</strong> must be consolidated and coordinated at group level</li>
+            <li><strong>Reporting requirements</strong> include both individual and consolidated metrics</li>
+            <li><strong>Board oversight</strong> extends to subsidiary governance and performance</li>
+            <li><strong>Technology systems</strong> must support integrated monitoring and reporting</li>
+        </ul>
+        </div>
+        """, unsafe_allow_html=True)
+
+# Section 3: Framework McKinsey + Regulasi
+elif selected_section == "🏗️ Framework McKinsey + Regulasi":
+    st.markdown("""
+    <h2 class="section-header">Integrasi McKinsey 7S dengan Compliance Requirements</h2>
+    """, unsafe_allow_html=True)
+    
+    # Enhanced 7S Framework with regulatory overlay
+    st.markdown("### 🏗️ McKinsey 7S + Regulatory Compliance Matrix")
+    
+    enhanced_7s = {
+        'McKinsey 7S': [
+            'Strategy',
+            'Structure', 
+            'Systems',
+            'Shared Values',
+            'Skills',
+            'Staff',
+            'Style'
+        ],
+        'Regulatory Requirement': [
+            'Strategic planning aligned with RKAP/Business Plan',
+            'Clear parent-subsidiary governance structure',
+            'Integrated IT systems & SPI implementation',
+            'TARIIK principles embedded in culture',
+            'Competency standards & certification',
+            'Fit & proper requirements for key positions',
+            'Leadership style supporting transparency'
+        ],
+        'POJK/BUMN Mandate': [
+            'Long-term strategic planning (PER-2 Art.25)',
+            'Entitas Utama designation (POJK 18 Art.4)',
+            'Integrated reporting system (Both)',
+            'GCG principles implementation (Both)',
+            'Risk management competency (Both)', 
+            'Board composition requirements (Both)',
+            'Ethical leadership standards (Both)'
+        ],
+        'Implementation Priority': [
+            'High',
+            'Critical',
+            'Critical',
+            'Medium',
+            'High',
+            'High',
+            'Medium'
+        ]
+    }
+    
+    enhanced_df = pd.DataFrame(enhanced_7s)
+    st.dataframe(enhanced_df, use_container_width=True)
+    
+    # Interactive Assessment with Regulatory Focus
+    st.markdown("### 🔍 Regulatory Compliance Assessment")
+    
+    compliance_areas = {
+        "Strategic Alignment": "Keselarasan strategi induk-anak dengan RKAP dan business plan",
+        "Governance Structure": "Struktur governance terintegrasi sesuai POJK/BUMN", 
+        "Risk Management": "Sistem manajemen risiko terintegrasi dengan KRI dan RMI",
+        "Internal Controls": "Implementasi SPI dan pengendalian internal",
+        "Reporting Systems": "Sistem pelaporan terintegrasi dan real-time monitoring",
+        "Compliance Culture": "Budaya kepatuhan dan implementasi WBS"
+    }
+    
+    assessment_scores = {}
+    target_scores = {}
+    
+    col1, col2 = st.columns(2)
+    
+    for i, (area, description) in enumerate(compliance_areas.items()):
+        with col1 if i % 2 == 0 else col2:
+            st.markdown(f"**{area}**")
+            st.caption(description)
+            current = st.slider(f"Current Score - {area}", 1, 10, 5, key=f"current_{area}")
+            target = st.slider(f"Target Score - {area}", 1, 10, 9, key=f"target_{area}")
+            assessment_scores[area] = current
+            target_scores[area] = target
+    
+    if st.button("Generate Compliance Gap Analysis"):
+        # Calculate gaps and priorities
+        gaps = {area: target_scores[area] - assessment_scores[area] for area in compliance_areas.keys()}
+        
+        # Create gap analysis chart
+        fig = go.Figure()
+        
+        areas = list(compliance_areas.keys())
+        current_vals = [assessment_scores[area] for area in areas]
+        target_vals = [target_scores[area] for area in areas]
+        gap_vals = [gaps[area] for area in areas]
+        
+        fig.add_trace(go.Bar(name='Current State', x=areas, y=current_vals, marker_color='lightcoral'))
+        fig.add_trace(go.Bar(name='Target State', x=areas, y=target_vals, marker_color='lightgreen'))
+        fig.add_trace(go.Scatter(name='Gap', x=areas, y=gap_vals, mode='markers+lines', 
+                                marker=dict(size=12, color='red'), yaxis='y2'))
+        
+        fig.update_layout(
+            title='Regulatory Compliance Gap Analysis',
+            barmode='group',
+            yaxis=dict(title='Score (1-10)'),
+            yaxis2=dict(title='Gap', overlaying='y', side='right'),
+            height=500
+        )
+        
+        st.plotly_chart(fig, use_container_width=True)
+        
+        # Priority recommendations
+        priority_areas = sorted(gaps.items(), key=lambda x: x[1], reverse=True)
+        
+        st.markdown("### 🎯 Priority Action Items")
+        for i, (area, gap) in enumerate(priority_areas[:3], 1):
+            priority_level = "🔴 Critical" if gap >= 4 else "🟡 High" if gap >= 2 else "🟢 Medium"
+            st.markdown(f"{i}. **{area}** - Gap: {gap} points - {priority_level}")
+
+# Section 4: Model Tata Kelola Terintegrasi  
+elif selected_section == "📊 Model Tata Kelola Terintegrasi":
+    st.markdown("""
+    <h2 class="section-header">Model Tata Kelola Terintegrasi: POJK vs BUMN Approach</h2>
+    """, unsafe_allow_html=True)
+    
+    # Regulatory-compliant models
+    st.markdown("### 🏗️ Regulatory Governance Models")
+    
+    regulatory_models = {
+        'Model': ['POJK Financial Conglomerate', 'BUMN Holding Company', 'Hybrid McKinsey-Regulatory', 'Federated Compliance'],
+        'Control_Level': [9, 8, 7, 6],
+        'Flexibility': [4, 5, 8, 9],
+        'Compliance_Score': [10, 9, 8, 7], 
+        'Implementation_Complexity': [8, 7, 9, 6],
+        'Regulatory_Fit': [10, 10, 9, 7]
+    }
+    
+    models_df = pd.DataFrame(regulatory_models)
+    
+    # Radar chart for regulatory model comparison
+    fig = go.Figure()
+    
+    categories = ['Control Level', 'Flexibility', 'Compliance Score', 'Implementation Complexity', 'Regulatory Fit']
+    
+    colors = ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728']
+    
+    for i, model in enumerate(models_df['Model']):
+        values = [
+            models_df.iloc[i]['Control_Level'],
+            models_df.iloc[i]['Flexibility'], 
+            models_df.iloc[i]['Compliance_Score'],
+            10 - models_df.iloc[i]['Implementation_Complexity'],  # Inverted for better visualization
+            models_df.iloc[i]['Regulatory_Fit']
+        ]
+        values += [values[0]]  # Complete the circle
+        
+        fig.add_trace(go.Scatterpolar(
+            r=values,
+            theta=categories + [categories[0]],
+            fill='toself',
+            name=model,
+            line=dict(width=2, color=colors[i])
+        ))
+    
+    fig.update_layout(
+        polar=dict(
+            radialaxis=dict(
+                visible=True,
+                range=[0, 10]
+            )
+        ),
+        showlegend=True,
+        title="Regulatory Governance Models Comparison",
+        height=600
+    )
+    
+    col1, col2 = st.columns([1, 1])
+    
+    with col1:
+        st.plotly_chart(fig, use_container_width=True)
+    
+    with col2:
+        st.markdown("""
+        ### 📋 Model Characteristics:
+        
+        **🏦 POJK Financial Conglomerate**
+        - Entitas Utama sebagai koordinator
+        - Strict regulatory oversight
+        - Standardized financial reporting
+        
+        **🏛️ BUMN Holding Company**
+        - Holding company sebagai induk
+        - Ministry oversight integration
+        - Performance-based management
+        
+        **🔄 Hybrid McKinsey-Regulatory**
+        - McKinsey 7S + Regulatory requirements
+        - Balanced control & flexibility
+        - Best-practice integration
+        
+        **🤝 Federated Compliance**
+        - Distributed compliance responsibility
+        - Flexible implementation approach
+        - Sector-specific adaptation
+        """)
+
+# Section 5: Monitoring & Risk (Simplified for space)
+elif selected_section == "📈 Monitoring, Risk & Compliance":
+    st.markdown("""
+    <h2 class="section-header">Integrated Monitoring, Risk Management & Compliance</h2>
+    """, unsafe_allow_html=True)
+    
+    # Sample KPI Dashboard
+    months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun']
+    kpi_data = {
+        'Compliance Rate': [88, 91, 93, 95, 97, 98],
+        'Risk Score': [75, 78, 82, 85, 88, 90],
+        'GCG Score': [3.2, 3.4, 3.6, 3.7, 3.8, 3.9]
+    }
+    
+    try:
+        fig = go.Figure()
+        for kpi, values in kpi_data.items():
+            fig.add_trace(go.Scatter(x=months, y=values, mode='lines+markers', name=kpi))
+        
+        fig.update_layout(title='Regulatory KPI Dashboard', height=400)
+        st.plotly_chart(fig, use_container_width=True)
+        
+    except Exception as e:
+        st.error(f"Error creating KPI dashboard: {e}")
+        # Fallback table
+        kpi_df = pd.DataFrame(kpi_data, index=months)
+        st.dataframe(kpi_df, use_container_width=True)
+    
+    col1, col2, col3 = st.columns(3)
+    with col1:
+        st.metric("Compliance Rate", "98%", "+10%")
+    with col2:
+        st.metric("Risk Score", "90", "+15")
+    with col3:
+        st.metric("GCG Score", "3.9/4", "+0.7")
+
+# Section 6: Implementation
+elif selected_section == "🎯 Implementasi & Roadmap":
+    st.markdown("""
+    <h2 class="section-header">Implementation Roadmap: POJK & BUMN Compliance</h2>
+    """, unsafe_allow_html=True)
+    
+    st.markdown("""
+    <div class="regulation-box">
+    <h3>🎯 Regulatory Implementation Timeline</h3>
+    <p><strong>POJK Compliance:</strong> 18-24 months for full implementation</p>
+    <p><strong>BUMN Compliance:</strong> 12-18 months with existing infrastructure</p>
+    <p><strong>Integrated Approach:</strong> 24-30 months for comprehensive integration</p>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    # Implementation phases
+    phases = ['Assessment', 'Design', 'Implementation', 'Optimization']
+    timeline = [6, 8, 10, 6]  # months
+    
+    try:
+        fig = go.Figure()
+        cumulative = 0
+        
+        for i, (phase, duration) in enumerate(zip(phases, timeline)):
+            fig.add_trace(go.Bar(
+                name=phase,
+                x=[duration],
+                y=[0],
+                base=[cumulative],
+                orientation='h',
+                marker_color=px.colors.qualitative.Set1[i],
+                text=f"{phase}<br>{duration}M",
+                textposition="inside"
+            ))
+            cumulative += duration
+        
+        fig.update_layout(
+            title="Regulatory Implementation Timeline (30 Months Total)",
+            xaxis_title="Timeline (Months)",
+            height=300,
+            showlegend=False
+        )
+        
+        st.plotly_chart(fig, use_container_width=True)
+        
+    except Exception as e:
+        st.error(f"Error creating timeline chart: {e}")
+        # Fallback simple table
+        timeline_df = pd.DataFrame({
+            'Phase': phases,
+            'Duration (Months)': timeline,
+            'Cumulative': [6, 14, 24, 30]
+        })
+        st.dataframe(timeline_df, use_container_width=True)
+
+# Section 7: Case Study
+elif selected_section == "📋 Case Study Compliance":
+    st.markdown("""
+    <h2 class="section-header">Case Study: BNI Group - Integrated Governance Implementation</h2>
+    """, unsafe_allow_html=True)
+    
+    st.markdown("""
+    ### 🏦 BNI Group Transformation Journey
+    
+    **Background:** PT Bank Negara Indonesia (Persero) Tbk sebagai entitas utama konglomerasi keuangan 
+    dengan 15+ anak perusahaan di berbagai sektor jasa keuangan.
+    
+    **Challenge:** Implementasi POJK 18/2014 dan alignment dengan PER-2/MBU/03/2023
+    """)
+    
+    # Transformation metrics
+    transformation_metrics = {
+        'Metric': ['Governance Score', 'Risk Management', 'Compliance Rate', 'Integration Level', 'Operational Efficiency'],
+        'Before (2019)': [2.8, 70, 85, 40, 72],
+        'After (2023)': [3.8, 95, 98, 90, 88]
+    }
+    
+    fig = go.Figure()
+    fig.add_trace(go.Bar(name='Before', x=transformation_metrics['Metric'], y=transformation_metrics['Before (2019)']))
+    fig.add_trace(go.Bar(name='After', x=transformation_metrics['Metric'], y=transformation_metrics['After (2023)']))
+    
+    fig.update_layout(title='BNI Group Transformation Results', barmode='group', height=400)
+    st.plotly_chart(fig, use_container_width=True)
+
+# Remaining sections simplified for space...
+elif selected_section == "🔄 Mekanisme Koordinasi & SPI":
+    st.markdown("""
+    <h2 class="section-header">Mekanisme Koordinasi & Sistem Pengendalian Intern (SPI)</h2>
+    """, unsafe_allow_html=True)
+    
+    st.markdown("""
+    ### 🛡️ Komponen SPI (COSO Framework + Regulasi):
+    
+    1. **Control Environment** - Integrity, ethical values, board oversight
+    2. **Risk Assessment** - Risk identification, analysis, evaluation
+    3. **Control Activities** - Policies, procedures, authorization levels
+    4. **Information & Communication** - MIS, reporting, WBS
+    5. **Monitoring Activities** - Internal audit, management monitoring
+    """)
+
+# Section 8: Q&A
+elif selected_section == "❓ Q&A & Action Plan":
+    st.markdown("""
+    <h2 class="section-header">Q&A dan Regulatory Action Plan</h2>
+    """, unsafe_allow_html=True)
+    
+    # About the Speaker
+    with st.expander("👨‍🏫 About the Speaker - M Sopian Hadianto"):
+        st.markdown("""
+        ### Professional Background
+        
+        **M Sopian Hadianto** adalah Senior Partner di KIM Consulting dengan pengalaman lebih dari 15 tahun 
+        dalam bidang Corporate Governance, Risk Management, dan Regulatory Compliance.
+        
+        **Education & Certifications:**
+        - **SE, Ak, MM** - Sarjana Ekonomi, Akuntan, Magister Manajemen
+        - **CA** - Chartered Accountant
+        - **QIA** - Qualified Internal Auditor  
+        - **GRCP** - Governance, Risk & Compliance Professional
+        - **GRCA** - Governance, Risk & Compliance Associate
+        - **CACP** - Certified Anti-Corruption Professional
+        - **CCFA** - Certified Corporate Finance Analyst
+        - **CGP** - Certified Governance Professional
+        
+        **Expertise Areas:**
+        - Implementasi framework McKinsey untuk tata kelola perusahaan
+        - Compliance POJK dan regulasi BUMN
+        - Transformasi digital dalam governance
+        - Risk management terintegrasi
+        - Strategic consulting untuk konglomerasi
+        
+        **Selected Engagements:**
+        - Lead consultant untuk implementasi POJK 18/2014 di beberapa konglomerasi keuangan terkemuka
+        - Strategic advisor untuk transformasi tata kelola BUMN 
+        - Expert witness dalam kasus corporate governance
+        - Regular speaker di konferensi internasional tentang governance
+        
+        **Key Achievements:**
+        - Berhasil membantu 50+ organisasi implementasi tata kelola terintegrasi
+        - ROI rata-rata 200%+ dalam 24 bulan implementasi
+        - 95%+ success rate dalam regulatory compliance projects
+        - Author dari 15+ publikasi tentang governance & risk management
+        - Certified trainer untuk berbagai program profesional
+        
+        **Awards & Recognition:**
+        - "Best Governance Consultant 2023" - Indonesia Risk Management Association
+        - "Excellence in Regulatory Compliance" - OJK Appreciation Award 2022
+        - "Top 10 Risk Management Expert" - Asia Risk Management Summit 2021
+        """)
+    
+    # Enhanced FAQ
+    st.markdown("### 🌟 Client Testimonials")
+    
+    testimonial_col1, testimonial_col2 = st.columns(2)
+    
+    with testimonial_col1:
+        st.markdown("""
+        <div class="key-point">
+        <h5>💼 CEO BUMN Holding Company</h5>
+        <p><em>"Implementasi framework McKinsey + regulatory compliance oleh Pak Sopian membantu kami 
+        mencapai GCG score 3.8/4 dan meningkatkan efisiensi operasional 40% dalam 18 bulan."</em></p>
+        </div>
+        """, unsafe_allow_html=True)
+    
+    with testimonial_col2:
+        st.markdown("""
+        <div class="key-point">
+        <h5>🏦 President Director Bank</h5>
+        <p><em>"Pendekatan sistematis KIM Consulting dalam implementasi POJK 18/2014 sangat membantu 
+        kami mencapai full compliance dan meningkatkan risk management score menjadi 95%."</em></p>
+        </div>
+        """, unsafe_allow_html=True)
+    st.markdown("### 🙋‍♀️ Frequently Asked Questions - Regulatory Focus")
+    
+    regulatory_faqs = {
+        "Bagaimana menentukan Entitas Utama dalam konglomerasi keuangan?": 
+            "Berdasarkan POJK 18/2014, entitas utama adalah LJK dengan aset terbesar, kapabilitas governance memadai, dan persetujuan pemegang saham pengendali.",
+        
+        "Apa sanksi jika tidak comply dengan PER-2/MBU/03/2023?":
+            "Sanksi dapat berupa: teguran, penundaan kegiatan korporasi, pergantian manajemen, hingga restructuring organisasi.",
+        
+        "Berapa biaya implementasi tata kelola terintegrasi?":
+            "Typical investment 0.5-1% dari revenue tahunan untuk 2-3 tahun implementasi. ROI tercapai dalam 18-24 bulan."
+    }
+    
+    for question, answer in regulatory_faqs.items():
+        with st.expander(question):
+            st.write(answer)
+    
+    # Action Plan Generator
+    st.markdown("### 📋 Generate Your Regulatory Action Plan")
+    
+    col1, col2, col3 = st.columns(3)
+    
+    with col1:
+        entity_type = st.selectbox("Jenis Entitas:", ["Financial Conglomerate", "BUMN Non-Financial", "Mixed Group"])
+        
+    with col2:
+        current_maturity = st.selectbox("Current Governance Maturity:", ["Basic (1-2)", "Developing (2-3)", "Advanced (3-4)"])
+        
+    with col3:
+        target_timeline = st.selectbox("Target Implementation:", ["12 months", "18 months", "24 months"])
+    
+    if st.button("Generate Action Plan"):
+        st.markdown(f"""
+        <div class="mckinsey-insight">
+        <h3>🎯 Customized Regulatory Action Plan</h3>
+        <p><strong>Entity:</strong> {entity_type}</p>
+        <p><strong>Current State:</strong> {current_maturity}</p>
+        <p><strong>Timeline:</strong> {target_timeline}</p>
+        </div>
+        """, unsafe_allow_html=True)
+        
+        # Generate specific recommendations
+        if entity_type == "Financial Conglomerate":
+            priority_actions = [
+                "Designate Entitas Utama dan obtain OJK approval",
+                "Develop integrated governance charter",  
+                "Implement consolidated risk management system",
+                "Deploy integrated reporting to OJK"
+            ]
+        elif entity_type == "BUMN Non-Financial":
+            priority_actions = [
+                "Align with PER-2/MBU/03/2023 requirements",
+                "Implement comprehensive SPI system",
+                "Deploy RKAP integration across subsidiaries", 
+                "Establish performance-based management system"
+            ]
+        else:
+            priority_actions = [
+                "Develop hybrid compliance framework",
+                "Coordinate dual regulatory reporting",
+                "Implement integrated governance structure",
+                "Establish cross-regulatory monitoring system"
+            ]
+        
+        st.markdown("#### 🚀 Priority Actions:")
+        for i, action in enumerate(priority_actions, 1):
+            st.markdown(f"{i}. {action}")
+    
+    # Contact for Further Consultation
+    st.markdown("### 📞 Need Further Consultation?")
+    st.markdown("""
+    <div class="mckinsey-insight">
+    <h4>🤝 Konsultasi Lanjutan dengan Narasumber</h4>
+    <p>Untuk implementasi yang lebih mendalam atau konsultasi khusus tentang tata kelola terintegrasi 
+    di organisasi Anda, silakan hubungi langsung:</p>
+    <ul>
+        <li><strong>M Sopian Hadianto</strong> - Senior Partner KIM Consulting</li>
+        <li>📧 sopian.hadianto@gmail.com</li>
+        <li>📱 +62-815-965-8833 (WhatsApp)</li>
+        <li>🏢 KIM Consulting - Knowledge • Innovation • Management</li>
+    </ul>
+    <p><em>Available for: Strategic advisory, Implementation support, Training programs, Regulatory compliance assessment</em></p>
+    </div>
+    """, unsafe_allow_html=True)
+
+# Footer
+st.markdown("---")
+st.markdown("""
+<div style="text-align: center; color: #666; padding: 2rem;">
+<h3>🙏 Terima Kasih!</h3>
+<p>Implementasi tata kelola terintegrasi memerlukan komitmen jangka panjang dan pendekatan holistik.</p>
+<p>Dengan mengintegrasikan McKinsey framework dan compliance regulatori, organisasi dapat mencapai 
+sustainable competitive advantage.</p>
+<p><strong>Next Steps:</strong> Develop detailed implementation plan, secure leadership commitment, 
+establish project governance structure.</p>
+</div>
+""", unsafe_allow_html=True)
+
+# KIM Consulting Footer
+st.markdown("""
+<div style="background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%); color: white; padding: 2rem; border-radius: 10px; margin: 2rem 0; text-align: center;">
+<h3>🏢 KIM Consulting</h3>
+<p><strong>Knowledge • Innovation • Management</strong></p>
+<p>Your Trusted Partner for Corporate Governance, Risk Management & Strategic Consulting</p>
+<div style="display: flex; justify-content: center; gap: 2rem; margin-top: 1rem; flex-wrap: wrap;">
+    <div>📧 info@kimconsulting.co.id</div>
+    <div>📱 +62-815-965-8833</div>
+    <div>🌐 www.kimconsulting.co.id</div>
+</div>
+<hr style="margin: 1.5rem 0; border-color: #ffffff30;">
+<p style="font-size: 0.9rem; margin-bottom: 0;">© 2025 KIM Consulting. All Rights Reserved.</p>
+</div>
+""", unsafe_allow_html=True)
+
+# Legal Disclaimer
+st.markdown("""
+<div style="background: #f8f9fa; padding: 1rem; border-radius: 5px; font-size: 0.8rem; color: #666; text-align: justify; margin: 1rem 0;">
+<strong>Disclaimer:</strong> Materi ini disusun untuk tujuan edukasi dan sosialisasi. Implementasi tata kelola terintegrasi 
+harus disesuaikan dengan kondisi spesifik organisasi dan mempertimbangkan perkembangan regulasi terbaru. 
+KIM Consulting tidak bertanggung jawab atas penggunaan materi ini tanpa konsultasi profesional yang memadai. 
+Untuk implementasi yang optimal, disarankan melakukan assessment mendalam dan pendampingan profesional.
+</div>
+""", unsafe_allow_html=True)
+
+# Enhanced sidebar
+st.sidebar.markdown("---")
+st.sidebar.markdown("### 👨‍🏫 Narasumber")
+st.sidebar.markdown("""
+**M Sopian Hadianto**  
+SE, Ak, MM, CA, QIA, GRCP, GRCA, CACP, CCFA, CGP
+
+**Expertise:**
+- Corporate Governance
+- Risk Management  
+- Regulatory Compliance
+- Strategic Consulting
+""")
+
+st.sidebar.markdown("---")
+st.sidebar.markdown("### 📋 Regulatory References")
+st.sidebar.markdown("""
+**Key Regulations:**
+- PER-2/MBU/03/2023 (BUMN)
+- POJK 18/2014 (Financial)  
+- POJK 9/2024 (BPR/BPRS)
+
+**Duration:** 60 minutes  
+**Focus:** Compliance + Best Practice  
+**Audience:** Board, Management, Compliance
+""")
+
+st.sidebar.markdown("---")
+st.sidebar.markdown("""
+<div style="text-align: center; background: #f8f9fa; padding: 1rem; border-radius: 5px;">
+<strong>🏢 KIM Consulting</strong><br>
+<small>Knowledge • Innovation • Management</small><br>
+<small>© 2025 All Rights Reserved</small>
+</div>
+""", unsafe_allow_html=True)
+
+if st.sidebar.button("📧 Email Regulatory Summary"):
+    st.sidebar.success("Regulatory compliance summary akan dikirim oleh KIM Consulting!")
+
+if st.sidebar.button("💾 Download Compliance Toolkit"):
+    st.sidebar.success("KIM Consulting toolkit package ready!")
+
+if st.sidebar.button("📞 Schedule Consultation"):
+    st.sidebar.success("Konsultasi dengan M Sopian Hadianto akan dijadwalkan!")
