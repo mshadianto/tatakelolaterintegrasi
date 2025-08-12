@@ -31,7 +31,7 @@ except ImportError as e:
 
 # Page configuration
 st.set_page_config(
-    page_title="PTSI Governance Framework",
+    page_title="PTSI Governance Framework - KIM Consulting",
     page_icon="🏢",
     layout="wide",
     initial_sidebar_state="expanded"
@@ -534,7 +534,7 @@ def show_work_plan():
     # Timeline Chart using Gantt-style bar chart
     df_timeline = get_timeline_data()
     
-    # Create a Gantt-style chart using bar chart
+    # Create a simple timeline visualization
     fig = go.Figure()
     
     colors = {'Planning': '#ffc107', 'Development': '#17a2b8', 'Implementation': '#28a745'}
@@ -542,20 +542,22 @@ def show_work_plan():
     for i, row in df_timeline.iterrows():
         fig.add_trace(go.Bar(
             name=row['Phase'],
-            x=[row['Duration']],
+            x=[2],  # Fixed width for all phases
             y=[row['Phase']],
             orientation='h',
             marker_color=colors.get(row['Status'], '#6c757d'),
             text=row['Duration'],
-            textposition='middle center'
+            textposition='inside',
+            textfont=dict(color='white', size=12)
         ))
     
     fig.update_layout(
         title="Timeline Implementasi (6 Bulan)",
-        xaxis_title="Durasi",
+        xaxis_title="Durasi (Bulan)",
         yaxis_title="Phase",
         height=300,
-        showlegend=False
+        showlegend=False,
+        xaxis=dict(range=[0, 6])
     )
     
     st.plotly_chart(fig, use_container_width=True)
