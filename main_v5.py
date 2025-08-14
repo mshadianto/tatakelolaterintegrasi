@@ -745,55 +745,49 @@ elif page == "parenting":
     col1, col2 = st.columns(2)
     
     with col1:
+        st.markdown("#### 🏢 Peran Perusahaan Induk")
+        
+        st.markdown("**Sebagai Pemegang Saham Pengendali:**")
         st.markdown("""
-        <div class="info-box">
-            <h4>🏢 Peran Perusahaan Induk</h4>
-            <h5>Sebagai Pemegang Saham Pengendali:</h5>
-            <ul>
-                <li><strong>Strategic Direction:</strong> Menetapkan visi, misi, dan strategi korporat</li>
-                <li><strong>Capital Allocation:</strong> Optimasi alokasi sumber daya dan investasi</li>
-                <li><strong>Performance Oversight:</strong> Monitoring dan evaluasi kinerja anak perusahaan</li>
-                <li><strong>Risk Management:</strong> Penetapan risk appetite dan framework</li>
-                <li><strong>Compliance Assurance:</strong> Memastikan kepatuhan regulasi</li>
-            </ul>
-            
-            <h5>Sebagai Corporate Parent:</h5>
-            <ul>
-                <li><strong>Value Creation:</strong> Menciptakan sinergi dan value-added activities</li>
-                <li><strong>Capability Building:</strong> Pengembangan kapabilitas dan competency</li>
-                <li><strong>Knowledge Management:</strong> Transfer knowledge dan best practices</li>
-                <li><strong>Resource Sharing:</strong> Optimasi penggunaan sumber daya bersama</li>
-                <li><strong>Brand Management:</strong> Pengelolaan reputasi dan brand portfolio</li>
-            </ul>
-        </div>
-        """, unsafe_allow_html=True)
+        • **Strategic Direction:** Menetapkan visi, misi, dan strategi korporat  
+        • **Capital Allocation:** Optimasi alokasi sumber daya dan investasi  
+        • **Performance Oversight:** Monitoring dan evaluasi kinerja anak perusahaan  
+        • **Risk Management:** Penetapan risk appetite dan framework  
+        • **Compliance Assurance:** Memastikan kepatuhan regulasi
+        """)
+        
+        st.markdown("**Sebagai Corporate Parent:**")
+        st.markdown("""
+        • **Value Creation:** Menciptakan sinergi dan value-added activities  
+        • **Capability Building:** Pengembangan kapabilitas dan competency  
+        • **Knowledge Management:** Transfer knowledge dan best practices  
+        • **Resource Sharing:** Optimasi penggunaan sumber daya bersama  
+        • **Brand Management:** Pengelolaan reputasi dan brand portfolio
+        """)
     
     with col2:
+        st.markdown("#### 🏭 Tanggung Jawab Anak Perusahaan")
+        
+        st.markdown("**Operational Excellence:**")
         st.markdown("""
-        <div class="warning-box">
-            <h4>🏭 Tanggung Jawab Anak Perusahaan</h4>
-            <h5>Operational Excellence:</h5>
-            <ul>
-                <li>Mencapai target kinerja yang ditetapkan</li>
-                <li>Menjalankan operasional sesuai standar korporat</li>
-                <li>Melaporkan kinerja secara transparan dan akurat</li>
-            </ul>
-            
-            <h5>Compliance & Governance:</h5>
-            <ul>
-                <li>Mematuhi kebijakan dan prosedur induk perusahaan</li>
-                <li>Menerapkan sistem governance yang efektif</li>
-                <li>Melaksanakan manajemen risiko sesuai framework korporat</li>
-            </ul>
-            
-            <h5>Strategic Alignment:</h5>
-            <ul>
-                <li>Menyelaraskan strategi dengan arah korporat</li>
-                <li>Berkontribusi pada pencapaian target konsolidasi</li>
-                <li>Berpartisipasi aktif dalam inisiatif sinergi</li>
-            </ul>
-        </div>
-        """, unsafe_allow_html=True)
+        • Mencapai target kinerja yang ditetapkan  
+        • Menjalankan operasional sesuai standar korporat  
+        • Melaporkan kinerja secara transparan dan akurat
+        """)
+        
+        st.markdown("**Compliance & Governance:**")
+        st.markdown("""
+        • Mematuhi kebijakan dan prosedur induk perusahaan  
+        • Menerapkan sistem governance yang efektif  
+        • Melaksanakan manajemen risiko sesuai framework korporat
+        """)
+        
+        st.markdown("**Strategic Alignment:**")
+        st.markdown("""
+        • Menyelaraskan strategi dengan arah korporat  
+        • Berkontribusi pada pencapaian target konsolidasi  
+        • Berpartisipasi aktif dalam inisiatif sinergi
+        """)
     
     # Strategic Direction Framework untuk PT SI
     st.markdown("### 🎯 Strategic Direction Framework untuk PT Surveyor Indonesia")
@@ -822,34 +816,19 @@ elif page == "parenting":
     col1, col2, col3 = st.columns(3)
     
     with col1:
-        st.markdown("""
-        <div class="success-box">
-            <h4>🎯 Core Business Strengthening</h4>
-            <ul>
-        """ + "".join([f"<li>{item}</li>" for item in strategic_directions['Core Business Strengthening']]) + """
-            </ul>
-        </div>
-        """, unsafe_allow_html=True)
+        st.markdown("#### 🎯 Core Business Strengthening")
+        for item in strategic_directions['Core Business Strengthening']:
+            st.markdown(f"• {item}")
     
     with col2:
-        st.markdown("""
-        <div class="info-box">
-            <h4>🔄 Adjacent Business Development</h4>
-            <ul>
-        """ + "".join([f"<li>{item}</li>" for item in strategic_directions['Adjacent Business Development']]) + """
-            </ul>
-        </div>
-        """, unsafe_allow_html=True)
+        st.markdown("#### 🔄 Adjacent Business Development")
+        for item in strategic_directions['Adjacent Business Development']:
+            st.markdown(f"• {item}")
     
     with col3:
-        st.markdown("""
-        <div class="warning-box">
-            <h4>🚀 New Growth Opportunities</h4>
-            <ul>
-        """ + "".join([f"<li>{item}</li>" for item in strategic_directions['New Growth Opportunities']]) + """
-            </ul>
-        </div>
-        """, unsafe_allow_html=True)
+        st.markdown("#### 🚀 New Growth Opportunities")
+        for item in strategic_directions['New Growth Opportunities']:
+            st.markdown(f"• {item}")
 
 # Enhanced Benchmarking Page
 elif page == "benchmarking":
@@ -1041,43 +1020,31 @@ elif page == "framework":
     col1, col2, col3 = st.columns(3)
     
     with col1:
+        st.markdown("#### 🏛️ Governance Layer")
         st.markdown("""
-        <div class="info-box">
-            <h4>🏛️ Governance Layer</h4>
-            <ul>
-                <li><strong>Board effectiveness dan oversight</strong></li>
-                <li>Management accountability</li>
-                <li>Strategic decision making process</li>
-                <li>Stakeholder governance</li>
-            </ul>
-        </div>
-        """, unsafe_allow_html=True)
+        • **Board effectiveness dan oversight**  
+        • Management accountability  
+        • Strategic decision making process  
+        • Stakeholder governance
+        """)
     
     with col2:
+        st.markdown("#### ⚠️ Risk Management Layer")
         st.markdown("""
-        <div class="warning-box">
-            <h4>⚠️ Risk Management Layer</h4>
-            <ul>
-                <li><strong>Enterprise risk management framework</strong></li>
-                <li>Risk appetite dan tolerance setting</li>
-                <li>Risk monitoring dan reporting</li>
-                <li>Crisis management protocols</li>
-            </ul>
-        </div>
-        """, unsafe_allow_html=True)
+        • **Enterprise risk management framework**  
+        • Risk appetite dan tolerance setting  
+        • Risk monitoring dan reporting  
+        • Crisis management protocols
+        """)
     
     with col3:
+        st.markdown("#### ✅ Compliance Layer")
         st.markdown("""
-        <div class="success-box">
-            <h4>✅ Compliance Layer</h4>
-            <ul>
-                <li><strong>Regulatory compliance management</strong></li>
-                <li>Internal control systems</li>
-                <li>Audit dan assurance functions</li>
-                <li>Ethics dan conduct standards</li>
-            </ul>
-        </div>
-        """, unsafe_allow_html=True)
+        • **Regulatory compliance management**  
+        • Internal control systems  
+        • Audit dan assurance functions  
+        • Ethics dan conduct standards
+        """)
     
     # Authority Matrix
     st.markdown("### 📊 Authority Matrix & Decision Rights")
@@ -1207,15 +1174,11 @@ elif page == "documentation":
         for doc in documents.get(selected_category, []):
             status_color = {'Completed': '🟢', 'In Progress': '🟡', 'Draft': '🟠', 'Review': '🔵', 'Planned': '⚪', 'Available': '✅', 'Approved': '✅'}
             
-            st.markdown(f"""
-            <div class="info-box">
-                <h4>{doc['name']} {status_color.get(doc['status'], '⚪')}</h4>
-                <p>Status: {doc['status']} | Date: {doc['date']}</p>
-                <button style="background: #3182ce; color: white; border: none; border-radius: 5px; padding: 0.3rem 0.8rem;">
-                    📥 Download
-                </button>
-            </div>
-            """, unsafe_allow_html=True)
+            # Use expander for cleaner display
+            with st.expander(f"{doc['name']} {status_color.get(doc['status'], '⚪')}"):
+                st.markdown(f"**Status:** {doc['status']}")
+                st.markdown(f"**Date:** {doc['date']}")
+                st.button("📥 Download", key=f"download_{doc['name']}", help="Download document")
     
     with col2:
         st.markdown("### 📊 Document Statistics")
@@ -1241,22 +1204,15 @@ elif page == "nextsteps":
     ]
     
     for step in next_steps:
-        priority_color = {'Critical': '#e53e3e', 'High': '#f56500', 'Medium': '#ffc107'}
+        priority_colors = {'Critical': '🔴', 'High': '🟠', 'Medium': '🟡'}
         
-        st.markdown(f"""
-        <div class="timeline-item">
-            <div style="display: flex; justify-content: space-between; align-items: center;">
-                <h4 style="margin: 0; color: #1f4e79;">{step['action']}</h4>
-                <span style="background: {priority_color.get(step['priority'], '#666')}; color: white; padding: 0.2rem 0.5rem; border-radius: 5px; font-size: 0.8rem;">
-                    {step['priority']}
-                </span>
-            </div>
-            <div style="margin-top: 0.8rem; display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
-                <p style="margin: 0;"><strong>Timeline:</strong> {step['timeline']}</p>
-                <p style="margin: 0;"><strong>Owner:</strong> {step['owner']}</p>
-            </div>
-        </div>
-        """, unsafe_allow_html=True)
+        # Use expander for cleaner display
+        with st.expander(f"{priority_colors.get(step['priority'], '⚪')} {step['action']} - {step['priority']} Priority"):
+            col1, col2 = st.columns(2)
+            with col1:
+                st.markdown(f"**Timeline:** {step['timeline']}")
+            with col2:
+                st.markdown(f"**Owner:** {step['owner']}")
     
     # Success metrics
     st.markdown("### 📊 Success Metrics Framework")
@@ -1264,62 +1220,73 @@ elif page == "nextsteps":
     col1, col2, col3 = st.columns(3)
     
     with col1:
+        st.markdown("#### 🎯 Quality Metrics")
         st.markdown("""
-        <div class="success-box">
-            <h4>🎯 Quality Metrics</h4>
-            <ul>
-                <li>Stakeholder satisfaction >85%</li>
-                <li>Framework completeness >90%</li>
-                <li>Expert validation approval</li>
-                <li>Compliance verification 100%</li>
-            </ul>
-        </div>
-        """, unsafe_allow_html=True)
+        • Stakeholder satisfaction >85%  
+        • Framework completeness >90%  
+        • Expert validation approval  
+        • Compliance verification 100%
+        """)
     
     with col2:
+        st.markdown("#### ⚡ Efficiency Metrics")
         st.markdown("""
-        <div class="info-box">
-            <h4>⚡ Efficiency Metrics</h4>
-            <ul>
-                <li>On-time delivery of milestones</li>
-                <li>Budget adherence ±5%</li>
-                <li>Resource utilization >80%</li>
-                <li>Risk mitigation effectiveness</li>
-            </ul>
-        </div>
-        """, unsafe_allow_html=True)
+        • On-time delivery of milestones  
+        • Budget adherence ±5%  
+        • Resource utilization >80%  
+        • Risk mitigation effectiveness
+        """)
     
     with col3:
+        st.markdown("#### 📈 Effectiveness Metrics")
         st.markdown("""
-        <div class="warning-box">
-            <h4>📈 Effectiveness Metrics</h4>
-            <ul>
-                <li>Implementation readiness >85%</li>
-                <li>Change management adoption</li>
-                <li>Governance score improvement</li>
-                <li>Long-term sustainability</li>
-            </ul>
-        </div>
-        """, unsafe_allow_html=True)
+        • Implementation readiness >85%  
+        • Change management adoption  
+        • Governance score improvement  
+        • Long-term sustainability
+        """)
 
 # Enhanced Footer
 st.markdown("---")
 
-# Create footer content without HTML rendering issues
-footer_html = f"""
+# Create clean footer without HTML rendering issues
+st.markdown("""
 <div style="text-align: center; color: #666; padding: 2rem; background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); border-radius: 10px; margin-top: 2rem;">
     <h3 style="color: #1f4e79; margin-bottom: 1rem;">🏢 Pemutakhiran Pedoman Tata Kelola Terintegrasi</h3>
     <h4 style="color: #2c5282;">PT Surveyor Indonesia</h4>
     <p style="font-size: 1.1rem; margin: 1rem 0;"><strong>Agustus 2025 - Timeline Intensif 60 Hari Kerja</strong></p>
     <p style="font-style: italic; color: #4a5568;">Excellence in Corporate Governance & Strategic Control Model</p>
-    
-    <div style="margin-top: 1rem;">
-        <p style="font-size: 0.9rem; color: #1f4e79;"><strong>Dashboard Version 3.0 - Agustus 2025</strong></p>
-        <p style="font-size: 0.9rem;">Last Updated: {datetime.datetime.now().strftime("%Y-%m-%d %H:%M")}</p>
-        <p style="font-size: 0.9rem;">🚀 Powered by Streamlit | 📊 Real-time Analytics | 🎯 Strategic Excellence</p>
-        <p style="font-size: 0.8rem; color: #666; margin-top: 1rem;">Created by MS Hadianto | KIM Consulting | Strategic Excellence</p>
-    </div>
 </div>
-"""
+""", unsafe_allow_html=True)
 
-st.markdown(footer_html, unsafe_allow_html=True)
+# Add footer information separately to avoid HTML rendering issues
+col1, col2, col3 = st.columns(3)
+
+with col1:
+    st.markdown("**Dashboard Information:**")
+    st.markdown("• Version 3.0 - Agustus 2025")
+    st.markdown(f"• Last Updated: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M')}")
+
+with col2:
+    st.markdown("**Created by:**")
+    st.markdown("• MS Hadianto")
+    st.markdown("• **KIM Consulting 2025**")
+    st.markdown("• Strategic Excellence")
+
+with col3:
+    st.markdown("**Technology:**")
+    st.markdown("• 🚀 Powered by Streamlit")
+    st.markdown("• 📊 Real-time Analytics")
+    st.markdown("• 🎯 Strategic Excellence")
+
+# Add disclaimer
+st.markdown("---")
+st.markdown("""
+<div style="text-align: center; padding: 1rem; background: #fff3cd; border: 2px solid #ffc107; border-radius: 10px; margin: 1rem 0;">
+    <h4 style="color: #856404; margin: 0;">⚠️ DISCLAIMER</h4>
+    <p style="color: #856404; margin: 0.5rem 0;">
+        <strong>Materi sosialisasi ini untuk digunakan secara terbatas pada PT Surveyor Indonesia</strong><br>
+        Tidak untuk distribusi atau penggunaan eksternal tanpa izin tertulis.
+    </p>
+</div>
+""", unsafe_allow_html=True)
