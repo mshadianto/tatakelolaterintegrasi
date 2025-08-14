@@ -1061,20 +1061,186 @@ elif page == "framework":
     # Authority Matrix
     st.markdown("### 📊 Authority Matrix & Decision Rights")
     
+    # Indonesian Corporate Governance Structure
     authority_data = {
         'Decision Type': [
-            'Strategic Planning', 'Budget Approval', 'Investment >5M',
-            'Key Personnel', 'Policy Changes', 'Risk Management',
-            'Operational Decisions', 'Performance Review'
+            'Strategic Planning', 'Budget Approval', 'Investment >50M', 'Investment 10M-50M', 'Investment <10M',
+            'Key Personnel Appointment', 'CEO/Direktur Utama Appointment', 'Policy Changes (Major)',
+            'Policy Changes (Operational)', 'Risk Management Framework', 'Operational Decisions',
+            'Performance Review', 'Dividend Distribution', 'Capital Structure Changes',
+            'Merger & Acquisition', 'Related Party Transactions', 'Compliance Monitoring'
         ],
-        'Board': ['Approve', 'Approve', 'Approve', 'Approve', 'Approve', 'Oversight', 'Oversight', 'Review'],
-        'CEO': ['Recommend', 'Recommend', 'Recommend', 'Recommend', 'Develop', 'Manage', 'Decide', 'Conduct'],
-        'Subsidiary CEO': ['Input', 'Propose', 'Propose', 'Recommend', 'Implement', 'Execute', 'Execute', 'Report'],
-        'Subsidiary Board': ['Review', 'Review', 'Review', 'Approve', 'Review', 'Monitor', 'Oversight', 'Approve']
+        'RUPS Induk': [
+            'Approve', 'Approve', 'Approve', 'Informed', 'Informed',
+            'Approve', 'Approve', 'Approve', 'Informed', 'Approve',
+            'Informed', 'Review', 'Approve', 'Approve',
+            'Approve', 'Approve', 'Review'
+        ],
+        'Dewan Komisaris Induk': [
+            'Review', 'Review', 'Review', 'Approve', 'Oversight',
+            'Recommend', 'Recommend', 'Review', 'Oversight', 'Oversight',
+            'Oversight', 'Conduct', 'Recommend', 'Review',
+            'Review', 'Review', 'Monitor'
+        ],
+        'Direksi Induk': [
+            'Develop', 'Develop', 'Recommend', 'Recommend', 'Approve',
+            'Recommend', 'Propose', 'Develop', 'Approve', 'Develop',
+            'Decide', 'Report', 'Propose', 'Propose',
+            'Execute', 'Execute', 'Implement'
+        ],
+        'RUPS Anak': [
+            'Informed', 'Informed', 'Informed', 'Approve', 'Informed',
+            'Approve', 'Approve', 'Informed', 'Informed', 'Informed',
+            'Informed', 'Informed', 'Approve', 'Approve',
+            'Approve', 'Approve', 'Informed'
+        ],
+        'Dewan Komisaris Anak': [
+            'Review', 'Review', 'Review', 'Review', 'Oversight',
+            'Recommend', 'Recommend', 'Review', 'Oversight', 'Monitor',
+            'Oversight', 'Conduct', 'Recommend', 'Review',
+            'Review', 'Review', 'Monitor'
+        ],
+        'Direksi Anak': [
+            'Input', 'Propose', 'Propose', 'Propose', 'Decide',
+            'Propose', 'Propose', 'Implement', 'Implement', 'Execute',
+            'Execute', 'Report', 'Propose', 'Propose',
+            'Execute', 'Execute', 'Execute'
+        ]
     }
     
     df_authority = pd.DataFrame(authority_data)
-    st.dataframe(df_authority, use_container_width=True, hide_index=True)
+    
+    # Display the authority matrix with enhanced formatting
+    st.markdown("#### 🏛️ Struktur Kewenangan Indonesian Corporate Governance")
+    
+    # Create styled dataframe
+    def highlight_authority(val):
+        color_map = {
+            'Approve': 'background-color: #d4edda; font-weight: bold',
+            'Decide': 'background-color: #d4edda; font-weight: bold', 
+            'Recommend': 'background-color: #fff3cd',
+            'Develop': 'background-color: #fff3cd',
+            'Propose': 'background-color: #feebc8',
+            'Input': 'background-color: #fed7d7',
+            'Review': 'background-color: #e2e8f0',
+            'Oversight': 'background-color: #e2e8f0',
+            'Monitor': 'background-color: #e2e8f0',
+            'Conduct': 'background-color: #d1ecf1',
+            'Execute': 'background-color: #d1ecf1',
+            'Implement': 'background-color: #d1ecf1',
+            'Report': 'background-color: #f0f8ff',
+            'Informed': 'background-color: #f8f9fa'
+        }
+        return color_map.get(val, '')
+    
+    styled_df = df_authority.style.applymap(highlight_authority, subset=[
+        'RUPS Induk', 'Dewan Komisaris Induk', 'Direksi Induk', 
+        'RUPS Anak', 'Dewan Komisaris Anak', 'Direksi Anak'
+    ])
+    
+    st.dataframe(styled_df, use_container_width=True, hide_index=True)
+    
+    # Legend for Authority Matrix
+    st.markdown("#### 🎨 Legend - Authority Matrix")
+    
+    col1, col2, col3 = st.columns(3)
+    
+    with col1:
+        st.markdown("""
+        **Decision Authority:**
+        - 🟢 **Approve/Decide:** Final decision authority
+        - 🟡 **Recommend/Develop:** Proposal and recommendation
+        - 🟠 **Propose:** Initiative and suggestion
+        """)
+    
+    with col2:
+        st.markdown("""
+        **Oversight & Monitoring:**
+        - 🔵 **Review/Oversight:** Supervisory function
+        - 🔵 **Monitor:** Ongoing supervision
+        - 💙 **Conduct:** Active evaluation
+        """)
+    
+    with col3:
+        st.markdown("""
+        **Implementation & Reporting:**
+        - 🔷 **Execute/Implement:** Operational execution
+        - 💫 **Report:** Information provision
+        - 📋 **Input/Informed:** Consultation/notification
+        """)
+    
+    # Key Principles
+    st.markdown("#### 📋 Key Principles of Authority Matrix")
+    
+    col1, col2 = st.columns(2)
+    
+    with col1:
+        st.markdown("**🏛️ Parent Company (Induk):**")
+        st.markdown("""
+        • **RUPS Induk:** Ultimate authority untuk strategic decisions dan struktur modal  
+        • **Dewan Komisaris Induk:** Oversight dan supervisory functions  
+        • **Direksi Induk:** Strategic development dan corporate management  
+        • **Delegation Principle:** Clear authority delegation dengan accountability
+        """)
+    
+    with col2:
+        st.markdown("**🏭 Subsidiary Company (Anak):**")
+        st.markdown("""
+        • **RUPS Anak:** Authority dalam batas yang ditetapkan induk perusahaan  
+        • **Dewan Komisaris Anak:** Local oversight sesuai governance framework  
+        • **Direksi Anak:** Operational execution dan local management  
+        • **Coordination Principle:** Alignment dengan strategic direction induk
+        """)
+    
+    # Decision Flow Framework
+    st.markdown("#### 🔄 Decision Flow Framework")
+    
+    decision_flow = {
+        'Investment Decisions': {
+            '>50M': 'RUPS Induk → Dewan Komisaris Induk → Direksi Induk → Implementation',
+            '10M-50M': 'Dewan Komisaris Induk → Direksi Induk → RUPS Anak → Implementation', 
+            '<10M': 'Direksi Induk → Direksi Anak → Implementation'
+        },
+        'Personnel Decisions': {
+            'CEO/Direktur Utama': 'RUPS → Dewan Komisaris → Final Decision',
+            'Key Personnel': 'Dewan Komisaris → Direksi → Implementation',
+            'Operational Staff': 'Direksi → Implementation'
+        },
+        'Policy Decisions': {
+            'Major Policy': 'RUPS Induk → Dewan Komisaris → Development → Implementation',
+            'Operational Policy': 'Direksi Induk → Direksi Anak → Implementation'
+        }
+    }
+    
+    for category, flows in decision_flow.items():
+        with st.expander(f"🔍 {category} Decision Flow"):
+            for decision_type, flow in flows.items():
+                st.markdown(f"**{decision_type}:** {flow}")
+    
+    # Escalation Matrix
+    st.markdown("#### ⬆️ Escalation Matrix")
+    
+    escalation_data = {
+        'Scenario': [
+            'Budget Overrun >10%', 'Strategic Deviation', 'Compliance Issue',
+            'Risk Threshold Breach', 'Stakeholder Conflict', 'Performance Below Target'
+        ],
+        'First Level': [
+            'Direksi Anak', 'Direksi Anak', 'Direksi Anak',
+            'Direksi Anak', 'Dewan Komisaris Anak', 'Direksi Anak'
+        ],
+        'Second Level': [
+            'Direksi Induk', 'Direksi Induk', 'Dewan Komisaris Anak',
+            'Dewan Komisaris Induk', 'Dewan Komisaris Induk', 'Direksi Induk'
+        ],
+        'Final Authority': [
+            'Dewan Komisaris Induk', 'Dewan Komisaris Induk', 'RUPS Induk',
+            'RUPS Induk', 'RUPS Induk', 'Dewan Komisaris Induk'
+        ]
+    }
+    
+    df_escalation = pd.DataFrame(escalation_data)
+    st.dataframe(df_escalation, use_container_width=True, hide_index=True)
 
 # Timeline Page (keeping the existing enhanced timeline from previous version)
 elif page == "timeline":
