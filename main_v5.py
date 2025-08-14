@@ -381,19 +381,20 @@ if page == "dashboard":
             rows=2, cols=2,
             subplot_titles=('Overall Progress', 'Phase Progress', 'Quality Score', 'Resource Utilization'),
             specs=[[{"type": "indicator"}, {"type": "indicator"}],
-                   [{"type": "indicator"}, {"type": "indicator"}]]
+                   [{"type": "indicator"}, {"type": "indicator"}]],
+            vertical_spacing=0.25,
+            horizontal_spacing=0.1
         )
         
         # Overall Progress
         fig.add_trace(
             go.Indicator(
-                mode="gauge+number+delta",
+                mode="gauge+number",
                 value=st.session_state.overall_progress,
-                domain={'x': [0, 1], 'y': [0, 1]},
-                title={'text': "Overall Progress (%)"},
-                delta={'reference': 20},
+                title={'text': "Overall Progress", 'font': {'size': 16}},
+                number={'suffix': "%", 'font': {'size': 20}},
                 gauge={
-                    'axis': {'range': [None, 100]},
+                    'axis': {'range': [None, 100], 'tickwidth': 1},
                     'bar': {'color': "#3182ce"},
                     'steps': [
                         {'range': [0, 25], 'color': "#fed7d7"},
@@ -417,10 +418,10 @@ if page == "dashboard":
             go.Indicator(
                 mode="gauge+number",
                 value=current_phase_progress,
-                domain={'x': [0, 1], 'y': [0, 1]},
-                title={'text': "Current Phase (%)"},
+                title={'text': "Current Phase", 'font': {'size': 16}},
+                number={'suffix': "%", 'font': {'size': 20}},
                 gauge={
-                    'axis': {'range': [None, 100]},
+                    'axis': {'range': [None, 100], 'tickwidth': 1},
                     'bar': {'color': "#38a169"},
                     'steps': [{'range': [0, 100], 'color': "#f0fff4"}],
                 }
@@ -433,10 +434,10 @@ if page == "dashboard":
             go.Indicator(
                 mode="gauge+number",
                 value=85,
-                domain={'x': [0, 1], 'y': [0, 1]},
-                title={'text': "Quality Score (%)"},
+                title={'text': "Quality Score", 'font': {'size': 16}},
+                number={'suffix': "%", 'font': {'size': 20}},
                 gauge={
-                    'axis': {'range': [None, 100]},
+                    'axis': {'range': [None, 100], 'tickwidth': 1},
                     'bar': {'color': "#805ad5"},
                     'steps': [{'range': [0, 100], 'color': "#faf5ff"}],
                 }
@@ -449,10 +450,10 @@ if page == "dashboard":
             go.Indicator(
                 mode="gauge+number",
                 value=82,
-                domain={'x': [0, 1], 'y': [0, 1]},
-                title={'text': "Resource Utilization (%)"},
+                title={'text': "Resource Utilization", 'font': {'size': 16}},
+                number={'suffix': "%", 'font': {'size': 20}},
                 gauge={
-                    'axis': {'range': [None, 100]},
+                    'axis': {'range': [None, 100], 'tickwidth': 1},
                     'bar': {'color': "#e53e3e"},
                     'steps': [{'range': [0, 100], 'color': "#fff5f5"}],
                 }
@@ -460,7 +461,12 @@ if page == "dashboard":
             row=2, col=2
         )
         
-        fig.update_layout(height=500, margin=dict(l=20, r=20, t=40, b=20))
+        fig.update_layout(
+            height=500, 
+            margin=dict(l=30, r=30, t=80, b=30),
+            font=dict(size=12),
+            showlegend=False
+        )
         st.plotly_chart(fig, use_container_width=True)
     
     with col2:
@@ -493,18 +499,28 @@ if page == "dashboard":
     with col3:
         st.markdown("### 📊 KPI Summary")
         kpi_data = get_kpi_data()
-        for i, kpi in enumerate(kpi_data['KPI']):
-            current = kpi_data['Current'][i]
-            target = kpi_data['Target'][i]
-            trend = kpi_data['Trend'][i]
-            
-            delta_color = "normal" if trend >= 0 else "inverse"
-            st.metric(
-                label=kpi.replace(" ", "\n"),
-                value=f"{current}%",
-                delta=f"{trend:+d}%",
-                delta_color=delta_color
-            )
+        
+        # Create KPI metrics with proper spacing
+        kpi_container = st.container()
+        with kpi_container:
+            for i, kpi in enumerate(kpi_data['KPI']):
+                current = kpi_data['Current'][i]
+                target = kpi_data['Target'][i]
+                trend = kpi_data['Trend'][i]
+                
+                # Create individual metric container
+                st.markdown(f"""
+                <div class="metric-container" style="margin-bottom: 0.8rem;">
+                    <h5 style="margin: 0; color: #1f4e79;">{kpi}</h5>
+                    <h2 style="margin: 0.2rem 0; color: #2d3748;">{current}%</h2>
+                    <p style="margin: 0; color: {'#38a169' if trend >= 0 else '#e53e3e'};">
+                        {'↗️' if trend >= 0 else '↘️'} {trend:+d}% trend
+                    </p>
+                    <div style="background: #e2e8f0; border-radius: 4px; height: 4px; margin-top: 0.5rem;">
+                        <div style="background: #3182ce; height: 4px; border-radius: 4px; width: {min(current/target*100, 100)}%;"></div>
+                    </div>
+                </div>
+                """, unsafe_allow_html=True)
 
 # Corporate Parenting Page
 elif page == "parenting":
@@ -1103,22 +1119,194 @@ elif page == "timeline":
     fig.update_layout(height=300, margin=dict(l=20, r=20, t=60, b=20))
     st.plotly_chart(fig, use_container_width=True)
 
-# Keep other pages (monitoring, documentation, nextsteps) similar to original
+# Keep other pages (monitoring, documentation, nextsteps) with proper implementation
 elif page == "monitoring":
     st.markdown('<div class="sub-header">📈 Real-time Monitoring Dashboard</div>', unsafe_allow_html=True)
-    st.info("Monitoring dashboard content here...")
+    
+    # Real-time metrics
+    col1, col2, col3, col4 = st.columns(4)
+    
+    kpi_data = get_kpi_data()
+    
+    for i, col in enumerate([col1, col2, col3, col4]):
+        with col:
+            current = kpi_data['Current'][i]
+            target = kpi_data['Target'][i]
+            trend = kpi_data['Trend'][i]
+            
+            st.markdown(f"""
+            <div class="metric-container">
+                <h5 style="margin: 0; color: #1f4e79;">{kpi_data['KPI'][i]}</h5>
+                <h2 style="margin: 0.2rem 0; color: #2d3748;">{current}%</h2>
+                <p style="margin: 0; color: {'#38a169' if trend >= 0 else '#e53e3e'};">
+                    {'↗️' if trend >= 0 else '↘️'} {trend:+d}% trend
+                </p>
+                <div style="background: #e2e8f0; border-radius: 4px; height: 4px; margin-top: 0.5rem;">
+                    <div style="background: #3182ce; height: 4px; border-radius: 4px; width: {min(current/target*100, 100)}%;"></div>
+                </div>
+            </div>
+            """, unsafe_allow_html=True)
+    
+    st.markdown("### 📊 Performance Trends")
+    
+    # Generate realistic trend data
+    dates = pd.date_range(start='2025-08-01', periods=14, freq='D')
+    trend_data = {
+        'Date': dates,
+        'Overall Progress': np.linspace(10, 15, 14) + np.random.normal(0, 1, 14),
+        'Quality Score': np.linspace(82, 85, 14) + np.random.normal(0, 0.5, 14),
+        'Stakeholder Satisfaction': np.linspace(80, 82, 14) + np.random.normal(0, 0.8, 14)
+    }
+    
+    df_trends = pd.DataFrame(trend_data)
+    
+    fig = px.line(
+        df_trends, 
+        x='Date', 
+        y=['Overall Progress', 'Quality Score', 'Stakeholder Satisfaction'],
+        title='Key Metrics Trend (August 2025)'
+    )
+    fig.update_layout(height=400)
+    st.plotly_chart(fig, use_container_width=True)
 
 elif page == "documentation":
     st.markdown('<div class="sub-header">📁 Comprehensive Documentation Center</div>', unsafe_allow_html=True)
-    st.info("Documentation center content here...")
+    
+    # Document categories
+    doc_categories = ['Assessment Reports', 'Framework Documents', 'Implementation Plans', 'Templates & Tools']
+    
+    col1, col2 = st.columns([3, 1])
+    
+    with col1:
+        selected_category = st.selectbox("Select Document Category:", doc_categories)
+        
+        # Sample documents
+        documents = {
+            'Assessment Reports': [
+                {'name': 'Current State Assessment', 'status': 'Completed', 'date': '2025-08-10'},
+                {'name': 'Gap Analysis Report', 'status': 'In Progress', 'date': '2025-08-15'},
+                {'name': 'Benchmarking Study', 'status': 'Draft', 'date': '2025-08-20'}
+            ],
+            'Framework Documents': [
+                {'name': 'Governance Framework Design', 'status': 'Draft', 'date': '2025-08-25'},
+                {'name': 'Authority Matrix', 'status': 'Review', 'date': '2025-08-22'},
+                {'name': 'GCG Implementation Guide', 'status': 'Planned', 'date': '2025-08-30'}
+            ],
+            'Implementation Plans': [
+                {'name': '60-Day Implementation Roadmap', 'status': 'Approved', 'date': '2025-08-01'},
+                {'name': 'Change Management Plan', 'status': 'Draft', 'date': '2025-08-18'},
+                {'name': 'Training & Communication Plan', 'status': 'In Progress', 'date': '2025-08-20'}
+            ],
+            'Templates & Tools': [
+                {'name': 'Governance Scorecard Template', 'status': 'Available', 'date': '2025-08-05'},
+                {'name': 'Risk Assessment Matrix', 'status': 'Available', 'date': '2025-08-05'},
+                {'name': 'Performance Dashboard Template', 'status': 'Draft', 'date': '2025-08-12'}
+            ]
+        }
+        
+        for doc in documents.get(selected_category, []):
+            status_color = {'Completed': '🟢', 'In Progress': '🟡', 'Draft': '🟠', 'Review': '🔵', 'Planned': '⚪', 'Available': '✅', 'Approved': '✅'}
+            
+            st.markdown(f"""
+            <div class="info-box">
+                <h4>{doc['name']} {status_color.get(doc['status'], '⚪')}</h4>
+                <p>Status: {doc['status']} | Date: {doc['date']}</p>
+                <button style="background: #3182ce; color: white; border: none; border-radius: 5px; padding: 0.3rem 0.8rem;">
+                    📥 Download
+                </button>
+            </div>
+            """, unsafe_allow_html=True)
+    
+    with col2:
+        st.markdown("### 📊 Document Statistics")
+        
+        total_docs = sum(len(docs) for docs in documents.values())
+        completed_docs = sum(1 for docs in documents.values() for doc in docs if doc['status'] in ['Completed', 'Available', 'Approved'])
+        
+        st.metric("Total Documents", total_docs)
+        st.metric("Completed", completed_docs)
+        st.metric("Completion Rate", f"{completed_docs/total_docs*100:.0f}%")
 
 elif page == "nextsteps":
     st.markdown('<div class="sub-header">🎯 Expected Outcomes & Strategic Action Plan</div>', unsafe_allow_html=True)
-    st.info("Next steps and action plan content here...")
+    
+    # Timeline for next steps
+    st.markdown("### 🚀 Immediate Next Steps (August 2025)")
+    
+    next_steps = [
+        {'action': 'Finalize project charter and resource allocation', 'timeline': 'Week 1', 'owner': 'Project Manager', 'priority': 'Critical'},
+        {'action': 'Complete stakeholder mapping and engagement', 'timeline': 'Week 1-2', 'owner': 'Governance Team', 'priority': 'High'},
+        {'action': 'Conduct current state assessment', 'timeline': 'Week 2-3', 'owner': 'Assessment Team', 'priority': 'High'},
+        {'action': 'Develop governance framework draft', 'timeline': 'Week 3-6', 'owner': 'Framework Team', 'priority': 'Critical'}
+    ]
+    
+    for step in next_steps:
+        priority_color = {'Critical': '#e53e3e', 'High': '#f56500', 'Medium': '#ffc107'}
+        
+        st.markdown(f"""
+        <div class="timeline-item">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <h4 style="margin: 0; color: #1f4e79;">{step['action']}</h4>
+                <span style="background: {priority_color.get(step['priority'], '#666')}; color: white; padding: 0.2rem 0.5rem; border-radius: 5px; font-size: 0.8rem;">
+                    {step['priority']}
+                </span>
+            </div>
+            <div style="margin-top: 0.8rem; display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                <p style="margin: 0;"><strong>Timeline:</strong> {step['timeline']}</p>
+                <p style="margin: 0;"><strong>Owner:</strong> {step['owner']}</p>
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
+    
+    # Success metrics
+    st.markdown("### 📊 Success Metrics Framework")
+    
+    col1, col2, col3 = st.columns(3)
+    
+    with col1:
+        st.markdown("""
+        <div class="success-box">
+            <h4>🎯 Quality Metrics</h4>
+            <ul>
+                <li>Stakeholder satisfaction >85%</li>
+                <li>Framework completeness >90%</li>
+                <li>Expert validation approval</li>
+                <li>Compliance verification 100%</li>
+            </ul>
+        </div>
+        """, unsafe_allow_html=True)
+    
+    with col2:
+        st.markdown("""
+        <div class="info-box">
+            <h4>⚡ Efficiency Metrics</h4>
+            <ul>
+                <li>On-time delivery of milestones</li>
+                <li>Budget adherence ±5%</li>
+                <li>Resource utilization >80%</li>
+                <li>Risk mitigation effectiveness</li>
+            </ul>
+        </div>
+        """, unsafe_allow_html=True)
+    
+    with col3:
+        st.markdown("""
+        <div class="warning-box">
+            <h4>📈 Effectiveness Metrics</h4>
+            <ul>
+                <li>Implementation readiness >85%</li>
+                <li>Change management adoption</li>
+                <li>Governance score improvement</li>
+                <li>Long-term sustainability</li>
+            </ul>
+        </div>
+        """, unsafe_allow_html=True)
 
 # Enhanced Footer
 st.markdown("---")
-st.markdown(f"""
+
+# Create footer content without HTML rendering issues
+footer_html = f"""
 <div style="text-align: center; color: #666; padding: 2rem; background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); border-radius: 10px; margin-top: 2rem;">
     <h3 style="color: #1f4e79; margin-bottom: 1rem;">🏢 Pemutakhiran Pedoman Tata Kelola Terintegrasi</h3>
     <h4 style="color: #2c5282;">PT Surveyor Indonesia</h4>
@@ -1128,7 +1316,10 @@ st.markdown(f"""
     <div style="margin-top: 1rem;">
         <p style="font-size: 0.9rem; color: #1f4e79;"><strong>Dashboard Version 3.0 - Agustus 2025</strong></p>
         <p style="font-size: 0.9rem;">Last Updated: {datetime.datetime.now().strftime("%Y-%m-%d %H:%M")}</p>
-        <p style="font-size: 0.9rem;">🚀 Created by MS Hadianto | 📊 KIM Consulting | 🎯 Strategic Excellence</p>
+        <p style="font-size: 0.9rem;">🚀 Powered by Streamlit | 📊 Real-time Analytics | 🎯 Strategic Excellence</p>
+        <p style="font-size: 0.8rem; color: #666; margin-top: 1rem;">Created by MS Hadianto | KIM Consulting | Strategic Excellence</p>
     </div>
 </div>
-""", unsafe_allow_html=True)
+"""
+
+st.markdown(footer_html, unsafe_allow_html=True)
