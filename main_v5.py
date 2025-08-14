@@ -184,7 +184,7 @@ if 'current_phase' not in st.session_state:
     st.session_state.current_phase = 1
 
 if 'overall_progress' not in st.session_state:
-    st.session_state.overall_progress = 15  # Progress awal Agustus 2025
+    st.session_state.overall_progress = 15  # Illustrative progress for project planning
 
 # Sidebar with enhanced navigation
 st.sidebar.markdown("""
@@ -264,18 +264,29 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
+# Add important disclaimer at the top
+st.markdown("""
+<div style="background: #fff3cd; border: 2px solid #ffc107; border-radius: 10px; padding: 1rem; margin: 1rem 0;">
+    <h4 style="color: #856404; margin: 0;">⚠️ FRAMEWORK DISCLAIMER</h4>
+    <p style="color: #856404; margin: 0.5rem 0; font-size: 0.9rem;">
+        <strong>Dashboard ini menyajikan framework governance dan metodologi konseptual.</strong><br>
+        Data numerik bersifat ilustratif untuk keperluan perencanaan dan benchmarking framework, bukan data finansial aktual.
+        Materi untuk penggunaan internal PT Surveyor Indonesia dalam konteks pengembangan governance framework.
+    </p>
+</div>
+""", unsafe_allow_html=True)
+
 # Helper functions
 @st.cache_data
 def get_benchmark_data():
+    # Note: Data illustrative untuk framework comparison - bukan data aktual
     return {
         'BUMN': ['Pertamina*', 'Telkom', 'Bank Mandiri', 'Surveyor Indonesia (Target)'],
-        'Governance Score': [85, 82, 88, 90],
-        'Digital Integration': [75, 90, 70, 85],
-        'Synergy Optimization': [80, 75, 92, 88],
-        'Risk Management': [88, 80, 85, 90],
-        'Subsidiaries': [12, 12, 11, 8],
-        'Revenue (T IDR)': [1250, 150.6, 146.6, 0.26],
-        'Net Profit (T IDR)': [49.5, 30.2, 55.8, 0.05],
+        'Governance Score': ['Excellent', 'Good', 'Excellent', 'Target: Excellent'],
+        'Digital Integration': ['Developing', 'Advanced', 'Developing', 'Target: Advanced'],
+        'Synergy Optimization': ['Good', 'Developing', 'Excellent', 'Target: Excellent'],
+        'Risk Management': ['Excellent', 'Good', 'Good', 'Target: Excellent'],
+        'Subsidiaries': [12, 12, 11, 8],  # Data struktur organisasi yang dapat diverifikasi
         'Model': ['Strategic Control', 'Strategic Integration', 'Financial Holdings', 'Strategic Control (Target)']
     }
 
@@ -304,11 +315,12 @@ def get_timeline_data():
 
 @st.cache_data
 def get_kpi_data():
+    # Note: Illustrative target metrics for framework implementation
     return {
         'KPI': ['Stakeholder Satisfaction', 'Timeline Adherence', 'Quality Score', 'Budget Adherence'],
-        'Current': [82, 88, 85, 96],
-        'Target': [85, 90, 90, 95],
-        'Trend': [3, 2, 4, 1]
+        'Current': [82, 88, 85, 96],  # Illustrative baseline for project planning
+        'Target': [85, 90, 90, 95],   # Best practice targets for governance projects
+        'Trend': [3, 2, 4, 1]         # Illustrative improvement trajectory
     }
 
 # Dashboard Page
@@ -587,8 +599,8 @@ elif page == "parenting":
             'Integrated portfolio',
             'Turnaround situations'
         ],
-        'PT SI Fit Score': [60, 90, 75, 40],
-        'Implementation Complexity': [25, 60, 85, 45]
+        'PT SI Framework Fit': [60, 90, 75, 40],  # Theoretical fit assessment based on business model analysis
+        'Implementation Complexity': [25, 60, 85, 45]  # Relative complexity assessment based on management literature
     }
     
     df_parenting = pd.DataFrame(parenting_models)
@@ -596,15 +608,15 @@ elif page == "parenting":
     # Model comparison visualization
     fig = make_subplots(
         rows=1, cols=2,
-        subplot_titles=('PT SI Fit Score', 'Implementation Complexity'),
+        subplot_titles=('Framework Fit Assessment', 'Implementation Complexity'),
         specs=[[{"secondary_y": False}, {"secondary_y": False}]]
     )
     
     fig.add_trace(
         go.Bar(
             x=df_parenting['Model'],
-            y=df_parenting['PT SI Fit Score'],
-            name='Fit Score',
+            y=df_parenting['PT SI Framework Fit'],
+            name='Framework Fit',
             marker_color='lightblue'
         ),
         row=1, col=1
@@ -620,7 +632,7 @@ elif page == "parenting":
         row=1, col=2
     )
     
-    fig.update_layout(height=400, showlegend=True)
+    fig.update_layout(height=400, showlegend=True, title="Corporate Parenting Model Assessment (Theoretical Framework Analysis)")
     st.plotly_chart(fig, use_container_width=True)
     
     # Detailed model analysis
@@ -844,21 +856,21 @@ elif page == "benchmarking":
         <div class="benchmark-card">
             <h3>🛢️ PT Pertamina (Persero)</h3>
             <p><strong>Model:</strong> Strategic Control Holding Company</p>
-            <p><strong>Transformasi:</strong> 127 → 12 anak perusahaan (2021)</p>
-            <p><strong>Performance 2024:</strong></p>
+            <p><strong>Transformasi Struktur:</strong> Konsolidasi anak perusahaan (2021)</p>
+            <p><strong>Struktur Organisasi:</strong></p>
             <ul>
-                <li>Net Profit: US$3.13B ≈ Rp 49.5 T</li>
-                <li>Revenue: ≈ Rp 1,250 T (est.)</li>
-                <li>Kontribusi Negara: Rp 401.7 T</li>
-            </ul>
-            <p><strong>Best Practice:</strong></p>
-            <ul>
+                <li>Holding company dengan subholding structure</li>
                 <li>Portfolio management terintegrasi</li>
-                <li>Subholding structure optimal</li>
-                <li>Compliance EITI</li>
-                <li>Cost optimization US$1.38B (2024)</li>
+                <li>Strategic control implementation</li>
             </ul>
-            <p><strong>Governance Score:</strong> <span style="font-size: 1.5em;">85/100</span></p>
+            <p><strong>Best Practice Focus:</strong></p>
+            <ul>
+                <li>Portfolio optimization strategy</li>
+                <li>Integrated governance framework</li>
+                <li>Regulatory compliance excellence</li>
+                <li>Operational efficiency improvement</li>
+            </ul>
+            <p><strong>Governance Maturity:</strong> <span style="font-size: 1.5em;">Excellent</span></p>
         </div>
         """, unsafe_allow_html=True)
     
@@ -867,21 +879,21 @@ elif page == "benchmarking":
         <div class="benchmark-card">
             <h3>📡 PT Telkom Indonesia</h3>
             <p><strong>Model:</strong> Strategic Integration Holding</p>
-            <p><strong>Struktur:</strong> 12 anak perusahaan utama</p>
-            <p><strong>Performance 2024:</strong></p>
+            <p><strong>Struktur:</strong> Multiple subsidiary management</p>
+            <p><strong>Organizational Structure:</strong></p>
             <ul>
-                <li>Revenue: Rp 150.6 T (est. annual)</li>
-                <li>H1 2024: Rp 75.3 T (+2.5% YoY)</li>
-                <li>Net Profit: ≈ Rp 30.2 T (est.)</li>
+                <li>Integrated telecommunications ecosystem</li>
+                <li>Digital transformation focus</li>
+                <li>Infrastructure optimization</li>
             </ul>
-            <p><strong>Best Practice:</strong></p>
+            <p><strong>Best Practice Focus:</strong></p>
             <ul>
-                <li>Revenue consolidation strategy</li>
-                <li>Digital transformation governance</li>
-                <li>TelkomMetra sebagai strategic control</li>
-                <li>InfraCo initiative</li>
+                <li>Digital governance integration</li>
+                <li>Technology-enabled operations</li>
+                <li>Strategic business unit coordination</li>
+                <li>Innovation management framework</li>
             </ul>
-            <p><strong>Governance Score:</strong> <span style="font-size: 1.5em;">82/100</span></p>
+            <p><strong>Governance Maturity:</strong> <span style="font-size: 1.5em;">Good</span></p>
         </div>
         """, unsafe_allow_html=True)
     
@@ -890,21 +902,21 @@ elif page == "benchmarking":
         <div class="benchmark-card">
             <h3>🏦 PT Bank Mandiri</h3>
             <p><strong>Model:</strong> Financial Holdings dengan Cross-selling</p>
-            <p><strong>Struktur:</strong> 11 anak perusahaan finansial</p>
-            <p><strong>Performance 2024:</strong></p>
+            <p><strong>Struktur:</strong> Integrated financial services</p>
+            <p><strong>Organizational Structure:</strong></p>
             <ul>
-                <li>Revenue: Rp 146.6 T (+5.73% YoY)</li>
-                <li>Net Profit: Rp 55.8 T (+1.3% YoY)</li>
-                <li>Total Assets: Rp 2,430 T (+11.6% YoY)</li>
+                <li>Financial services ecosystem</li>
+                <li>Subsidiary synergy optimization</li>
+                <li>Cross-selling integration</li>
             </ul>
-            <p><strong>Best Practice:</strong></p>
+            <p><strong>Best Practice Focus:</strong></p>
             <ul>
-                <li>Cross-selling optimization</li>
-                <li>Subsidiary synergy</li>
+                <li>Financial services integration</li>
+                <li>Customer ecosystem development</li>
+                <li>Digital banking transformation</li>
                 <li>Sustainable finance framework</li>
-                <li>Digital strategy (Livin Merchant)</li>
             </ul>
-            <p><strong>Governance Score:</strong> <span style="font-size: 1.5em;">88/100</span></p>
+            <p><strong>Governance Maturity:</strong> <span style="font-size: 1.5em;">Excellent</span></p>
         </div>
         """, unsafe_allow_html=True)
     
@@ -959,9 +971,9 @@ elif page == "framework":
             'Oversight independen, conflict management',
             'Equal treatment, minority protection'
         ],
-        'Current Score': [82, 78, 85, 72, 80],
-        'Target Score': [90, 88, 92, 85, 88],
-        'Gap': [8, 10, 7, 13, 8],
+        'Baseline Assessment': [82, 78, 85, 72, 80],  # Illustrative baseline for framework development
+        'Target Framework': [90, 88, 92, 85, 88],     # Best practice targets based on governance standards
+        'Development Gap': [8, 10, 7, 13, 8],         # Framework improvement areas
         'Priority': ['High', 'High', 'Medium', 'Critical', 'High']
     }
     
@@ -974,19 +986,19 @@ elif page == "framework":
         fig = px.bar(
             df_gcg, 
             x='Prinsip', 
-            y=['Current Score', 'Target Score'],
-            title="GCG Principles Assessment - PT Surveyor Indonesia",
+            y=['Baseline Assessment', 'Target Framework'],
+            title="GCG Framework Development Assessment - PT Surveyor Indonesia (Illustrative)",
             barmode='group',
             color_discrete_sequence=['#e53e3e', '#38a169']
         )
         
         fig.add_scatter(
             x=df_gcg['Prinsip'], 
-            y=df_gcg['Gap'],
+            y=df_gcg['Development Gap'],
             mode='markers+text',
-            text=df_gcg['Gap'],
+            text=df_gcg['Development Gap'],
             textposition="top center",
-            name='Gap',
+            name='Development Gap',
             marker=dict(size=15, color='red'),
             yaxis='y2'
         )
@@ -1008,7 +1020,7 @@ elif page == "framework":
             st.markdown(f"""
             <div class="metric-container">
                 <strong>{row['Prinsip']}</strong><br>
-                Gap: {row['Gap']} points {priority_color}<br>
+                Development Gap: {row['Development Gap']} points {priority_color}<br>
                 <small>Priority: {row['Priority']}</small><br>
                 <small style="color: #666;">{row['Definisi']}</small>
             </div>
@@ -1283,10 +1295,13 @@ with col3:
 st.markdown("---")
 st.markdown("""
 <div style="text-align: center; padding: 1rem; background: #fff3cd; border: 2px solid #ffc107; border-radius: 10px; margin: 1rem 0;">
-    <h4 style="color: #856404; margin: 0;">⚠️ DISCLAIMER</h4>
-    <p style="color: #856404; margin: 0.5rem 0;">
-        <strong>Materi sosialisasi ini untuk digunakan secara terbatas pada PT Surveyor Indonesia</strong><br>
-        Tidak untuk distribusi atau penggunaan eksternal tanpa izin tertulis.
+    <h4 style="color: #856404; margin: 0;">⚠️ COMPREHENSIVE DISCLAIMER</h4>
+    <p style="color: #856404; margin: 0.5rem 0; font-size: 0.9rem;">
+        <strong>Materi sosialisasi ini untuk digunakan secara terbatas pada PT Surveyor Indonesia.</strong><br>
+        Tidak untuk distribusi atau penggunaan eksternal tanpa izin tertulis.<br><br>
+        <strong>Data & Metodologi:</strong> Dashboard ini menyajikan framework governance dan metodologi konseptual. 
+        Semua data numerik bersifat ilustratif untuk keperluan pengembangan framework dan benchmarking metodologi, 
+        bukan data finansial atau kinerja aktual. Penilaian dan skor berdasarkan analisis teoretis untuk keperluan perencanaan strategis.
     </p>
 </div>
 """, unsafe_allow_html=True)
