@@ -1128,7 +1128,7 @@ st.markdown(f"""
     <div style="margin-top: 1rem;">
         <p style="font-size: 0.9rem; color: #1f4e79;"><strong>Dashboard Version 3.0 - Agustus 2025</strong></p>
         <p style="font-size: 0.9rem;">Last Updated: {datetime.datetime.now().strftime("%Y-%m-%d %H:%M")}</p>
-        <p style="font-size: 0.9rem;">🚀 Powered by Streamlit | 📊 Real-time Analytics | 🎯 Strategic Excellence</p>
+        <p style="font-size: 0.9rem;">🚀 Created by MS Hadianto | 📊 KIM Consulting | 🎯 Strategic Excellence</p>
     </div>
 </div>
 """, unsafe_allow_html=True)
