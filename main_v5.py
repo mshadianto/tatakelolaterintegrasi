@@ -243,19 +243,20 @@ st.markdown("""
 # Helper functions
 @st.cache_data
 def get_benchmark_data():
-    # Data revenue berdasarkan annual report terbaru yang tersedia
-    # Pertamina: USD 84.89B (2022) ≈ IDR 1,262T
-    # Telkom: IDR 149.22T (2023)  
-    # Bank Mandiri: IDR 134.80T (2023)
-    # Surveyor Indonesia: USD 17M ≈ IDR 0.26T (estimasi)
+    # Data berdasarkan Materi Sosialisasi KIM Consulting
+    # Pertamina: Transformasi 127→12 anak perusahaan (2021)
+    # Telkom: 12 anak perusahaan utama  
+    # Bank Mandiri: 11 anak perusahaan finansial
+    # Surveyor Indonesia: Target 8 anak perusahaan optimal
     return {
         'BUMN': ['Pertamina*', 'Telkom', 'Bank Mandiri', 'Surveyor Indonesia (Target)'],
         'Governance Score': [85, 82, 88, 90],  # Target score berdasarkan assessment framework
         'Digital Integration': [75, 90, 70, 85],  # Assessment berdasarkan digital maturity
         'Synergy Optimization': [80, 75, 92, 88],  # Evaluasi sinergi antar anak perusahaan
         'Risk Management': [88, 80, 85, 90],  # Framework risk management
-        'Subsidiaries': [20, 15, 11, 8],  # Estimasi jumlah anak perusahaan utama
-        'Revenue (T IDR)': [1262, 149.22, 134.80, 0.26]  # Data actual dari annual report
+        'Subsidiaries': [12, 12, 11, 8],  # Data dari materi sosialisasi KIM Consulting
+        'Revenue (T IDR)': [1262, 149.22, 134.80, 0.26],  # Data actual dari annual report
+        'Model': ['Strategic Control', 'Strategic Integration', 'Financial Holdings', 'Strategic Control (Target)']
     }
 
 @st.cache_data
@@ -528,13 +529,14 @@ elif page == "benchmarking":
         st.markdown("""
         <div class="benchmark-card">
             <h3>🛢️ PT Pertamina (Persero)</h3>
-            <p><strong>Model:</strong> Strategic Control</p>
-            <p><strong>Struktur:</strong> Subholding dengan ~20 anak perusahaan utama</p>
+            <p><strong>Model:</strong> Strategic Control Holding Company</p>
+            <p><strong>Transformasi:</strong> 127 → 12 anak perusahaan (2021)</p>
             <p><strong>Revenue:</strong> USD 84.9B ≈ Rp 1,262 T (2022)*</p>
             <p><strong>Best Practice:</strong></p>
             <ul>
                 <li>Portfolio management terintegrasi</li>
                 <li>Subholding structure optimal</li>
+                <li>Compliance EITI</li>
                 <li>Digital transformation roadmap</li>
             </ul>
             <p><strong>Governance Score:</strong> <span style="font-size: 1.5em;">85/100**</span></p>
@@ -545,14 +547,15 @@ elif page == "benchmarking":
         st.markdown("""
         <div class="benchmark-card">
             <h3>📡 PT Telkom Indonesia</h3>
-            <p><strong>Model:</strong> Strategic Integration</p>
-            <p><strong>Struktur:</strong> ~15 anak perusahaan utama</p>
+            <p><strong>Model:</strong> Strategic Integration Holding</p>
+            <p><strong>Struktur:</strong> 12 anak perusahaan utama</p>
             <p><strong>Revenue:</strong> Rp 149.22 T (2023)*</p>
             <p><strong>Best Practice:</strong></p>
             <ul>
-                <li>Digital governance excellence</li>
-                <li>Infrastruktur teknologi terintegrasi</li>
-                <li>Innovation ecosystem</li>
+                <li>Revenue consolidation strategy</li>
+                <li>Digital transformation governance</li>
+                <li>TelkomMetra sebagai strategic control</li>
+                <li>Infrastructure integration</li>
             </ul>
             <p><strong>Governance Score:</strong> <span style="font-size: 1.5em;">82/100**</span></p>
         </div>
@@ -562,14 +565,15 @@ elif page == "benchmarking":
         st.markdown("""
         <div class="benchmark-card">
             <h3>🏦 PT Bank Mandiri</h3>
-            <p><strong>Model:</strong> Financial Holdings</p>
+            <p><strong>Model:</strong> Financial Holdings dengan Cross-selling</p>
             <p><strong>Struktur:</strong> 11 anak perusahaan finansial</p>
             <p><strong>Revenue:</strong> Rp 134.80 T (2023)*</p>
             <p><strong>Best Practice:</strong></p>
             <ul>
                 <li>Cross-selling optimization</li>
-                <li>Risk management integration</li>
-                <li>Customer-centric approach</li>
+                <li>Subsidiary synergy</li>
+                <li>International network governance</li>
+                <li>Financial risk integration</li>
             </ul>
             <p><strong>Governance Score:</strong> <span style="font-size: 1.5em;">88/100**</span></p>
         </div>
@@ -611,19 +615,19 @@ elif page == "benchmarking":
     
     st.plotly_chart(fig, use_container_width=True)
     
-    # Data disclaimer
+    # Data disclaimer sesuai dokumen KIM Consulting
     st.markdown("""
     <div class="info-box">
-        <h4>📋 Data Sources & Disclaimer</h4>
-        <p><strong>*Revenue Data Sources:</strong></p>
+        <h4>📋 Data Sources & Methodology - KIM Consulting</h4>
+        <p><strong>*Benchmarking Data Sources (Materi Sosialisasi KIM Consulting):</strong></p>
         <ul>
-            <li>PT Pertamina: Annual Report 2022 (USD 84.9B)</li>
-            <li>PT Telkom: Annual Report 2023 (IDR 149.22T)</li>
-            <li>PT Bank Mandiri: Annual Report 2023 (IDR 134.80T)</li>
-            <li>PT Surveyor Indonesia: Industry estimate (USD 17M)</li>
+            <li><strong>PT Pertamina:</strong> Strategic Control Holding Company, transformasi 127→12 anak perusahaan (2021), Revenue USD 84.9B (2022)</li>
+            <li><strong>PT Telkom:</strong> Strategic Integration Holding, 12 anak perusahaan utama, Revenue IDR 149.22T (2023)</li>
+            <li><strong>PT Bank Mandiri:</strong> Financial Holdings dengan Cross-selling, 11 anak perusahaan finansial, Revenue IDR 134.80T (2023)</li>
+            <li><strong>PT Surveyor Indonesia:</strong> Target Strategic Control model, 8 anak perusahaan optimal, Industry estimate USD 17M</li>
         </ul>
-        <p><strong>**Assessment Scores:</strong> Berdasarkan framework governance assessment internal dan target strategis perusahaan.</p>
-        <p><strong>***Struktur Anak Perusahaan:</strong> Data estimasi berdasarkan informasi publik yang tersedia.</p>
+        <p><strong>**Assessment Framework:</strong> KIM Consulting methodology dengan GCG principles assessment, corporate parenting model analysis, dan benchmarking BUMN best practices + international standards (ST Engineering, Temasek Holdings).</p>
+        <p><strong>***Implementation Approach:</strong> Agile project management, 4 parallel work streams, timeline intensif 60 hari kerja dengan commitment stakeholder untuk mencapai governance excellence level BUMN terdepan.</p>
     </div>
     """, unsafe_allow_html=True)
     
@@ -730,29 +734,142 @@ elif page == "benchmarking":
         </div>
         """, unsafe_allow_html=True)
 
-# Framework Page with enhanced interactivity
+# Framework Page with enhanced interactivity sesuai materi KIM Consulting
 elif page == "framework":
-    st.markdown('<div class="sub-header">📋 Integrated Governance Framework</div>', unsafe_allow_html=True)
+    st.markdown('<div class="sub-header">📋 Framework Tata Kelola Terintegrasi</div>', unsafe_allow_html=True)
+    
+    # Prinsip Fundamental sesuai dokumen
+    st.markdown("### 🎯 Prinsip Fundamental Framework")
+    
+    col1, col2, col3 = st.columns(3)
+    
+    with col1:
+        st.markdown("""
+        <div class="success-box">
+            <h4>🎯 Unity in Diversity</h4>
+            <p><strong>Kesatuan visi dengan fleksibilitas implementasi</strong></p>
+            <ul>
+                <li>Visi dan misi yang selaras</li>
+                <li>Implementasi yang disesuaikan konteks</li>
+                <li>Standardisasi pada aspek kritikal</li>
+                <li>Fleksibilitas pada operasional</li>
+            </ul>
+        </div>
+        """, unsafe_allow_html=True)
+    
+    with col2:
+        st.markdown("""
+        <div class="info-box">
+            <h4>💎 Value Creation Focus</h4>
+            <p><strong>Orientasi nilai jangka panjang dan sinergi</strong></p>
+            <ul>
+                <li>Long-term value orientation</li>
+                <li>Cross-subsidiary synergy</li>
+                <li>Sustainable business model</li>
+                <li>Stakeholder value optimization</li>
+            </ul>
+        </div>
+        """, unsafe_allow_html=True)
+    
+    with col3:
+        st.markdown("""
+        <div class="warning-box">
+            <h4>🛡️ Integrated Risk Management</h4>
+            <p><strong>Risk appetite selaras dan early warning</strong></p>
+            <ul>
+                <li>Consolidated risk appetite</li>
+                <li>Early warning system</li>
+                <li>Risk-return optimization</li>
+                <li>Proactive risk mitigation</li>
+            </ul>
+        </div>
+        """, unsafe_allow_html=True)
     
     # Framework selection
     framework_type = st.selectbox(
         "Select Framework Component:",
-        ["GCG Principles", "Corporate Parenting Model", "Authority Matrix", "Risk Management"]
+        ["Corporate Parenting Model", "GCG Principles", "Authority Matrix", "Risk Management Integration"]
     )
     
-    if framework_type == "GCG Principles":
+    if framework_type == "Corporate Parenting Model":
+        st.markdown("### 🏗️ Corporate Parenting Model Selection")
+        
+        # Model comparison matrix sesuai dokumen
+        parenting_data = {
+            'Model': ['Financial Control', 'Strategic Control', 'Strategic Planning'],
+            'Karakteristik': ['Focus financial, decentralized', 'Balance financial-strategic', 'Centralized planning'],
+            'Cocok untuk': ['Portfolio tidak terkait', 'Related diversification', 'Integrated portfolio'],
+            'PT SI Fit Score': [60, 90, 75],  # Strategic Control optimal untuk PT SI
+            'Implementation Complexity': ['Low', 'Medium', 'High']
+        }
+        
+        df_parenting = pd.DataFrame(parenting_data)
+        
+        # Visualization
+        fig = px.bar(
+            df_parenting,
+            x='Model',
+            y='PT SI Fit Score',
+            title='Corporate Parenting Model Fit Analysis untuk PT Surveyor Indonesia',
+            color='PT SI Fit Score',
+            color_continuous_scale='viridis',
+            text='PT SI Fit Score'
+        )
+        
+        fig.update_layout(height=400, margin=dict(l=20, r=20, t=60, b=20))
+        fig.update_traces(texttemplate='%{text}', textposition='outside')
+        st.plotly_chart(fig, use_container_width=True)
+        
+        # Model comparison table
+        st.dataframe(df_parenting, use_container_width=True, hide_index=True)
+        
+        # Recommended model details sesuai dokumen
+        st.markdown("""
+        <div class="success-box">
+            <h4>🎯 Recommended: Strategic Control Model</h4>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                <div>
+                    <h5>✅ Mengapa Strategic Control Optimal untuk PT SI</h5>
+                    <ul>
+                        <li><strong>Related diversification:</strong> Testing, inspection, certification services</li>
+                        <li><strong>Balance control:</strong> Financial oversight + strategic guidance</li>
+                        <li><strong>Synergy potential:</strong> Resource sharing, cross-selling opportunities</li>
+                        <li><strong>Scalability:</strong> Mendukung ekspansi bisnis terintegrasi</li>
+                    </ul>
+                </div>
+                <div>
+                    <h5>📋 Key Implementation Elements</h5>
+                    <ul>
+                        <li><strong>Authority matrix:</strong> Clear decision-making boundaries</li>
+                        <li><strong>Performance dashboard:</strong> Integrated KPI monitoring</li>
+                        <li><strong>Strategic planning:</strong> Consolidated strategic initiatives</li>
+                        <li><strong>Communication protocols:</strong> Regular governance review</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
+    
+    elif framework_type == "GCG Principles":
         st.markdown("### 🎯 Good Corporate Governance (GCG) Assessment")
         
-        # GCG Interactive Assessment
+        # GCG Interactive Assessment sesuai materi KIM Consulting
         col1, col2 = st.columns([2, 1])
         
         with col1:
             gcg_data = {
                 'Prinsip': ['Transparency', 'Accountability', 'Responsibility', 'Independence', 'Fairness'],
-                'Current Score': [85, 80, 88, 75, 82],
+                'Definisi': [
+                    'Financial reporting akurat, disclosure material',
+                    'Clear roles, performance measurement objektif', 
+                    'Compliance regulasi, stakeholder engagement',
+                    'Oversight independen, conflict management',
+                    'Equal treatment, minority protection'
+                ],
+                'Current Score': [82, 78, 85, 72, 80],
                 'Target Score': [90, 88, 92, 85, 88],
-                'Gap': [5, 8, 4, 10, 6],
-                'Priority': ['Medium', 'High', 'Low', 'High', 'Medium']
+                'Gap': [8, 10, 7, 13, 8],
+                'Priority': ['High', 'High', 'Medium', 'Critical', 'High']
             }
             
             df_gcg = pd.DataFrame(gcg_data)
@@ -762,11 +879,12 @@ elif page == "framework":
                 df_gcg, 
                 x='Prinsip', 
                 y=['Current Score', 'Target Score'],
-                title="GCG Principles Assessment",
+                title="GCG Principles Assessment - PT Surveyor Indonesia",
                 barmode='group',
-                color_discrete_sequence=['#3182ce', '#38a169']
+                color_discrete_sequence=['#e53e3e', '#38a169']
             )
             
+            # Add gap indicators
             fig.add_scatter(
                 x=df_gcg['Prinsip'], 
                 y=df_gcg['Gap'],
@@ -780,7 +898,7 @@ elif page == "framework":
             
             fig.update_layout(
                 height=400,
-                yaxis2=dict(overlaying='y', side='right', title='Gap'),
+                yaxis2=dict(overlaying='y', side='right', title='Gap Points'),
                 margin=dict(l=20, r=20, t=60, b=20)
             )
             
@@ -789,121 +907,63 @@ elif page == "framework":
         with col2:
             st.markdown("### 🎯 Priority Actions")
             for i, row in df_gcg.iterrows():
-                priority_color = {"High": "🔴", "Medium": "🟡", "Low": "🟢"}[row['Priority']]
+                priority_colors = {"Critical": "🔴", "High": "🟠", "Medium": "🟡", "Low": "🟢"}
+                priority_color = priority_colors.get(row['Priority'], "⚪")
+                
                 st.markdown(f"""
                 <div class="metric-container">
                     <strong>{row['Prinsip']}</strong><br>
                     Gap: {row['Gap']} points {priority_color}<br>
-                    <small>Priority: {row['Priority']}</small>
+                    <small>Priority: {row['Priority']}</small><br>
+                    <small style="color: #666;">{row['Definisi']}</small>
                 </div>
                 """, unsafe_allow_html=True)
         
-        # Detailed GCG breakdown
-        st.markdown("### 📋 Detailed GCG Implementation")
+        # Detailed GCG implementation roadmap
+        st.markdown("### 📋 GCG Implementation Roadmap")
         
-        gcg_details = {
-            'Transparency': {
-                'definition': 'Financial reporting akurat, disclosure material information',
-                'current_practices': ['Annual report publication', 'Quarterly financial disclosure', 'Website transparency'],
-                'improvements': ['Real-time dashboard', 'Enhanced disclosure framework', 'Stakeholder portal'],
-                'timeline': '30 days'
+        gcg_roadmap = [
+            {
+                'principle': 'Independence (Critical Priority)',
+                'current_issues': ['Board composition optimization', 'Independent oversight enhancement'],
+                'target_actions': ['Independent board member recruitment', 'Audit committee strengthening', 'Conflict management protocols'],
+                'timeline': '30 hari',
+                'owner': 'Board Secretary & Governance'
             },
-            'Accountability': {
-                'definition': 'Clear roles, performance measurement objektif',
-                'current_practices': ['Board oversight', 'Management reporting', 'Performance reviews'],
-                'improvements': ['KPI enhancement', 'Accountability matrix', 'Regular assessments'],
-                'timeline': '45 days'
+            {
+                'principle': 'Accountability (High Priority)', 
+                'current_issues': ['Performance measurement granularity', 'Clear role definition'],
+                'target_actions': ['KPI cascade implementation', 'Authority matrix granular', 'Regular performance review'],
+                'timeline': '45 hari',
+                'owner': 'Performance Management'
             }
-        }
+        ]
         
-        selected_principle = st.selectbox("Select GCG Principle for Details:", list(gcg_details.keys()))
-        
-        detail = gcg_details[selected_principle]
-        
-        col1, col2, col3 = st.columns(3)
-        
-        with col1:
+        for roadmap in gcg_roadmap:
             st.markdown(f"""
-            <div class="info-box">
-                <h4>📖 Definition</h4>
-                <p>{detail['definition']}</p>
-            </div>
-            """, unsafe_allow_html=True)
-        
-        with col2:
-            st.markdown(f"""
-            <div class="success-box">
-                <h4>✅ Current Practices</h4>
-                <ul>
-                    {''.join([f'<li>{practice}</li>' for practice in detail['current_practices']])}
-                </ul>
-            </div>
-            """, unsafe_allow_html=True)
-        
-        with col3:
-            st.markdown(f"""
-            <div class="warning-box">
-                <h4>🚀 Improvements</h4>
-                <ul>
-                    {''.join([f'<li>{improvement}</li>' for improvement in detail['improvements']])}
-                </ul>
-                <p><strong>Timeline:</strong> {detail['timeline']}</p>
-            </div>
-            """, unsafe_allow_html=True)
-    
-    elif framework_type == "Corporate Parenting Model":
-        st.markdown("### 🏗️ Corporate Parenting Model Selection")
-        
-        # Model comparison matrix
-        parenting_data = {
-            'Model': ['Financial Control', 'Strategic Control', 'Strategic Planning'],
-            'Business Diversity': ['High', 'Medium', 'Low'],
-            'Synergy Potential': ['Low', 'Medium', 'High'],
-            'Coordination Level': ['Minimal', 'Selective', 'Extensive'],
-            'PT SI Fit Score': [60, 85, 70]
-        }
-        
-        df_parenting = pd.DataFrame(parenting_data)
-        
-        # Visualization
-        fig = px.bar(
-            df_parenting,
-            x='Model',
-            y='PT SI Fit Score',
-            title='Corporate Parenting Model Fit Analysis',
-            color='PT SI Fit Score',
-            color_continuous_scale='viridis'
-        )
-        
-        fig.update_layout(height=400, margin=dict(l=20, r=20, t=60, b=20))
-        st.plotly_chart(fig, use_container_width=True)
-        
-        # Recommended model details
-        st.markdown("""
-        <div class="success-box">
-            <h4>🎯 Recommended: Strategic Control Model</h4>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
-                <div>
-                    <h5>✅ Advantages</h5>
-                    <ul>
-                        <li>Balance financial and strategic control</li>
-                        <li>Selective intervention capability</li>
-                        <li>Synergy optimization opportunities</li>
-                        <li>Risk management integration</li>
-                    </ul>
-                </div>
-                <div>
-                    <h5>📋 Implementation</h5>
-                    <ul>
-                        <li>Authority matrix development</li>
-                        <li>Performance dashboard</li>
-                        <li>Strategic planning integration</li>
-                        <li>Communication protocols</li>
-                    </ul>
+            <div class="timeline-item">
+                <h4>🎯 {roadmap['principle']}</h4>
+                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem;">
+                    <div>
+                        <h5>📋 Current Issues</h5>
+                        <ul>
+                            {''.join([f'<li>{issue}</li>' for issue in roadmap['current_issues']])}
+                        </ul>
+                    </div>
+                    <div>
+                        <h5>🚀 Target Actions</h5>
+                        <ul>
+                            {''.join([f'<li>{action}</li>' for action in roadmap['target_actions']])}
+                        </ul>
+                    </div>
+                    <div>
+                        <h5>⏱️ Execution</h5>
+                        <p><strong>Timeline:</strong> {roadmap['timeline']}</p>
+                        <p><strong>Owner:</strong> {roadmap['owner']}</p>
+                    </div>
                 </div>
             </div>
-        </div>
-        """, unsafe_allow_html=True)
+            """, unsafe_allow_html=True)
     
     elif framework_type == "Authority Matrix":
         st.markdown("### 📊 Authority Matrix & Decision Rights")
@@ -1000,167 +1060,370 @@ elif page == "framework":
         st.markdown("### 📋 Risk Register")
         st.dataframe(df_risk, use_container_width=True, hide_index=True)
 
-# Timeline Page with enhanced project management features
+# Timeline Page dengan rencana kerja 60 hari sesuai materi KIM Consulting
 elif page == "timeline":
-    st.markdown('<div class="sub-header">⏱️ Advanced Project Timeline</div>', unsafe_allow_html=True)
+    st.markdown('<div class="sub-header">⏱️ Rencana Kerja 60 Hari - Intensive Execution</div>', unsafe_allow_html=True)
     
-    # Timeline controls
+    # Interactive Timeline Controls
     col1, col2, col3 = st.columns(3)
     
     with col1:
-        view_type = st.selectbox("Timeline View:", ["Gantt Chart", "Kanban Board", "Calendar View"])
+        view_type = st.selectbox("Timeline View:", ["Detailed Phases", "Gantt Chart", "Sprint Planning"])
     
     with col2:
         phase_filter = st.multiselect("Filter Phases:", ["Fase 1", "Fase 2", "Fase 3"], default=["Fase 1", "Fase 2", "Fase 3"])
     
     with col3:
-        show_critical_path = st.checkbox("Show Critical Path", value=True)
+        show_critical_path = st.checkbox("Show Critical Success Factors", value=True)
     
-    # Enhanced timeline data dengan progress realistis
-    timeline_detailed = {
-        'Task': [
-            'Project Kickoff', 'Stakeholder Mapping', 'Current State Assessment',
-            'Gap Analysis', 'Benchmarking Study', 'Framework Design',
-            'Stakeholder Validation', 'Documentation', 'Final Review', 'Project Closure'
-        ],
-        'Phase': [
-            'Fase 1', 'Fase 1', 'Fase 1', 'Fase 1', 'Fase 1',
-            'Fase 2', 'Fase 2', 'Fase 3', 'Fase 3', 'Fase 3'
-        ],
-        'Start': [
-            date(2024, 1, 15), date(2024, 1, 16), date(2024, 1, 18),
-            date(2024, 1, 25), date(2024, 1, 30), date(2024, 2, 5),
-            date(2024, 2, 15), date(2024, 2, 25), date(2024, 3, 5), date(2024, 3, 12)
-        ],
-        'Duration': [1, 3, 5, 4, 8, 10, 5, 8, 5, 3],
-        'Progress': [100, 100, 85, 45, 25, 5, 0, 0, 0, 0],  # Realistic progression
-        'Resource': ['PM', 'PM+Team', 'Analysts', 'Analysts', 'Consultants', 'Architects', 'Stakeholders', 'Writers', 'Board', 'PM'],
-        'Critical': [True, False, True, True, False, True, True, True, True, False]
-    }
-    
-    df_detailed = pd.DataFrame(timeline_detailed)
-    df_detailed['End'] = df_detailed.apply(lambda row: row['Start'] + timedelta(days=row['Duration']), axis=1)
-    
-    if view_type == "Gantt Chart":
-        # Enhanced Gantt chart
-        fig = px.timeline(
-            df_detailed[df_detailed['Phase'].isin([f'Fase {i}' for i in range(1, 4) if f'Fase {i}' in phase_filter])],
-            x_start="Start",
-            x_end="End",
-            y="Task",
-            color="Progress",
-            title="Project Gantt Chart - 60 Days",
-            color_continuous_scale="RdYlGn",
-            hover_data=["Resource", "Duration", "Critical"]
-        )
+    if view_type == "Detailed Phases":
+        # Fase 1 - Assessment & Gap Analysis (Hari 1-20)
+        st.markdown("### 📋 Fase 1: Assessment & Gap Analysis (Hari 1-20)")
         
-        if show_critical_path:
-            critical_tasks = df_detailed[df_detailed['Critical'] == True]
-            for _, task in critical_tasks.iterrows():
-                fig.add_vrect(
-                    x0=task['Start'], x1=task['End'],
-                    fillcolor="red", opacity=0.2,
-                    layer="below", line_width=0
-                )
+        col1, col2 = st.columns([3, 1])
         
-        fig.update_layout(height=600, margin=dict(l=20, r=20, t=60, b=20))
-        st.plotly_chart(fig, use_container_width=True)
-    
-    elif view_type == "Kanban Board":
-        # Kanban-style view
-        col1, col2, col3, col4 = st.columns(4)
-        
-        statuses = ["Not Started", "In Progress", "Review", "Completed"]
-        
-        for i, status in enumerate(statuses):
-            with [col1, col2, col3, col4][i]:
-                st.markdown(f"### {status}")
-                
-                if status == "Completed":
-                    tasks = df_detailed[df_detailed['Progress'] == 100]
-                elif status == "In Progress":
-                    tasks = df_detailed[(df_detailed['Progress'] > 0) & (df_detailed['Progress'] < 100)]
-                elif status == "Review":
-                    tasks = df_detailed[df_detailed['Progress'] == 75]  # Assuming 75% means in review
-                else:
-                    tasks = df_detailed[df_detailed['Progress'] == 0]
-                
-                for _, task in tasks.iterrows():
-                    card_color = "success-box" if status == "Completed" else "info-box" if status == "In Progress" else "warning-box"
-                    st.markdown(f"""
-                    <div class="{card_color}" style="margin: 0.5rem 0; padding: 1rem;">
-                        <h5>{task['Task']}</h5>
-                        <p><strong>Phase:</strong> {task['Phase']}</p>
-                        <p><strong>Resource:</strong> {task['Resource']}</p>
-                        <p><strong>Duration:</strong> {task['Duration']} days</p>
-                        <div style="background-color: #e9ecef; border-radius: 10px; height: 10px;">
-                            <div style="background-color: #28a745; width: {task['Progress']}%; height: 100%; border-radius: 10px;"></div>
-                        </div>
-                        <small>{task['Progress']}% Complete</small>
-                    </div>
-                    """, unsafe_allow_html=True)
-    
-    else:  # Calendar View
-        st.markdown("### 📅 Calendar View")
-        
-        # Calendar implementation would go here
-        # For now, showing a summary table
-        calendar_summary = df_detailed.groupby(df_detailed['Start'].dt.strftime('%Y-%m')).agg({
-            'Task': 'count',
-            'Duration': 'sum',
-            'Progress': 'mean'
-        }).round(1)
-        
-        calendar_summary.columns = ['Tasks', 'Total Days', 'Avg Progress']
-        st.dataframe(calendar_summary, use_container_width=True)
-    
-    # Resource allocation
-    st.markdown("### 👥 Resource Allocation")
-    
-    resource_data = df_detailed.groupby('Resource').agg({
-        'Duration': 'sum',
-        'Task': 'count',
-        'Progress': 'mean'
-    }).round(1)
-    
-    resource_data.columns = ['Total Days', 'Task Count', 'Avg Progress']
-    
-    fig = px.bar(
-        resource_data.reset_index(),
-        x='Resource',
-        y='Total Days',
-        color='Avg Progress',
-        title='Resource Utilization',
-        color_continuous_scale='viridis'
-    )
-    
-    fig.update_layout(height=400, margin=dict(l=20, r=20, t=60, b=20))
-    st.plotly_chart(fig, use_container_width=True)
-    
-    # Critical path analysis
-    if show_critical_path:
-        st.markdown("### 🚨 Critical Path Analysis")
-        
-        critical_tasks = df_detailed[df_detailed['Critical'] == True]
-        
-        st.markdown("""
-        <div class="warning-box">
-            <h4>⚠️ Critical Path Tasks</h4>
-            <p>These tasks are on the critical path and any delay will impact the overall project timeline:</p>
-        </div>
-        """, unsafe_allow_html=True)
-        
-        for _, task in critical_tasks.iterrows():
-            status = "🟢 On Track" if task['Progress'] >= 75 else "🟡 At Risk" if task['Progress'] >= 25 else "🔴 Delayed"
-            st.markdown(f"""
+        with col1:
+            st.markdown("""
             <div class="timeline-item">
-                <h5>{task['Task']} {status}</h5>
-                <p><strong>Phase:</strong> {task['Phase']} | <strong>Duration:</strong> {task['Duration']} days | <strong>Progress:</strong> {task['Progress']}%</p>
-                <div style="background-color: #e9ecef; border-radius: 10px; height: 8px;">
-                    <div style="background-color: #dc3545; width: {task['Progress']}%; height: 100%; border-radius: 10px;"></div>
+                <h4>📅 Minggu 1-2 (Hari 1-10): Rapid Assessment</h4>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <div>
+                        <h5>🎯 Key Activities</h5>
+                        <ul>
+                            <li>Kick-off meeting dan team mobilization</li>
+                            <li>Current state assessment (parallel activities)</li>
+                            <li>Stakeholder mapping dan key interviews</li>
+                            <li>Documentation review dan regulatory compliance check</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h5>⚡ Critical Success Factors</h5>
+                        <ul>
+                            <li>Full-time core team dedication</li>
+                            <li>Stakeholder availability commitment</li>
+                            <li>Document access dan transparency</li>
+                            <li>Executive sponsorship</li>
+                        </ul>
+                    </div>
                 </div>
+                <p><strong>📋 Deliverable:</strong> Current State Assessment Report</p>
+                <p><strong>🎯 Success Metrics:</strong> 100% stakeholder interview completion, comprehensive baseline established</p>
             </div>
             """, unsafe_allow_html=True)
+            
+            st.markdown("""
+            <div class="timeline-item">
+                <h4>📅 Minggu 3-4 (Hari 11-20): Gap Analysis & Benchmarking</h4>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <div>
+                        <h5>🎯 Key Activities</h5>
+                        <ul>
+                            <li>Benchmarking analysis dengan BUMN best practices</li>
+                            <li>Gap identification dan prioritization matrix</li>
+                            <li>Risk assessment dan opportunity mapping</li>
+                            <li>Preliminary framework design workshop</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h5>📊 Benchmarking Focus</h5>
+                        <ul>
+                            <li>Pertamina: Strategic control model</li>
+                            <li>Telkom: Digital governance integration</li>
+                            <li>Bank Mandiri: Cross-selling optimization</li>
+                            <li>International: ST Engineering, Temasek</li>
+                        </ul>
+                    </div>
+                </div>
+                <p><strong>📋 Deliverable:</strong> Gap Analysis Report & Preliminary Framework Design</p>
+                <p><strong>🎯 Success Metrics:</strong> Prioritized improvement roadmap, stakeholder alignment >85%</p>
+            </div>
+            """, unsafe_allow_html=True)
+        
+        with col2:
+            # Progress for Fase 1
+            current_day = (date.today() - st.session_state.project_start_date).days
+            phase1_progress = min(max((current_day - 0) / 20 * 100, 0), 100)
+            
+            fig = go.Figure(go.Indicator(
+                mode = "gauge+number+delta",
+                value = round(phase1_progress),
+                title = {'text': "Fase 1 Progress"},
+                delta = {'reference': 75, 'increasing': {'color': 'green'}, 'decreasing': {'color': 'red'}},
+                domain = {'x': [0, 1], 'y': [0, 1]},
+                gauge = {
+                    'axis': {'range': [None, 100]},
+                    'bar': {'color': "#38a169"},
+                    'steps': [
+                        {'range': [0, 33], 'color': "#fed7d7"},
+                        {'range': [33, 66], 'color': "#feebc8"},
+                        {'range': [66, 100], 'color': "#c6f6d5"}
+                    ],
+                    'threshold': {'line': {'color': "red", 'width': 4}, 'thickness': 0.75, 'value': 90}
+                }
+            ))
+            fig.update_layout(height=250, margin=dict(l=20, r=20, t=40, b=20))
+            st.plotly_chart(fig, use_container_width=True)
+            
+            # Key milestones Fase 1
+            st.markdown("### 🎯 Key Milestones")
+            milestones_f1 = [
+                "✅ Project Charter (Day 2)",
+                "✅ Team Mobilization (Day 3)", 
+                "🔄 Stakeholder Interviews (Day 10)",
+                "⏳ Gap Analysis (Day 20)"
+            ]
+            for milestone in milestones_f1:
+                st.markdown(f"- {milestone}")
+        
+        # Fase 2 - Design & Development (Hari 21-45)
+        st.markdown("### 🛠️ Fase 2: Design & Development (Hari 21-45)")
+        
+        col1, col2 = st.columns([3, 1])
+        
+        with col1:
+            st.markdown("""
+            <div class="timeline-item">
+                <h4>📅 Minggu 5-7 (Hari 21-35): Framework Development</h4>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <div>
+                        <h5>🎯 Core Development</h5>
+                        <ul>
+                            <li><strong>Integrated governance framework design</strong></li>
+                            <li><strong>Policy dan procedure drafting</strong> (4 parallel teams)</li>
+                            <li><strong>Authority matrix granular</strong> dengan decision rights</li>
+                            <li><strong>Performance measurement system</strong> design</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h5>🔧 4 Parallel Work Streams</h5>
+                        <ul>
+                            <li><strong>Stream A:</strong> Policy & procedure development</li>
+                            <li><strong>Stream B:</strong> Framework design & validation</li>
+                            <li><strong>Stream C:</strong> Communication & training materials</li>
+                            <li><strong>Stream D:</strong> Implementation planning</li>
+                        </ul>
+                    </div>
+                </div>
+                <p><strong>📋 Deliverable:</strong> Draft Governance Framework & Policies</p>
+                <p><strong>🎯 Success Metrics:</strong> Framework completeness >90%, internal review approval</p>
+            </div>
+            """, unsafe_allow_html=True)
+            
+            st.markdown("""
+            <div class="timeline-item">
+                <h4>📅 Minggu 8-9 (Hari 36-45): Validation & Refinement</h4>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <div>
+                        <h5>🎯 Validation Process</h5>
+                        <ul>
+                            <li><strong>Internal stakeholder review sessions</strong> (intensive)</li>
+                            <li><strong>Expert validation</strong> (external consultant review)</li>
+                            <li><strong>Legal compliance verification</strong> (OJK, BUMN regulations)</li>
+                            <li><strong>Template dan tools development</strong></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h5>✅ Quality Assurance</h5>
+                        <ul>
+                            <li>Concurrent review process</li>
+                            <li>Mandatory checkpoint gates</li>
+                            <li>Expert validation scoring</li>
+                            <li>Stakeholder feedback integration</li>
+                        </ul>
+                    </div>
+                </div>
+                <p><strong>📋 Deliverable:</strong> Validated Governance Framework</p>
+                <p><strong>🎯 Success Metrics:</strong> Expert validation score >85%, stakeholder approval</p>
+            </div>
+            """, unsafe_allow_html=True)
+        
+        with col2:
+            # Progress for Fase 2
+            phase2_progress = min(max((current_day - 20) / 25 * 100, 0), 100)
+            
+            fig = go.Figure(go.Indicator(
+                mode = "gauge+number+delta",
+                value = round(phase2_progress),
+                title = {'text': "Fase 2 Progress"},
+                delta = {'reference': 50, 'increasing': {'color': 'green'}},
+                domain = {'x': [0, 1], 'y': [0, 1]},
+                gauge = {
+                    'axis': {'range': [0, 100]},
+                    'bar': {'color': "#3182ce"},
+                    'steps': [
+                        {'range': [0, 33], 'color': "#fed7d7"},
+                        {'range': [33, 66], 'color': "#feebc8"}, 
+                        {'range': [66, 100], 'color': "#c6f6d5"}
+                    ],
+                    'threshold': {'line': {'color': "red", 'width': 4}, 'thickness': 0.75, 'value': 85}
+                }
+            ))
+            fig.update_layout(height=250, margin=dict(l=20, r=20, t=40, b=20))
+            st.plotly_chart(fig, use_container_width=True)
+            
+            # Key milestones Fase 2
+            st.markdown("### 🎯 Key Milestones")
+            milestones_f2 = [
+                "⏳ Framework Draft (Day 35)",
+                "⏳ Policy Documentation (Day 38)",
+                "⏳ Expert Validation (Day 42)", 
+                "⏳ Final Framework (Day 45)"
+            ]
+            for milestone in milestones_f2:
+                st.markdown(f"- {milestone}")
+        
+        # Fase 3 - Finalization & Launch Prep (Hari 46-60)
+        st.markdown("### 🚀 Fase 3: Finalization & Launch Preparation (Hari 46-60)")
+        
+        col1, col2 = st.columns([3, 1])
+        
+        with col1:
+            st.markdown("""
+            <div class="timeline-item">
+                <h4>📅 Minggu 10-11 (Hari 46-55): Documentation & Communication</h4>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <div>
+                        <h5>📋 Documentation Finalization</h5>
+                        <ul>
+                            <li><strong>Final pedoman compilation</strong> (comprehensive document)</li>
+                            <li><strong>Executive summary</strong> untuk board presentation</li>
+                            <li><strong>Quick reference guides</strong> untuk operational use</li>
+                            <li><strong>Implementation roadmap</strong> detail</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h5>📢 Communication Materials</h5>
+                        <ul>
+                            <li>Socialization presentation deck</li>
+                            <li>Training materials development</li>
+                            <li>Change management communication</li>
+                            <li>Digital platform preparation</li>
+                        </ul>
+                    </div>
+                </div>
+                <p><strong>📋 Deliverable:</strong> Final Pedoman & Communication Package</p>
+                <p><strong>🎯 Success Metrics:</strong> Documentation completeness 100%, communication readiness</p>
+            </div>
+            """, unsafe_allow_html=True)
+            
+            st.markdown("""
+            <div class="timeline-item">
+                <h4>📅 Minggu 12 (Hari 56-60): Handover & Launch Preparation</h4>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <div>
+                        <h5>🎯 Final Preparations</h5>
+                        <ul>
+                            <li><strong>Final review dan board approval</strong> process</li>
+                            <li><strong>Implementation team briefing</strong> comprehensive</li>
+                            <li><strong>Monitoring framework setup</strong> & KPI baseline</li>
+                            <li><strong>Handover documentation</strong> complete</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h5>🚀 Launch Readiness</h5>
+                        <ul>
+                            <li>Implementation team training</li>
+                            <li>Change management preparation</li>
+                            <li>Communication rollout plan</li>
+                            <li>Success monitoring setup</li>
+                        </ul>
+                    </div>
+                </div>
+                <p><strong>📋 Deliverable:</strong> Approved Pedoman & Launch Materials</p>
+                <p><strong>🎯 Success Metrics:</strong> Board approval, implementation readiness >90%</p>
+            </div>
+            """, unsafe_allow_html=True)
+        
+        with col2:
+            # Progress for Fase 3
+            phase3_progress = min(max((current_day - 45) / 15 * 100, 0), 100)
+            
+            fig = go.Figure(go.Indicator(
+                mode = "gauge+number+delta",
+                value = round(phase3_progress),
+                title = {'text': "Fase 3 Progress"},
+                delta = {'reference': 25},
+                domain = {'x': [0, 1], 'y': [0, 1]},
+                gauge = {
+                    'axis': {'range': [0, 100]},
+                    'bar': {'color': "#805ad5"},
+                    'steps': [
+                        {'range': [0, 33], 'color': "#fed7d7"},
+                        {'range': [33, 66], 'color': "#feebc8"},
+                        {'range': [66, 100], 'color': "#c6f6d5"}
+                    ],
+                    'threshold': {'line': {'color': "red", 'width': 4}, 'thickness': 0.75, 'value': 90}
+                }
+            ))
+            fig.update_layout(height=250, margin=dict(l=20, r=20, t=40, b=20))
+            st.plotly_chart(fig, use_container_width=True)
+            
+            # Key milestones Fase 3
+            st.markdown("### 🎯 Key Milestones")
+            milestones_f3 = [
+                "⏳ Final Documentation (Day 55)",
+                "⏳ Board Presentation (Day 58)",
+                "⏳ Implementation Briefing (Day 59)",
+                "⏳ Project Completion (Day 60)"
+            ]
+            for milestone in milestones_f3:
+                st.markdown(f"- {milestone}")
+        
+        # Critical Success Factors sesuai dokumen
+        if show_critical_path:
+            st.markdown("### 🎯 Critical Success Factors")
+            
+            col1, col2 = st.columns(2)
+            
+            with col1:
+                st.markdown("""
+                <div class="success-box">
+                    <h4>🔄 4 Parallel Work Streams (Key Innovation)</h4>
+                    <ul>
+                        <li><strong>Stream A:</strong> Policy & procedure development</li>
+                        <li><strong>Stream B:</strong> Framework design & validation</li>
+                        <li><strong>Stream C:</strong> Communication & training materials</li>
+                        <li><strong>Stream D:</strong> Implementation planning</li>
+                    </ul>
+                    <p><strong>Benefit:</strong> 40% time efficiency gain through parallel execution</p>
+                </div>
+                """, unsafe_allow_html=True)
+                
+                st.markdown("""
+                <div class="info-box">
+                    <h4>⚡ Agile Project Management</h4>
+                    <ul>
+                        <li><strong>Sprint Planning:</strong> 2-week sprints dengan clear deliverables</li>
+                        <li><strong>Daily Monitoring:</strong> Stand-up meetings, weekly reviews</li>
+                        <li><strong>Technology Support:</strong> Digital workspace, real-time tracking</li>
+                        <li><strong>Stakeholder Management:</strong> Executive alignment, user engagement</li>
+                    </ul>
+                </div>
+                """, unsafe_allow_html=True)
+            
+            with col2:
+                st.markdown("""
+                <div class="warning-box">
+                    <h4>⚠️ Risk Mitigation Strategy</h4>
+                    <ul>
+                        <li><strong>Schedule Risks:</strong> Buffer time 10%, parallel activities</li>
+                        <li><strong>Quality Risks:</strong> Concurrent review, mandatory checkpoints</li>
+                        <li><strong>Resource Risks:</strong> Core team full-time, backup resources</li>
+                        <li><strong>Stakeholder Risks:</strong> Intensive engagement, transparent communication</li>
+                    </ul>
+                </div>
+                """, unsafe_allow_html=True)
+                
+                st.markdown("""
+                <div class="success-box">
+                    <h4>📊 Success Metrics Framework</h4>
+                    <ul>
+                        <li><strong>Quality:</strong> Stakeholder satisfaction >85%, compliance 100%</li>
+                        <li><strong>Efficiency:</strong> On-time delivery, budget adherence ±5%</li>
+                        <li><strong>Effectiveness:</strong> Framework completeness >90%, implementation readiness >85%</li>
+                    </ul>
+                </div>
+                """, unsafe_allow_html=True)
 
 # Enhanced Monitoring Page
 elif page == "monitoring":
@@ -1538,216 +1801,373 @@ elif page == "documentation":
         </div>
         """, unsafe_allow_html=True)
 
-# Enhanced Next Steps Page
+# Enhanced Next Steps Page sesuai materi KIM Consulting
 elif page == "nextsteps":
-    st.markdown('<div class="sub-header">🎯 Strategic Action Plan</div>', unsafe_allow_html=True)
+    st.markdown('<div class="sub-header">🎯 Expected Outcomes & Strategic Action Plan</div>', unsafe_allow_html=True)
     
-    # Action priority matrix
-    st.markdown("### 📊 Action Priority Matrix")
+    # Expected Outcomes sesuai dokumen KIM Consulting
+    st.markdown("### 🏆 Expected Outcomes Framework")
     
-    actions_matrix = {
-        'Action': [
-            'Finalize Authority Matrix',
-            'Implement Digital Dashboard',
-            'Stakeholder Training Program',
-            'Risk Management Integration',
-            'Performance Measurement System',
-            'Communication Protocol',
-            'Policy Documentation',
-            'Change Management Plan'
+    outcomes_tabs = st.tabs(["Short-term (60 hari)", "Medium-term (6-12 bulan)", "Long-term (1-2 tahun)"])
+    
+    with outcomes_tabs[0]:
+        st.markdown("#### 🎯 Short-term Outcomes (60 hari)")
+        
+        col1, col2 = st.columns(2)
+        
+        with col1:
+            st.markdown("""
+            <div class="success-box">
+                <h4>📋 Core Deliverables</h4>
+                <ul>
+                    <li><strong>Pedoman tata kelola terintegrasi yang modern</strong>
+                        <br><small>Framework komprehensif sesuai best practices BUMN</small></li>
+                    <li><strong>Framework corporate parenting yang jelas</strong>
+                        <br><small>Strategic Control model dengan authority matrix granular</small></li>
+                    <li><strong>Authority matrix dan decision-making procedures</strong>
+                        <br><small>Clear roles, responsibilities, dan escalation paths</small></li>
+                    <li><strong>Digital governance platform roadmap</strong>
+                        <br><small>Technology enabler untuk governance excellence</small></li>
+                </ul>
+            </div>
+            """, unsafe_allow_html=True)
+        
+        with col2:
+            st.markdown("""
+            <div class="info-box">
+                <h4>📊 Success Metrics (60 hari)</h4>
+                <ul>
+                    <li><strong>Quality Indicators:</strong>
+                        <ul>
+                            <li>Stakeholder satisfaction score >85%</li>
+                            <li>Framework completeness score >90%</li>
+                            <li>Expert validation approval</li>
+                            <li>Regulatory compliance verification 100%</li>
+                        </ul>
+                    </li>
+                    <li><strong>Efficiency Indicators:</strong>
+                        <ul>
+                            <li>On-time delivery of milestones</li>
+                            <li>Budget adherence ±5%</li>
+                            <li>Implementation readiness >85%</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            """, unsafe_allow_html=True)
+    
+    with outcomes_tabs[1]:
+        st.markdown("#### 🔧 Medium-term Outcomes (6-12 bulan)")
+        
+        col1, col2 = st.columns(2)
+        
+        with col1:
+            st.markdown("""
+            <div class="warning-box">
+                <h4>🚀 Implementation Excellence</h4>
+                <ul>
+                    <li><strong>Implementation governance framework</strong>
+                        <br><small>Full deployment dengan change management</small></li>
+                    <li><strong>Performance management system terintegrasi</strong>
+                        <br><small>KPI cascade, dashboards, regular monitoring</small></li>
+                    <li><strong>Synergy optimization antar anak perusahaan</strong>
+                        <br><small>Cross-selling, resource sharing, joint initiatives</small></li>
+                    <li><strong>Risk management consolidation</strong>
+                        <br><small>Integrated risk appetite, early warning system</small></li>
+                </ul>
+            </div>
+            """, unsafe_allow_html=True)
+        
+        with col2:
+            # Implementation timeline chart
+            impl_data = {
+                'Month': ['Month 1-2', 'Month 3-4', 'Month 5-6', 'Month 7-9', 'Month 10-12'],
+                'Activity': ['Framework Launch', 'System Integration', 'Performance Setup', 'Synergy Programs', 'Optimization'],
+                'Progress Target': [25, 45, 65, 85, 100]
+            }
+            
+            fig = px.bar(
+                impl_data,
+                x='Month',
+                y='Progress Target',
+                title='Implementation Timeline (6-12 bulan)',
+                color='Progress Target',
+                color_continuous_scale='viridis',
+                text='Progress Target'
+            )
+            
+            fig.update_layout(height=300, margin=dict(l=20, r=20, t=60, b=20))
+            fig.update_traces(texttemplate='%{text}%', textposition='outside')
+            st.plotly_chart(fig, use_container_width=True)
+    
+    with outcomes_tabs[2]:
+        st.markdown("#### 🌟 Long-term Outcomes (1-2 tahun)")
+        
+        col1, col2 = st.columns(2)
+        
+        with col1:
+            st.markdown("""
+            <div class="benchmark-card">
+                <h4>🏆 Strategic Excellence Vision</h4>
+                <ul>
+                    <li><strong>PT Surveyor Indonesia sebagai holding company excellence</strong>
+                        <br><small>Recognized as benchmark BUMN dalam governance</small></li>
+                    <li><strong>Subsidiary governance setara BUMN terdepan</strong>
+                        <br><small>Level Pertamina, Telkom, Bank Mandiri</small></li>
+                    <li><strong>Digital transformation governance</strong>
+                        <br><small>Full digital platform, AI-enabled decision making</small></li>
+                    <li><strong>Sustainable value creation ecosystem</strong>
+                        <br><small>ESG integration, long-term value orientation</small></li>
+                </ul>
+            </div>
+            """, unsafe_allow_html=True)
+        
+        with col2:
+            # Long-term value creation metrics
+            value_metrics = {
+                'Metric': ['Governance Score', 'Digital Maturity', 'Synergy Realization', 'Risk Management'],
+                'Current (Baseline)': [75, 60, 65, 70],
+                'Year 1 Target': [85, 75, 80, 85],
+                'Year 2 Target': [90, 90, 90, 90]
+            }
+            
+            fig = go.Figure()
+            
+            metrics = value_metrics['Metric']
+            fig.add_trace(go.Scatterpolar(
+                r=value_metrics['Current (Baseline)'],
+                theta=metrics,
+                fill='toself',
+                name='Current Baseline',
+                line_color='red'
+            ))
+            
+            fig.add_trace(go.Scatterpolar(
+                r=value_metrics['Year 1 Target'],
+                theta=metrics,
+                fill='toself',
+                name='Year 1 Target',
+                line_color='orange'
+            ))
+            
+            fig.add_trace(go.Scatterpolar(
+                r=value_metrics['Year 2 Target'],
+                theta=metrics,
+                fill='toself',
+                name='Year 2 Target',
+                line_color='green'
+            ))
+            
+            fig.update_layout(
+                polar=dict(radialaxis=dict(visible=True, range=[0, 100])),
+                showlegend=True,
+                title="Long-term Value Creation Trajectory",
+                height=350
+            )
+            
+            st.plotly_chart(fig, use_container_width=True)
+    
+    # Critical Path Timeline (12 Minggu) sesuai dokumen
+    st.markdown("### ⏱️ Critical Path Timeline (12 Minggu)")
+    
+    critical_path_data = {
+        'Week Range': ['Week 1-2', 'Week 3-6', 'Week 7-9', 'Week 10-12'],
+        'Phase': ['Foundation', 'Core Development', 'Validation', 'Finalization'],
+        'Key Focus': [
+            'Rapid assessment, team setup',
+            'Framework design, policy development', 
+            'Expert review, stakeholder feedback',
+            'Documentation, launch preparation'
         ],
-        'Impact': [5, 4, 3, 5, 4, 3, 2, 4],
-        'Effort': [2, 3, 4, 4, 3, 2, 1, 3],
-        'Priority Score': [25, 16, 12, 25, 16, 15, 14, 16],
-        'Owner': ['Legal', 'IT', 'HR', 'Risk', 'Finance', 'Comms', 'Legal', 'PMO'],
-        'Timeline': ['Week 1', 'Week 2', 'Week 3', 'Week 2', 'Week 4', 'Week 1', 'Week 1', 'Week 3']
+        'Critical Deliverables': [
+            'Baseline established, gaps identified',
+            'Framework draft, policies documented',
+            'Validated framework, compliance verified',
+            'Final pedoman, implementation ready'
+        ],
+        'Success Criteria': [
+            'Stakeholder alignment >85%',
+            'Framework completeness >90%',
+            'Expert validation score >85%',
+            'Implementation readiness >90%'
+        ]
     }
     
-    df_actions = pd.DataFrame(actions_matrix)
-    
-    # Priority matrix visualization
-    fig = px.scatter(
-        df_actions,
-        x='Effort',
-        y='Impact',
-        size='Priority Score',
-        color='Owner',
-        hover_data=['Action', 'Timeline'],
-        title='Action Priority Matrix (Impact vs Effort)'
-    )
-    
-    # Add quadrant lines
-    fig.add_hline(y=3.5, line_dash="dash", line_color="gray")
-    fig.add_vline(x=2.5, line_dash="dash", line_color="gray")
-    
-    # Add quadrant labels
-    fig.add_annotation(x=1.5, y=4.5, text="Quick Wins", showarrow=False, font=dict(size=14, color="green"))
-    fig.add_annotation(x=3.5, y=4.5, text="Major Projects", showarrow=False, font=dict(size=14, color="blue"))
-    fig.add_annotation(x=1.5, y=2.5, text="Fill-ins", showarrow=False, font=dict(size=14, color="orange"))
-    fig.add_annotation(x=3.5, y=2.5, text="Questionable", showarrow=False, font=dict(size=14, color="red"))
-    
-    fig.update_layout(height=500, margin=dict(l=20, r=20, t=60, b=20))
-    st.plotly_chart(fig, use_container_width=True)
-    
-    # Immediate actions (next 7 days)
-    st.markdown("### 🚀 Immediate Actions (Next 7 Days)")
-    
-    immediate_actions = df_actions[df_actions['Timeline'] == 'Week 1'].sort_values('Priority Score', ascending=False)
-    
-    for _, action in immediate_actions.iterrows():
+    for i, week in enumerate(critical_path_data['Week Range']):
         st.markdown(f"""
         <div class="timeline-item">
-            <h4>🎯 {action['Action']}</h4>
-            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem;">
-                <div><strong>Owner:</strong> {action['Owner']}</div>
-                <div><strong>Priority Score:</strong> {action['Priority Score']}</div>
-                <div><strong>Timeline:</strong> {action['Timeline']}</div>
-            </div>
-            <div style="margin-top: 0.5rem;">
-                <strong>Impact:</strong> {'⭐' * action['Impact']} | 
-                <strong>Effort:</strong> {'🔧' * action['Effort']}
-            </div>
-        </div>
-        """, unsafe_allow_html=True)
-    
-    # Success metrics and KPIs
-    st.markdown("### 📊 Success Metrics & KPIs")
-    
-    col1, col2 = st.columns(2)
-    
-    with col1:
-        st.markdown("""
-        <div class="success-box">
-            <h4>🎯 Quantitative KPIs</h4>
-            <ul>
-                <li><strong>Governance Score:</strong> Reach 90/100 by March 2024</li>
-                <li><strong>Implementation Timeline:</strong> 100% milestones on-time</li>
-                <li><strong>Stakeholder Satisfaction:</strong> >85% approval rating</li>
-                <li><strong>Cost Efficiency:</strong> ±5% of approved budget</li>
-                <li><strong>Risk Mitigation:</strong> Zero high-risk items open</li>
-            </ul>
-        </div>
-        """, unsafe_allow_html=True)
-    
-    with col2:
-        st.markdown("""
-        <div class="info-box">
-            <h4>🌟 Qualitative Outcomes</h4>
-            <ul>
-                <li><strong>Cultural Transformation:</strong> Governance mindset adoption</li>
-                <li><strong>Digital Excellence:</strong> Modern governance tools</li>
-                <li><strong>Best Practice Recognition:</strong> Industry benchmark status</li>
-                <li><strong>Sustainable Value:</strong> Long-term value creation framework</li>
-                <li><strong>Stakeholder Trust:</strong> Enhanced transparency & accountability</li>
-            </ul>
-        </div>
-        """, unsafe_allow_html=True)
-    
-    # Implementation roadmap
-    st.markdown("### 🗺️ Implementation Roadmap")
-    
-    roadmap_phases = [
-        {
-            "Phase": "Foundation (Days 1-20)",
-            "Objectives": ["Complete assessment", "Identify gaps", "Design framework"],
-            "Key Deliverables": ["Assessment report", "Gap analysis", "Framework design"],
-            "Success Criteria": ["Stakeholder alignment", "Clear gap identification", "Approved framework"]
-        },
-        {
-            "Phase": "Development (Days 21-45)", 
-            "Objectives": ["Build governance system", "Create documentation", "Validate approach"],
-            "Key Deliverables": ["Governance policies", "Process documentation", "Training materials"],
-            "Success Criteria": ["Quality validation", "Stakeholder approval", "Implementation readiness"]
-        },
-        {
-            "Phase": "Launch (Days 46-60)",
-            "Objectives": ["Finalize documentation", "Prepare launch", "Enable implementation"],
-            "Key Deliverables": ["Final pedoman", "Launch materials", "Implementation plan"],
-            "Success Criteria": ["Board approval", "Launch readiness", "Team preparedness"]
-        }
-    ]
-    
-    for phase in roadmap_phases:
-        st.markdown(f"""
-        <div class="timeline-item">
-            <h4>🎯 {phase['Phase']}</h4>
+            <h4>📅 {week}: {critical_path_data['Phase'][i]}</h4>
             <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem;">
                 <div>
-                    <h5>📋 Objectives</h5>
-                    <ul>
-                        {''.join([f'<li>{obj}</li>' for obj in phase['Objectives']])}
-                    </ul>
+                    <h5>🎯 Key Focus</h5>
+                    <p>{critical_path_data['Key Focus'][i]}</p>
                 </div>
                 <div>
-                    <h5>📦 Key Deliverables</h5>
-                    <ul>
-                        {''.join([f'<li>{deliverable}</li>' for deliverable in phase['Key Deliverables']])}
-                    </ul>
+                    <h5>📦 Critical Deliverables</h5>
+                    <p>{critical_path_data['Critical Deliverables'][i]}</p>
                 </div>
                 <div>
                     <h5>✅ Success Criteria</h5>
-                    <ul>
-                        {''.join([f'<li>{criteria}</li>' for criteria in phase['Success Criteria']])}
-                    </ul>
+                    <p>{critical_path_data['Success Criteria'][i]}</p>
                 </div>
             </div>
         </div>
         """, unsafe_allow_html=True)
     
-    # Call to action
-    st.markdown("### 🚀 Ready to Execute")
+    # Immediate Actions (Hari 1-5) sesuai dokumen
+    st.markdown("### 🚀 Immediate Actions (Hari 1-5)")
     
-    col1, col2, col3, col4 = st.columns(4)
+    immediate_actions_data = {
+        'Priority': ['Critical', 'Critical', 'High', 'High', 'Medium'],
+        'Action Item': [
+            'Project charter finalization & resource allocation',
+            'Quick wins identification & baseline establishment', 
+            'Stakeholder communication plan & governance structure',
+            'Team mobilization & workspace setup',
+            'Risk mitigation plan activation'
+        ],
+        'Owner': ['Project Manager', 'Assessment Team', 'Communications Lead', 'HR & Operations', 'Risk Manager'],
+        'Target Day': ['Day 1', 'Day 2', 'Day 3', 'Day 3', 'Day 5'],
+        'Success Metrics': [
+            'Charter approved, resources committed',
+            'Baseline data 100% complete', 
+            'Communication plan approved',
+            'Team operational, tools ready',
+            'Risk plans activated'
+        ]
+    }
     
-    with col1:
-        if st.button("📋 Approve Action Plan", type="primary"):
-            st.success("✅ Action plan approved! Initiating next phase...")
-            st.balloons()
+    df_immediate = pd.DataFrame(immediate_actions_data)
     
-    with col2:
-        if st.button("👥 Mobilize Team"):
-            st.success("✅ Team mobilization in progress...")
+    # Priority-based color coding
+    def get_priority_color(priority):
+        colors = {
+            'Critical': '#e53e3e',
+            'High': '#f56500', 
+            'Medium': '#ffc107',
+            'Low': '#38a169'
+        }
+        return colors.get(priority, '#666')
     
-    with col3:
-        if st.button("📅 Schedule Kickoff"):
-            st.success("✅ Kickoff meeting scheduled for next Monday!")
+    fig = px.bar(
+        df_immediate,
+        x='Target Day',
+        y='Priority',
+        color='Priority',
+        title='Immediate Actions Priority Matrix (Hari 1-5)',
+        hover_data=['Action Item', 'Owner', 'Success Metrics'],
+        color_discrete_map={
+            'Critical': '#e53e3e',
+            'High': '#f56500',
+            'Medium': '#ffc107',
+            'Low': '#38a169'
+        }
+    )
     
-    with col4:
-        if st.button("📊 Setup Monitoring"):
-            st.success("✅ Monitoring dashboard activated!")
+    fig.update_layout(height=400, margin=dict(l=20, r=20, t=60, b=20))
+    st.plotly_chart(fig, use_container_width=True)
     
-    # Contact and support
-    st.markdown("### 📞 Project Support")
+    # Detailed immediate actions table
+    st.dataframe(df_immediate, use_container_width=True, hide_index=True)
+    
+    # Key Value Propositions dari kesimpulan dokumen
+    st.markdown("### 💎 Key Value Propositions")
     
     col1, col2 = st.columns(2)
     
     with col1:
         st.markdown("""
-        <div class="info-box">
-            <h4>👥 Project Team Contacts</h4>
+        <div class="success-box">
+            <h4>🎯 Strategic Value Creation</h4>
             <ul>
-                <li><strong>Project Manager:</strong> John Doe (john.doe@surveyor.co.id)</li>
-                <li><strong>Governance Lead:</strong> Jane Smith (jane.smith@surveyor.co.id)</li>
-                <li><strong>Technical Lead:</strong> Bob Johnson (bob.johnson@surveyor.co.id)</li>
-                <li><strong>Change Management:</strong> Alice Brown (alice.brown@surveyor.co.id)</li>
+                <li><strong>Framework governance modern dan terintegrasi</strong>
+                    <br><small>Best practices dari Pertamina, Telkom, Bank Mandiri</small></li>
+                <li><strong>Performance management excellence dengan KPI cascade</strong>
+                    <br><small>Integrated monitoring dan benchmarking system</small></li>
+                <li><strong>Synergy optimization dan value creation</strong>
+                    <br><small>Cross-subsidiary collaboration dan resource sharing</small></li>
             </ul>
         </div>
         """, unsafe_allow_html=True)
     
     with col2:
         st.markdown("""
-        <div class="success-box">
-            <h4>🆘 Support Channels</h4>
+        <div class="info-box">
+            <h4>🚀 Operational Excellence</h4>
             <ul>
-                <li><strong>Email:</strong> governance-project@surveyor.co.id</li>
-                <li><strong>Slack:</strong> #governance-transformation</li>
-                <li><strong>Phone:</strong> +62-21-XXXX-XXXX (Emergency)</li>
-                <li><strong>Dashboard:</strong> <a href="#" target="_blank">Project Portal</a></li>
+                <li><strong>Digital-enabled governance platform</strong>
+                    <br><small>Real-time monitoring, AI-powered insights</small></li>
+                <li><strong>Risk management consolidation</strong>
+                    <br><small>Integrated risk appetite, early warning system</small></li>
+                <li><strong>Sustainable competitive advantage</strong>
+                    <br><small>Governance excellence sebagai market differentiator</small></li>
             </ul>
         </div>
         """, unsafe_allow_html=True)
+    
+    # Call to action dengan commitment requirement sesuai dokumen
+    st.markdown("### 🚀 Commitment untuk Excellence")
+    
+    st.markdown("""
+    <div class="benchmark-card">
+        <h4>⚡ Timeline Intensif 60 Hari Kerja</h4>
+        <p><strong>Memerlukan commitment intensif dari seluruh stakeholder dengan pendekatan:</strong></p>
+        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; margin-top: 1rem;">
+            <div>
+                <h5>🎯 Agile Approach</h5>
+                <ul>
+                    <li>2-week sprints</li>
+                    <li>Daily stand-ups</li>
+                    <li>Continuous feedback</li>
+                    <li>Rapid iteration</li>
+                </ul>
+            </div>
+            <div>
+                <h5>⚡ Parallel Execution</h5>
+                <ul>
+                    <li>4 work streams</li>
+                    <li>Concurrent activities</li>
+                    <li>Resource optimization</li>
+                    <li>Time efficiency</li>
+                </ul>
+            </div>
+            <div>
+                <h5>🤝 Stakeholder Engagement</h5>
+                <ul>
+                    <li>Executive sponsorship</li>
+                    <li>Team dedication</li>
+                    <li>Expert validation</li>
+                    <li>User involvement</li>
+                </ul>
+            </div>
+        </div>
+        <p style="margin-top: 1rem; font-weight: bold; text-align: center;">
+            Target: Mencapai governance excellence level BUMN terdepan dalam 60 hari kerja
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    # Final action buttons
+    col1, col2, col3, col4 = st.columns(4)
+    
+    with col1:
+        if st.button("📋 Approve Project Charter", type="primary"):
+            st.success("✅ Project charter approved! Timeline 60 hari dimulai...")
+            st.balloons()
+    
+    with col2:
+        if st.button("👥 Commit Resources"):
+            st.success("✅ Resource commitment confirmed!")
+    
+    with col3:
+        if st.button("📅 Activate Timeline"):
+            st.success("✅ Intensive 60-day timeline activated!")
+    
+    with col4:
+        if st.button("🎯 Launch Excellence"):
+            st.success("✅ Journey to governance excellence begins!")
 
-# Enhanced Footer
+# Enhanced Footer sesuai kesimpulan dokumen KIM Consulting
 st.markdown("---")
 st.markdown("""
 <div style="text-align: center; color: #666; padding: 2rem; background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); border-radius: 10px; margin-top: 2rem;">
@@ -1757,12 +2177,53 @@ st.markdown("""
     <p style="font-style: italic; color: #4a5568;">Menuju Holding Company dengan Subsidiary Governance Excellence</p>
     
     <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid #e2e8f0;">
-        <p style="font-size: 0.9rem; color: #666;"><strong>📊 Data Disclaimer:</strong></p>
+        <h4 style="color: #2c5282; margin-bottom: 1rem;">🎯 Kesimpulan KIM Consulting</h4>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; text-align: left; margin: 1rem 0;">
+            <div>
+                <h5 style="color: #1f4e79;">Key Value Propositions:</h5>
+                <ul style="font-size: 0.9rem;">
+                    <li>Framework governance modern dan terintegrasi</li>
+                    <li>Performance management excellence dengan KPI cascade</li>
+                    <li>Synergy optimization dan value creation</li>
+                    <li>Digital-enabled governance platform</li>
+                    <li>Risk management consolidation</li>
+                </ul>
+            </div>
+            <div>
+                <h5 style="color: #1f4e79;">Target Excellence:</h5>
+                <ul style="font-size: 0.9rem;">
+                    <li>Setara best practices Pertamina, Telkom, Bank Mandiri</li>
+                    <li>International standards (ST Engineering, Temasek)</li>
+                    <li>Governance excellence level BUMN terdepan</li>
+                    <li>Sustainable competitive advantage</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 1rem; border-radius: 10px; margin: 1rem 0;">
+            <p style="font-weight: bold; margin: 0;">
+                Timeline intensif 60 hari kerja dengan pendekatan agile, resource dedication, dan stakeholder engagement untuk mencapai governance excellence level BUMN terdepan.
+            </p>
+        </div>
+    </div>
+    
+    <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid #e2e8f0;">
+        <p style="font-size: 0.9rem; color: #666;"><strong>📊 Data Sources & Methodology:</strong></p>
         <p style="font-size: 0.8rem; color: #666;">
-            Revenue data sourced from official annual reports. Governance scores dan assessment metrics 
-            berdasarkan framework internal dan industry benchmarking. Beberapa proyeksi dan target 
-            merupakan estimasi strategis untuk keperluan perencanaan project.
+            <strong>Benchmarking Data:</strong> Pertamina (transformasi 127→12 anak perusahaan, 2021), Telkom (12 anak perusahaan utama), 
+            Bank Mandiri (11 anak perusahaan finansial). <strong>Revenue data:</strong> Official annual reports. 
+            <strong>Framework assessment:</strong> KIM Consulting methodology dengan GCG principles, corporate parenting model analysis, 
+            dan international best practices benchmarking (ST Engineering, Temasek Holdings).
         </p>
+        <p style="font-size: 0.8rem; color: #666;">
+            <strong>Methodology:</strong> Agile project management, 4 parallel work streams, intensive stakeholder engagement, 
+            concurrent quality assurance dengan expert validation. <strong>Success metrics:</strong> Quality >85%, efficiency (on-time delivery), 
+            effectiveness (implementation readiness >85%).
+        </p>
+    </div>
+    
+    <div style="margin-top: 1rem;">
+        <p style="font-size: 0.9rem; color: #1f4e79;"><strong>Materi Sosialisasi oleh: KIM Consulting</strong></p>
         <p style="font-size: 0.9rem;">Dashboard Version 2.0 | Last Updated: {}</p>
         <p style="font-size: 0.9rem;">🚀 Powered by Streamlit | 📊 Real-time Analytics | 🎯 Strategic Excellence</p>
     </div>
