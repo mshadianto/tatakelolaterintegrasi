@@ -155,20 +155,20 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# Initialize session state with week-based timeline (60 days = 8-9 weeks)
+# Initialize session state with timeline 56 hari (8 weeks)
 if 'project_start_date' not in st.session_state:
-    st.session_state.project_start_date = date(2025, 8, 3)  # Based on image timeline
+    st.session_state.project_start_date = date(2025, 8, 1)  # Agustus 2025 start
 
 if 'current_week' not in st.session_state:
     current_day = (date.today() - st.session_state.project_start_date).days + 1
-    st.session_state.current_week = max(1, (current_day - 1) // 7 + 1)  # Week 1-9
+    st.session_state.current_week = max(1, (current_day - 1) // 7 + 1)  # Week 1-8
 
 if 'project_day' not in st.session_state:
     current_day = (date.today() - st.session_state.project_start_date).days + 1
     st.session_state.project_day = max(1, current_day)
 
 if 'overall_progress' not in st.session_state:
-    st.session_state.overall_progress = min((st.session_state.project_day / 60) * 100, 100)
+    st.session_state.overall_progress = min((st.session_state.project_day / 56) * 100, 100)
 
 # Sidebar with enhanced navigation
 st.sidebar.markdown("""
@@ -210,8 +210,8 @@ st.sidebar.write(f"{st.session_state.overall_progress:.1f}% Complete")
 
 # Quick stats in sidebar
 st.sidebar.markdown("### 📈 Quick Stats")
-st.sidebar.metric("Project Day", f"Day {st.session_state.project_day}/60")
-st.sidebar.metric("Current Week", f"Week {st.session_state.current_week}/9")
+st.sidebar.metric("Project Day", f"Day {st.session_state.project_day}/56")
+st.sidebar.metric("Current Week", f"Week {st.session_state.current_week}/8")
 st.sidebar.metric("Active Activities", "7")
 
 # Main header
@@ -219,7 +219,7 @@ st.markdown("""
 <div class="main-header">
     🏢 Pemutakhiran Pedoman Tata Kelola Terintegrasi<br>
     <span style="font-size: 1.5rem; opacity: 0.9;">PT Surveyor Indonesia</span><br>
-    <span style="font-size: 1rem; opacity: 0.8;">Timeline 60 Hari - Excellence in Corporate Governance</span>
+    <span style="font-size: 1rem; opacity: 0.8;">Timeline 56 Hari - Agustus 2025 - Excellence in Corporate Governance</span>
 </div>
 """, unsafe_allow_html=True)
 
@@ -241,63 +241,63 @@ def get_timeline_data():
     start_date = st.session_state.project_start_date
     current_day = st.session_state.project_day
     
-    # Week-based timeline activities (60 days = 8-9 weeks)
+    # Timeline Pekerjaan - 7 Aktivitas Utama (56 hari = 8 minggu)
     timeline_activities = [
         {
             'Activity': 'Kick-Off Meeting',
-            'Week': 'Minggu 1',
-            'Days': 'Day 1-7',
+            'Week': 'Minggu Ke-1',
+            'Days': 'Hari 1-7',
             'Start_Day': 1,
             'End_Day': 7,
             'Description': 'Project initiation, team mobilization, dan stakeholder alignment'
         },
         {
-            'Activity': 'Review Dokumen & Assessment',
-            'Week': 'Minggu 1-3', 
-            'Days': 'Day 1-21',
+            'Activity': 'Review Dokumen',
+            'Week': 'Minggu Ke-1 s/d Ke-3', 
+            'Days': 'Hari 1-21',
             'Start_Day': 1,
             'End_Day': 21,
-            'Description': 'Comprehensive review of existing governance documents, regulations, and internal policies'
+            'Description': 'Review Pedoman eksisting, regulasi, Anggaran Dasar, Kebijakan Internal'
         },
         {
-            'Activity': 'Stakeholder Interview',
-            'Week': 'Minggu 4-5',
-            'Days': 'Day 22-35', 
+            'Activity': 'Interview',
+            'Week': 'Minggu Ke-3 s/d Ke-4',
+            'Days': 'Hari 22-36', 
             'Start_Day': 22,
-            'End_Day': 35,
-            'Description': 'Structured interviews with Board of Commissioners, Directors, and key units'
+            'End_Day': 36,
+            'Description': 'Melakukan wawancara dengan Dewan Komisaris, Direksi, dan Unit lain untuk mendapatkan insight serta mengetahui tantangan dan ekspektasi dalam hubungan kerja organisasi (Induk Perusahaan) dan Anak Perusahaan'
         },
         {
-            'Activity': 'Framework Development',
-            'Week': 'Minggu 2-5',
-            'Days': 'Day 8-35',
+            'Activity': 'Pemutakhiran Pedoman',
+            'Week': 'Minggu Ke-2 s/d Ke-5',
+            'Days': 'Hari 8-30',
             'Start_Day': 8, 
-            'End_Day': 35,
-            'Description': 'Development of updated governance framework based on analysis and stakeholder input'
+            'End_Day': 30,
+            'Description': 'Menyusun draft awal pedoman yang telah dimutakhirkan berdasarkan hasil analisis, diskusi, dan masukan dari seluruh pemangku kepentingan yang terlibat'
         },
         {
-            'Activity': 'Internal Validation',
-            'Week': 'Minggu 5-6',
-            'Days': 'Day 29-42',
+            'Activity': 'Validasi Internal',
+            'Week': 'Minggu Ke-5 s/d Ke-6',
+            'Days': 'Hari 29-42',
             'Start_Day': 29,
             'End_Day': 42,
-            'Description': 'Internal review and validation with Board of Commissioners and Directors'
+            'Description': 'Pembahasan draft awal dengan Internal Perusahaan (Dewan Komisaris, Direksi, dan Unit lain yang diperlukan)'
         },
         {
-            'Activity': 'Document Finalization',
-            'Week': 'Minggu 6-7',
-            'Days': 'Day 36-49',
-            'Start_Day': 36,
+            'Activity': 'Finalisasi Dokumen',
+            'Week': 'Minggu Ke-6 s/d Ke-7',
+            'Days': 'Hari 31-49',
+            'Start_Day': 31,
             'End_Day': 49,
-            'Description': 'Incorporation of feedback and final document preparation'
+            'Description': 'Menindaklanjuti hasil validasi internal untuk finalisasi draft'
         },
         {
-            'Activity': 'Socialization & Implementation',
-            'Week': 'Minggu 7-9', 
-            'Days': 'Day 43-60',
+            'Activity': 'Sosialisasi',
+            'Week': 'Minggu Ke-7 s/d Ke-8', 
+            'Days': 'Hari 43-56',
             'Start_Day': 43,
-            'End_Day': 60,
-            'Description': 'Stakeholder socialization and implementation preparation'
+            'End_Day': 56,
+            'Description': 'Sosialisasi kepada Insan Perusahaan dan stakeholders'
         }
     ]
     
@@ -347,9 +347,9 @@ if page == "dashboard":
         st.markdown(f"""
         <div class="metric-card">
             <h3 style="color: #1f4e79; margin-bottom: 0.5rem;">⏰ Timeline</h3>
-            <h1 style="color: #e53e3e; margin: 0; font-size: 2.5rem;">60</h1>
+            <h1 style="color: #e53e3e; margin: 0; font-size: 2.5rem;">56</h1>
             <h3 style="color: #e53e3e; margin: 0;">Hari</h3>
-            <p style="margin: 0; color: #666;">Aug 3 - Oct 1, 2025</p>
+            <p style="margin: 0; color: #666;">Agustus 2025 - 8 Minggu</p>
             <div style="margin-top: 0.5rem;">
                 <small style="color: #28a745;">✓ Currently Day {st.session_state.project_day}</small>
             </div>
@@ -362,9 +362,9 @@ if page == "dashboard":
             <h3 style="color: #1f4e79; margin-bottom: 0.5rem;">📋 Activities</h3>
             <h1 style="color: #38a169; margin: 0; font-size: 2.5rem;">7</h1>
             <h3 style="color: #38a169; margin: 0;">Utama</h3>
-            <p style="margin: 0; color: #666;">Week-based Schedule</p>
+            <p style="margin: 0; color: #666;">Timeline Overlapping</p>
             <div style="margin-top: 0.5rem;">
-                <small style="color: #28a745;">✓ Overlapping Execution</small>
+                <small style="color: #28a745;">✓ Agustus 2025</small>
             </div>
         </div>
         """, unsafe_allow_html=True)
@@ -375,7 +375,7 @@ if page == "dashboard":
             <h3 style="color: #1f4e79; margin-bottom: 0.5rem;">📅 Current</h3>
             <h1 style="color: #3182ce; margin: 0; font-size: 2.5rem;">{st.session_state.current_week}</h1>
             <h3 style="color: #3182ce; margin: 0;">Week</h3>
-            <p style="margin: 0; color: #666;">of 9 Total Weeks</p>
+            <p style="margin: 0; color: #666;">of 8 Total Weeks</p>
             <div style="margin-top: 0.5rem;">
                 <small style="color: #28a745;">✓ Week-based Tracking</small>
             </div>
@@ -535,14 +535,14 @@ if page == "dashboard":
 
 # Timeline Page with week-based structure
 elif page == "timeline":
-    st.markdown('<div class="sub-header">⏱️ Timeline 60 Hari - Week-based Implementation Schedule</div>', unsafe_allow_html=True)
+    st.markdown('<div class="sub-header">⏱️ Timeline 56 Hari - Agustus 2025 Implementation Schedule</div>', unsafe_allow_html=True)
     
     # Current status indicator
     st.markdown(f"""
     <div class="info-box">
         <h4 style="color: #1f4e79; margin: 0;">📅 Current Status: Week {st.session_state.current_week}, Day {st.session_state.project_day}</h4>
         <p style="color: #1f4e79; margin: 0.5rem 0;">
-            Progress: {st.session_state.overall_progress:.1f}% | Timeline: Aug 3 - Oct 1, 2025
+            Progress: {st.session_state.overall_progress:.1f}% | Timeline: Agustus 2025 - 56 Hari (8 Minggu)
         </p>
     </div>
     """, unsafe_allow_html=True)
@@ -551,7 +551,7 @@ elif page == "timeline":
     timeline_activities = get_timeline_data()
     
     # Create timeline visualization
-    st.markdown("### 📊 Timeline Overview - 7 Key Activities")
+    st.markdown("### 📊 Timeline Pekerjaan - 7 Aktivitas Utama")
     
     # Create Gantt-style chart
     fig = go.Figure()
@@ -578,14 +578,14 @@ elif page == "timeline":
                   annotation_text=f"Day {st.session_state.project_day}", annotation_position="top")
     
     # Add week markers
-    for week in range(1, 10):
+    for week in range(1, 9):
         week_day = (week - 1) * 7 + 1
-        if week_day <= 60:
+        if week_day <= 56:
             fig.add_vline(x=week_day, line_dash="dot", line_color="gray", opacity=0.5,
                           annotation_text=f"W{week}", annotation_position="bottom")
     
     fig.update_layout(
-        title="Timeline 60 Hari - Weekly Schedule with Overlapping Activities",
+        title="Timeline 56 Hari - Agustus 2025 - Aktivitas Overlapping",
         xaxis_title="Project Day",
         yaxis_title="Activities",
         yaxis=dict(
@@ -600,19 +600,18 @@ elif page == "timeline":
     st.plotly_chart(fig, use_container_width=True)
     
     # Weekly breakdown
-    st.markdown("### 📅 Weekly Breakdown")
+    st.markdown("### 📅 Breakdown per Minggu - Agustus 2025")
     
-    # Create weekly structure
+    # Create weekly structure for 8 weeks
     weeks = [
-        {"week": 1, "period": "Aug 3-9", "focus": "Project Launch & Initial Assessment"},
-        {"week": 2, "period": "Aug 10-16", "focus": "Document Review & Framework Analysis"},
-        {"week": 3, "period": "Aug 17-23", "focus": "Comprehensive Assessment Completion"},
-        {"week": 4, "period": "Aug 24-30", "focus": "Stakeholder Interviews Begin"},
-        {"week": 5, "period": "Aug 31-Sep 6", "focus": "Interview Completion & Framework Development"},
-        {"week": 6, "period": "Sep 7-13", "focus": "Internal Validation & Document Finalization"},
-        {"week": 7, "period": "Sep 14-20", "focus": "Document Refinement & Socialization Prep"},
-        {"week": 8, "period": "Sep 21-27", "focus": "Stakeholder Socialization"},
-        {"week": 9, "period": "Sep 28-Oct 1", "focus": "Implementation Preparation"}
+        {"week": 1, "period": "Minggu Ke-1", "focus": "Kick-Off Meeting & Review Dokumen Awal"},
+        {"week": 2, "period": "Minggu Ke-2", "focus": "Review Dokumen Lanjutan & Pemutakhiran Pedoman Awal"},
+        {"week": 3, "period": "Minggu Ke-3", "focus": "Review Dokumen Selesai & Interview Dimulai"},
+        {"week": 4, "period": "Minggu Ke-4", "focus": "Interview & Pemutakhiran Pedoman Berlanjut"},
+        {"week": 5, "period": "Minggu Ke-5", "focus": "Pemutakhiran Pedoman Selesai & Validasi Internal Dimulai"},
+        {"week": 6, "period": "Minggu Ke-6", "focus": "Validasi Internal & Finalisasi Dokumen Dimulai"},
+        {"week": 7, "period": "Minggu Ke-7", "focus": "Finalisasi Dokumen & Sosialisasi Dimulai"},
+        {"week": 8, "period": "Minggu Ke-8", "focus": "Sosialisasi & Persiapan Implementasi"}
     ]
     
     for week_info in weeks:
@@ -895,7 +894,7 @@ elif page == "nextsteps":
     
     next_steps = [
         {'action': 'Complete Current Week Activities', 'timeline': f'Week {st.session_state.current_week}', 'owner': 'Project Team', 'priority': 'Critical'},
-        {'action': 'Prepare for Next Week', 'timeline': f'Week {st.session_state.current_week + 1}', 'owner': 'Project Manager', 'priority': 'High'},
+        {'action': 'Prepare for Next Week', 'timeline': f'Week {min(st.session_state.current_week + 1, 8)}', 'owner': 'Project Manager', 'priority': 'High'},
         {'action': 'Update Documentation', 'timeline': 'Ongoing', 'owner': 'Documentation Team', 'priority': 'Medium'}
     ]
     
@@ -908,6 +907,41 @@ elif page == "nextsteps":
                 st.markdown(f"**Timeline:** {step['timeline']}")
             with col2:
                 st.markdown(f"**Owner:** {step['owner']}")
+    
+    # Success metrics
+    st.markdown("### 📊 Success Metrics Framework - Timeline 56 Hari")
+    
+    col1, col2, col3 = st.columns(3)
+    
+    with col1:
+        st.markdown("#### 🎯 Quality Metrics")
+        st.markdown("""
+        • Stakeholder satisfaction >85%  
+        • Framework completeness >90%  
+        • BUMN best practice integration >95%
+        • Expert validation approval  
+        • Compliance verification 100%
+        """)
+    
+    with col2:
+        st.markdown("#### ⚡ Efficiency Metrics")
+        st.markdown(f"""
+        • Week {st.session_state.current_week}/8 timeline adherence  
+        • Budget adherence ±5%  
+        • Resource utilization >80%  
+        • Risk mitigation effectiveness
+        • 7 aktivitas overlapping efficiency
+        """)
+    
+    with col3:
+        st.markdown("#### 📈 Effectiveness Metrics")
+        st.markdown("""
+        • Implementation readiness >85%  
+        • Change management adoption  
+        • Governance score improvement  
+        • Long-term sustainability
+        • BUMN benchmark achievement
+        """)
 
 # Footer
 st.markdown("---")
@@ -915,8 +949,8 @@ st.markdown(f"""
 <div style="text-align: center; color: #666; padding: 2rem; background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); border-radius: 10px; margin-top: 2rem;">
     <h3 style="color: #1f4e79; margin-bottom: 1rem;">🏢 Pemutakhiran Pedoman Tata Kelola Terintegrasi</h3>
     <h4 style="color: #2c5282;">PT Surveyor Indonesia</h4>
-    <p style="font-size: 1.1rem; margin: 1rem 0;"><strong>Week {st.session_state.current_week}/9 - Day {st.session_state.project_day}/60 Implementation</strong></p>
-    <p style="font-style: italic; color: #4a5568;">Excellence in Corporate Governance & Strategic Control Model</p>
+    <p style="font-size: 1.1rem; margin: 1rem 0;"><strong>Week {st.session_state.current_week}/8 - Day {st.session_state.project_day}/56 Implementation</strong></p>
+    <p style="font-style: italic; color: #4a5568;">Agustus 2025 - Excellence in Corporate Governance & Strategic Control Model</p>
 </div>
 """, unsafe_allow_html=True)
 
@@ -926,7 +960,7 @@ with col1:
     st.markdown("**Dashboard Information:**")
     st.markdown(f"• Version 4.0 - Week {st.session_state.current_week}")
     st.markdown(f"• Last Updated: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M')}")
-    st.markdown("• 60-Day Week-based Implementation")
+    st.markdown("• 56-Day Timeline Agustus 2025")
 
 with col2:
     st.markdown("**Created by:**")
@@ -936,8 +970,8 @@ with col2:
 
 with col3:
     st.markdown("**Methodology:**")
-    st.markdown("• 🚀 Aug 3 - Oct 1, 2025")
-    st.markdown("• 📅 9 Weeks, 7 Activities")
+    st.markdown("• 🚀 Agustus 2025 - 56 Hari")
+    st.markdown("• 📅 8 Minggu, 7 Aktivitas")
     st.markdown("• 🎯 Strategic Control Framework")
 
 st.markdown("---")
@@ -946,7 +980,7 @@ st.markdown(f"""
     <h4 style="color: #856404; margin: 0;">⚠️ COMPREHENSIVE DISCLAIMER - Week {st.session_state.current_week}</h4>
     <p style="color: #856404; margin: 0.5rem 0; font-size: 0.9rem;">
         <strong>Materi sosialisasi ini untuk digunakan secara terbatas pada PT Surveyor Indonesia.</strong><br>
-        Timeline menggunakan struktur 60 hari (9 minggu) dengan 7 aktivitas utama overlapping.
+        Timeline menggunakan struktur 56 hari (8 minggu) dengan 7 aktivitas utama overlapping - Agustus 2025.
         BUMN structure analysis berdasarkan Annual Reports. Semua data numerik bersifat ilustratif 
         untuk keperluan pengembangan framework dan benchmarking metodologi, bukan data aktual.
     </p>
