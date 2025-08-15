@@ -228,13 +228,13 @@ st.sidebar.metric("Current Month", "Bulan 1/2")
 st.sidebar.metric("Active Activities", "7")
 
 # Main header
-st.markdown("""
+st.markdown(f"""
 <div class="main-header">
     🏢 Pemutakhiran Pedoman Tata Kelola Terintegrasi<br>
     <span style="font-size: 1.5rem; opacity: 0.9;">PT Surveyor Indonesia</span><br>
     <span style="font-size: 1rem; opacity: 0.8;">Timeline 2 Bulan - Week {st.session_state.current_week} - Excellence in Corporate Governance</span>
 </div>
-""".format(st.session_state.current_week), unsafe_allow_html=True)
+""", unsafe_allow_html=True)
 
 # Add disclaimer
 st.markdown(f"""
