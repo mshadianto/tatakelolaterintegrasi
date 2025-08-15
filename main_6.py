@@ -242,7 +242,7 @@ st.markdown("""
 # Add disclaimer
 st.markdown(f"""
 <div class="warning-box">
-    <h4 style="color: #856404; margin: 0;">⚠️ FRAMEWORK DISCLAIMER - Day {st.session_state.project_day}</h4>
+    <h4 style="color: #856404; margin: 0;">⚠️ FRAMEWORK DISCLAIMER </h4>
     <p style="color: #856404; margin: 0.5rem 0; font-size: 0.9rem;">
         <strong>Dashboard ini menyajikan framework governance dan metodologi konseptual.</strong><br>
         Data numerik bersifat ilustratif untuk keperluan perencanaan dan benchmarking framework, bukan data finansial aktual.
