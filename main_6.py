@@ -190,6 +190,17 @@ if 'project_day' not in st.session_state:
     current_day = (date.today() - st.session_state.project_start_date).days + 1
     st.session_state.project_day = max(1, current_day)  # H+1, H+2, etc.
 
+# Calculate current phase based on new timeline structure
+if st.session_state.project_day <= 21:
+    st.session_state.current_phase = 1  # Review & Assessment Phase
+elif st.session_state.project_day <= 42:
+    st.session_state.current_phase = 2  # Interview & Development Phase
+else:
+    st.session_state.current_phase = 3  # Validation & Finalization Phase
+
+# Calculate overall progress based on timeline completion
+st.session_state.overall_progress = min((st.session_state.project_day / 56) * 100, 100)
+
 # Sidebar with enhanced navigation
 st.sidebar.markdown("""
 <div style="text-align: center; padding: 1rem;">
@@ -255,9 +266,9 @@ st.sidebar.write(f"{st.session_state.overall_progress}% Complete")
 # Quick stats in sidebar
 st.sidebar.markdown("### 📈 Quick Stats")
 current_day = st.session_state.project_day
-st.sidebar.metric("Project Day", f"H+{current_day}/60")
-st.sidebar.metric("Current Phase", f"Fase {st.session_state.current_phase}")
-st.sidebar.metric("Active Workstreams", "4")
+st.sidebar.metric("Project Day", f"H+{current_day}/56")
+st.sidebar.metric("Current Phase", f"Phase {st.session_state.current_phase}")
+st.sidebar.metric("Active Activities", "7")
 
 # Main header with enhanced styling
 st.markdown("""
@@ -297,23 +308,82 @@ def get_timeline_data():
     start_date = st.session_state.project_start_date
     current_day = st.session_state.project_day
     
-    phase1_progress = min(max((current_day - 1) / 20 * 100, 0), 100)
-    phase2_progress = min(max((current_day - 20) / 25 * 100, 0), 100) 
-    phase3_progress = min(max((current_day - 45) / 15 * 100, 0), 100)
+    # Timeline berdasarkan dokumen terlampir
+    timeline_activities = [
+        {
+            'Activity': 'Kick-Off Meeting',
+            'Week': 'Minggu Ke-1',
+            'Days': 'H+1 - H+7',
+            'Start_Day': 1,
+            'End_Day': 7,
+            'Description': 'Project initiation and team mobilization'
+        },
+        {
+            'Activity': 'Review Dokumen',
+            'Week': 'Minggu Ke-1 s/d Ke-3', 
+            'Days': 'H+1 - H+21',
+            'Start_Day': 1,
+            'End_Day': 21,
+            'Description': 'Review Pedoman eksisting, regulasi, Anggaran Dasar, Kebijakan Internal'
+        },
+        {
+            'Activity': 'Interview',
+            'Week': 'Minggu Ke-3 s/d Ke-4',
+            'Days': 'H+22 - H+36', 
+            'Start_Day': 22,
+            'End_Day': 36,
+            'Description': 'Wawancara dengan Dewan Komisaris, Direksi, dan Unit lain untuk insight dan ekspektasi'
+        },
+        {
+            'Activity': 'Pemutakhiran Pedoman',
+            'Week': 'Minggu Ke-2 s/d Ke-5',
+            'Days': 'H+8 - H+30',
+            'Start_Day': 8, 
+            'End_Day': 30,
+            'Description': 'Menyusun draft awal pedoman berdasarkan hasil analisis dan masukan stakeholder'
+        },
+        {
+            'Activity': 'Validasi Internal',
+            'Week': 'Minggu Ke-5 s/d Ke-6',
+            'Days': 'H+29 - H+42',
+            'Start_Day': 29,
+            'End_Day': 42,
+            'Description': 'Pembahasan draft awal dengan Internal Perusahaan (Dewan Komisaris, Direksi)'
+        },
+        {
+            'Activity': 'Finalisasi Dokumen',
+            'Week': 'Minggu Ke-6 s/d Ke-7',
+            'Days': 'H+31 - H+49',
+            'Start_Day': 31,
+            'End_Day': 49,
+            'Description': 'Menindaklanjuti hasil validasi internal untuk finalisasi draft'
+        },
+        {
+            'Activity': 'Sosialisasi',
+            'Week': 'Minggu Ke-7 s/d Ke-8', 
+            'Days': 'H+43 - H+56',
+            'Start_Day': 43,
+            'End_Day': 56,
+            'Description': 'Sosialisasi kepada Insan Perusahaan dan stakeholders'
+        }
+    ]
     
-    return {
-        'Phase': ['Fase 1: Assessment', 'Fase 2: Development', 'Fase 3: Finalization'],
-        'Duration': ['H+1 - H+20', 'H+21 - H+45', 'H+46 - H+60'],
-        'Start Date': [start_date, start_date + timedelta(days=20), start_date + timedelta(days=45)],
-        'End Date': [start_date + timedelta(days=19), start_date + timedelta(days=44), start_date + timedelta(days=59)],
-        'Status': [
-            '✅ Completed' if phase1_progress >= 100 else '🔄 In Progress' if phase1_progress > 0 else '⏳ Planned',
-            '✅ Completed' if phase2_progress >= 100 else '🔄 In Progress' if phase2_progress > 0 else '⏳ Planned',
-            '✅ Completed' if phase3_progress >= 100 else '🔄 In Progress' if phase3_progress > 0 else '⏳ Planned'
-        ],
-        'Progress': [round(phase1_progress), round(phase2_progress), round(phase3_progress)],
-        'Key Deliverable': ['Gap Analysis Report', 'Validated Framework', 'Final Pedoman']
-    }
+    # Calculate progress for each activity
+    for activity in timeline_activities:
+        if current_day < activity['Start_Day']:
+            activity['Progress'] = 0
+            activity['Status'] = '⏳ Planned'
+        elif current_day > activity['End_Day']:
+            activity['Progress'] = 100
+            activity['Status'] = '✅ Completed'
+        else:
+            # Calculate progress within the activity period
+            days_in_activity = activity['End_Day'] - activity['Start_Day'] + 1
+            days_completed = current_day - activity['Start_Day'] + 1
+            activity['Progress'] = round((days_completed / days_in_activity) * 100)
+            activity['Status'] = '🔄 In Progress'
+    
+    return timeline_activities
 @st.cache_data
 def get_kpi_data():
     # Note: Illustrative target metrics for framework implementation
@@ -335,9 +405,9 @@ if page == "dashboard":
         st.markdown(f"""
         <div class="metric-card">
             <h3 style="color: #1f4e79; margin-bottom: 0.5rem;">⏰ Timeline</h3>
-            <h1 style="color: #e53e3e; margin: 0; font-size: 2.5rem;">60</h1>
+            <h1 style="color: #e53e3e; margin: 0; font-size: 2.5rem;">56</h1>
             <h3 style="color: #e53e3e; margin: 0;">Hari</h3>
-            <p style="margin: 0; color: #666;">H+1 - H+60 Implementation</p>
+            <p style="margin: 0; color: #666;">H+1 - H+56 Implementation</p>
             <div style="margin-top: 0.5rem;">
                 <small style="color: #28a745;">✓ Currently H+{st.session_state.project_day}</small>
             </div>
@@ -347,12 +417,12 @@ if page == "dashboard":
     with col2:
         st.markdown("""
         <div class="metric-card">
-            <h3 style="color: #1f4e79; margin-bottom: 0.5rem;">🏆 Holding Models</h3>
-            <h1 style="color: #38a169; margin: 0; font-size: 2.5rem;">3</h1>
-            <h3 style="color: #38a169; margin: 0;">BUMN</h3>
-            <p style="margin: 0; color: #666;">Structure Analysis</p>
+            <h3 style="color: #1f4e79; margin-bottom: 0.5rem;">📋 Activities</h3>
+            <h1 style="color: #38a169; margin: 0; font-size: 2.5rem;">7</h1>
+            <h3 style="color: #38a169; margin: 0;">Utama</h3>
+            <p style="margin: 0; color: #666;">Overlapping Timeline</p>
             <div style="margin-top: 0.5rem;">
-                <small style="color: #28a745;">✓ Pertamina, Telkom, Mandiri</small>
+                <small style="color: #28a745;">✓ Parallel Execution</small>
             </div>
         </div>
         """, unsafe_allow_html=True)
@@ -361,9 +431,9 @@ if page == "dashboard":
         st.markdown("""
         <div class="metric-card">
             <h3 style="color: #1f4e79; margin-bottom: 0.5rem;">🎯 Framework</h3>
-            <h1 style="color: #3182ce; margin: 0; font-size: 2.5rem;">4</h1>
-            <h3 style="color: #3182ce; margin: 0;">Models</h3>
-            <p style="margin: 0; color: #666;">Corporate Parenting</p>
+            <h1 style="color: #3182ce; margin: 0; font-size: 2.5rem;">3</h1>
+            <h3 style="color: #3182ce; margin: 0;">Phase</h3>
+            <p style="margin: 0; color: #666;">Review→Development→Finalization</p>
             <div style="margin-top: 0.5rem;">
                 <small style="color: #28a745;">✓ Strategic Control Focus</small>
             </div>
@@ -485,31 +555,33 @@ if page == "dashboard":
     with col2:
         st.markdown(f"### 📋 H+{st.session_state.project_day} Focus")
         
-        # Dynamic focus based on project day
-        if st.session_state.project_day <= 10:
-            focus_items = [
-                "🔄 Project mobilization",
-                "🔄 Stakeholder mapping", 
-                "⏳ Current state assessment",
-                "⏳ BUMN structure analysis"
-            ]
-            focus_title = "H+1-10 Priorities"
-        elif st.session_state.project_day <= 20:
-            focus_items = [
-                "🔄 Gap analysis completion",
-                "🔄 Holding model evaluation",
-                "⏳ Framework design",
-                "⏳ Authority matrix development"
-            ]
-            focus_title = "H+11-20 Priorities"
+        # Dynamic focus based on project day and new timeline
+        timeline_activities = get_timeline_data()
+        active_activities = [act for act in timeline_activities if act['Status'] == '🔄 In Progress']
+        
+        focus_items = []
+        focus_title = f"H+{st.session_state.project_day} Active Activities"
+        
+        if active_activities:
+            for activity in active_activities:
+                progress_icon = "🔄"
+                focus_items.append(f"{progress_icon} {activity['Activity']} ({activity['Progress']}%)")
         else:
-            focus_items = [
-                "🔄 Framework validation",
-                "🔄 Implementation planning",
-                "⏳ Documentation preparation",
-                "⏳ Change management"
-            ]
-            focus_title = "H+21+ Priorities"
+            # Show upcoming activities if none are active
+            upcoming = [act for act in timeline_activities if act['Status'] == '⏳ Planned' and act['Start_Day'] <= st.session_state.project_day + 3]
+            for activity in upcoming:
+                days_to_start = activity['Start_Day'] - st.session_state.project_day
+                focus_items.append(f"⏳ {activity['Activity']} (Starts H+{activity['Start_Day']})")
+        
+        if not focus_items:
+            if st.session_state.project_day <= 7:
+                focus_items = ["🔄 Kick-Off Meeting", "🔄 Document Review", "⏳ Team Mobilization", "⏳ Stakeholder Mapping"]
+            elif st.session_state.project_day <= 21:
+                focus_items = ["🔄 Review Dokumen", "🔄 BUMN Analysis", "⏳ Interview Preparation", "⏳ Draft Development"]
+            elif st.session_state.project_day <= 42:
+                focus_items = ["🔄 Interview Process", "🔄 Pemutakhiran Pedoman", "⏳ Validation Preparation", "⏳ Internal Review"]
+            else:
+                focus_items = ["🔄 Finalisasi Dokumen", "🔄 Sosialisasi", "⏳ Final Review", "⏳ Implementation Prep"]
         
         st.markdown(f"""
         <div class="info-box">
@@ -520,16 +592,18 @@ if page == "dashboard":
         </div>
         """, unsafe_allow_html=True)
         
-        st.markdown("### ⚠️ Holding Structure Insights")
-        st.markdown("""
+        # Show current phase description
+        phase_info = {
+            1: "Review & Assessment Phase - Document analysis dan project setup",
+            2: "Interview & Development Phase - Stakeholder engagement dan draft creation", 
+            3: "Validation & Finalization Phase - Internal validation dan socialization"
+        }
+        
+        st.markdown(f"""
         <div class="warning-box">
-            <h4>🏗️ Key Learnings from BUMN Analysis</h4>
-            <ul>
-                <li><strong>Pertamina:</strong> Multi-tier subholding structure</li>
-                <li><strong>Telkom:</strong> Integrated business unit approach</li>
-                <li><strong>Bank Mandiri:</strong> Financial ecosystem model</li>
-                <li><strong>PT SI Target:</strong> Strategic control optimization</li>
-            </ul>
+            <h4>📊 Current Phase {st.session_state.current_phase}</h4>
+            <p>{phase_info[st.session_state.current_phase]}</p>
+            <p><strong>Timeline Progress:</strong> {st.session_state.overall_progress:.1f}% complete</p>
         </div>
         """, unsafe_allow_html=True)
     
@@ -1349,178 +1423,212 @@ elif page == "framework":
 
 # Timeline Page (keeping the existing enhanced timeline from previous version)
 elif page == "timeline":
-    st.markdown('<div class="sub-header">⏱️ Rencana Kerja 60 Hari - H+1 Implementation</div>', unsafe_allow_html=True)
+    st.markdown('<div class="sub-header">⏱️ Timeline Pekerjaan 7 Aktivitas Utama - H+1 Implementation</div>', unsafe_allow_html=True)
     
     # Current project day indicator
     st.markdown(f"""
     <div style="background: #e6f3ff; border: 2px solid #3182ce; border-radius: 10px; padding: 1rem; margin: 1rem 0;">
         <h4 style="color: #1f4e79; margin: 0;">📅 Current Status: H+{st.session_state.project_day}</h4>
         <p style="color: #1f4e79; margin: 0.5rem 0;">
-            Project Day {st.session_state.project_day} of 60 | Phase {st.session_state.current_phase} Active
+            Project Day {st.session_state.project_day} of 56 | Phase {st.session_state.current_phase} Active
         </p>
     </div>
     """, unsafe_allow_html=True)
     
-    # Timeline content with H+ format
-    timeline_data = get_timeline_data()
-    df_timeline = pd.DataFrame(timeline_data)
+    # Get timeline data
+    timeline_activities = get_timeline_data()
     
-    fig = px.timeline(
-        df_timeline,
-        x_start="Start Date",
-        x_end="End Date", 
-        y="Phase",
-        color="Progress",
-        title="Project Timeline - 60 Days (H+1 to H+60 Implementation)",
-        color_continuous_scale="viridis",
-        hover_data=["Key Deliverable", "Status"]
+    # Create timeline visualization
+    st.markdown("### 📊 Timeline Overview - 7 Aktivitas Utama")
+    
+    # Create Gantt-style chart
+    fig = go.Figure()
+    
+    colors = ['#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FCEA2B', '#FF9F43', '#AA7CB3']
+    
+    for i, activity in enumerate(timeline_activities):
+        fig.add_trace(go.Scatter(
+            x=[activity['Start_Day'], activity['End_Day']],
+            y=[i, i],
+            mode='lines+markers',
+            line=dict(width=20, color=colors[i]),
+            marker=dict(size=12),
+            name=activity['Activity'],
+            hovertemplate=f"<b>{activity['Activity']}</b><br>" +
+                         f"Period: {activity['Days']}<br>" +
+                         f"Progress: {activity['Progress']}%<br>" +
+                         f"Status: {activity['Status']}<extra></extra>"
+        ))
+    
+    # Add current day indicator
+    fig.add_vline(x=st.session_state.project_day, line_dash="dash", line_color="red", 
+                  annotation_text=f"H+{st.session_state.project_day}", annotation_position="top")
+    
+    fig.update_layout(
+        title="Timeline Pekerjaan - Overlapping Activities",
+        xaxis_title="Project Day (H+)",
+        yaxis_title="Activities",
+        yaxis=dict(
+            tickmode='array',
+            tickvals=list(range(len(timeline_activities))),
+            ticktext=[activity['Activity'] for activity in timeline_activities]
+        ),
+        height=500,
+        showlegend=False
     )
     
-    fig.update_layout(height=300, margin=dict(l=20, r=20, t=60, b=20))
     st.plotly_chart(fig, use_container_width=True)
     
-    # Enhanced phase breakdown with holding structure insights
-    st.markdown("### 📋 Phase Breakdown with BUMN Structure Insights")
+    # Detailed timeline breakdown
+    st.markdown("### 📋 Detailed Timeline Breakdown")
     
-    col1, col2 = st.columns([2, 1])
-    
-    with col1:
-        st.markdown("#### 📅 Fase 1: Assessment & Gap Analysis (H+1 - H+20)")
-        
-        st.markdown("""
-        **H+1 - H+10: Rapid Assessment**
-        
-        **Key Activities:**
-        • Project mobilization dan team setup
-        • Current state assessment (parallel activities)
-        • **BUMN Structure Analysis:** Pertamina, Telkom, Bank Mandiri
-        • Stakeholder mapping dan key interviews
-        • Documentation review dan regulatory compliance check
-        
-        **BUMN Structure Learning Integration:**
-        • Pertamina multi-tier subholding analysis
-        • Telkom integrated business unit study  
-        • Bank Mandiri financial ecosystem review
-        • Authority matrix benchmarking
-        
-        **Deliverable:** Current State Assessment + BUMN Structure Analysis Report
-        """)
-        
-        st.markdown("""
-        **H+11 - H+20: Gap Analysis & Framework Design**
-        
-        **Key Activities:**
-        • Gap identification menggunakan BUMN best practices
-        • Holding model selection berdasarkan struktur analysis
-        • Risk assessment dan opportunity mapping
-        • Preliminary framework design workshop
-        
-        **BUMN Insights Application:**
-        • Strategic control model validation (Pertamina approach)
-        • Technology integration opportunities (Telkom model)
-        • Cross-selling synergy potential (Bank Mandiri approach)
-        • Authority matrix design
-        
-        **Deliverable:** Gap Analysis Report & Framework Design Blueprint
-        """)
-    
-    with col2:
-        # Progress tracking for current phase
-        current_day = st.session_state.project_day
-        if current_day <= 20:
-            phase_progress = min((current_day / 20) * 100, 100)
-            phase_name = "Fase 1"
-        elif current_day <= 45:
-            phase_progress = min(((current_day - 20) / 25) * 100, 100) 
-            phase_name = "Fase 2"
+    for i, activity in enumerate(timeline_activities, 1):
+        # Determine if activity is current, completed, or planned
+        if activity['Status'] == '🔄 In Progress':
+            box_style = "success-box"
+        elif activity['Status'] == '✅ Completed':
+            box_style = "info-box" 
         else:
-            phase_progress = min(((current_day - 45) / 15) * 100, 100)
-            phase_name = "Fase 3"
+            box_style = "warning-box"
         
-        fig = go.Figure(go.Indicator(
-            mode="gauge+number",
-            value=round(phase_progress),
-            title={'text': f"{phase_name} Progress", 'font': {'size': 16}},
-            number={'suffix': "%", 'font': {'size': 20}},
-            gauge={
-                'axis': {'range': [None, 100], 'tickwidth': 1},
-                'bar': {'color': "#38a169"},
-                'steps': [
-                    {'range': [0, 33], 'color': "#fed7d7"},
-                    {'range': [33, 66], 'color': "#feebc8"},
-                    {'range': [66, 100], 'color': "#c6f6d5"}
-                ],
-                'threshold': {'line': {'color': "red", 'width': 4}, 'thickness': 0.75, 'value': 90}
-            }
-        ))
-        fig.update_layout(height=250, margin=dict(l=20, r=20, t=40, b=20))
-        st.plotly_chart(fig, use_container_width=True)
-        
-        # Key milestones
-        st.markdown("### 🎯 Current Phase Milestones")
-        if current_day <= 20:
-            milestones = [
-                f"{'✅' if current_day >= 2 else '⏳'} Project Charter (H+2)",
-                f"{'✅' if current_day >= 5 else '⏳'} BUMN Analysis (H+5)", 
-                f"{'✅' if current_day >= 10 else '⏳'} Stakeholder Interviews (H+10)",
-                f"{'✅' if current_day >= 20 else '⏳'} Gap Analysis (H+20)"
-            ]
-        elif current_day <= 45:
-            milestones = [
-                f"{'✅' if current_day >= 25 else '⏳'} Framework Draft (H+25)",
-                f"{'✅' if current_day >= 35 else '⏳'} Authority Matrix (H+35)",
-                f"{'✅' if current_day >= 40 else '⏳'} Expert Validation (H+40)",
-                f"{'✅' if current_day >= 45 else '⏳'} Framework Final (H+45)"
-            ]
-        else:
-            milestones = [
-                f"{'✅' if current_day >= 50 else '⏳'} Documentation (H+50)",
-                f"{'✅' if current_day >= 55 else '⏳'} Board Presentation (H+55)",
-                f"{'✅' if current_day >= 58 else '⏳'} Implementation Brief (H+58)",
-                f"{'✅' if current_day >= 60 else '⏳'} Project Completion (H+60)"
-            ]
-        
-        for milestone in milestones:
-            st.markdown(f"- {milestone}")
+        st.markdown(f"""
+        <div class="{box_style}">
+            <h4>{i}. {activity['Activity']} {activity['Status']}</h4>
+            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem;">
+                <div>
+                    <strong>Timeline:</strong> {activity['Week']}<br>
+                    <strong>Days:</strong> {activity['Days']}
+                </div>
+                <div>
+                    <strong>Progress:</strong> {activity['Progress']}%<br>
+                    <strong>Status:</strong> {activity['Status']}
+                </div>
+                <div style="width: 100%;">
+                    <div style="background: #e2e8f0; border-radius: 4px; height: 8px;">
+                        <div style="background: #3182ce; height: 8px; border-radius: 4px; width: {activity['Progress']}%;"></div>
+                    </div>
+                </div>
+            </div>
+            <p style="margin-top: 1rem;"><strong>Deskripsi:</strong> {activity['Description']}</p>
+        </div>
+        """, unsafe_allow_html=True)
     
-    # Critical success factors dengan BUMN insights
-    st.markdown("### 🎯 Critical Success Factors with BUMN Structure Insights")
+    # Current focus activities
+    st.markdown(f"### 🎯 Current Focus Activities (H+{st.session_state.project_day})")
+    
+    # Find current active activities
+    active_activities = [act for act in timeline_activities if act['Status'] == '🔄 In Progress']
+    upcoming_activities = [act for act in timeline_activities if act['Status'] == '⏳ Planned' and act['Start_Day'] <= st.session_state.project_day + 7]
     
     col1, col2 = st.columns(2)
     
     with col1:
-        st.markdown("#### 🏗️ Structure Design Principles (From BUMN Analysis)")
+        st.markdown("#### 🔄 Currently Active")
+        if active_activities:
+            for activity in active_activities:
+                st.markdown(f"""
+                <div class="metric-container">
+                    <strong>{activity['Activity']}</strong><br>
+                    Progress: {activity['Progress']}% | {activity['Days']}<br>
+                    <small>{activity['Description']}</small>
+                </div>
+                """, unsafe_allow_html=True)
+        else:
+            st.info("No active activities at current day")
+    
+    with col2:
+        st.markdown("#### ⏳ Coming Next (7 days)")
+        if upcoming_activities:
+            for activity in upcoming_activities:
+                days_until_start = activity['Start_Day'] - st.session_state.project_day
+                st.markdown(f"""
+                <div class="metric-container">
+                    <strong>{activity['Activity']}</strong><br>
+                    Starts in: {days_until_start} days | {activity['Days']}<br>
+                    <small>{activity['Description']}</small>
+                </div>
+                """, unsafe_allow_html=True)
+        else:
+            st.info("No upcoming activities in next 7 days")
+    
+    # Phase summary
+    st.markdown(f"### 📈 Phase Summary - Phase {st.session_state.current_phase}")
+    
+    phase_descriptions = {
+        1: {
+            "name": "Review & Assessment Phase",
+            "period": "H+1 - H+21", 
+            "focus": "Document review dan project initiation",
+            "key_activities": ["Kick-Off Meeting", "Review Dokumen", "Pemutakhiran Pedoman (Start)"]
+        },
+        2: {
+            "name": "Interview & Development Phase",
+            "period": "H+22 - H+42",
+            "focus": "Stakeholder engagement dan draft development", 
+            "key_activities": ["Interview", "Pemutakhiran Pedoman (Complete)", "Validasi Internal (Start)"]
+        },
+        3: {
+            "name": "Validation & Finalization Phase", 
+            "period": "H+43 - H+56",
+            "focus": "Finalization dan socialization",
+            "key_activities": ["Validasi Internal (Complete)", "Finalisasi Dokumen", "Sosialisasi"]
+        }
+    }
+    
+    current_phase_info = phase_descriptions[st.session_state.current_phase]
+    
+    st.markdown(f"""
+    <div class="success-box">
+        <h4>📊 {current_phase_info['name']}</h4>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+            <div>
+                <strong>Period:</strong> {current_phase_info['period']}<br>
+                <strong>Focus:</strong> {current_phase_info['focus']}
+            </div>
+            <div>
+                <strong>Key Activities:</strong>
+                <ul>
+                    {''.join([f'<li>{activity}</li>' for activity in current_phase_info['key_activities']])}
+                </ul>
+            </div>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    # Critical dependencies and overlaps
+    st.markdown("### 🔗 Critical Dependencies & Overlapping Activities")
+    
+    dependencies = [
+        "**Review Dokumen** (H+1-21) overlaps dengan **Pemutakhiran Pedoman** (H+8-30) - Parallel analysis",
+        "**Interview** (H+22-36) feeds into **Pemutakhiran Pedoman** completion",
+        "**Validasi Internal** (H+29-42) overlaps dengan **Finalisasi Dokumen** (H+31-49) - Iterative refinement",
+        "**Sosialisasi** (H+43-56) requires completion of **Finalisasi Dokumen**"
+    ]
+    
+    for dependency in dependencies:
+        st.markdown(f"• {dependency}")
+    
+    # Risk and mitigation
+    st.markdown("### ⚠️ Timeline Risks & Mitigation")
+    
+    col1, col2 = st.columns(2)
+    
+    with col1:
+        st.markdown("#### 🚨 Potential Risks")
         st.markdown("""
-        **Pertamina Model Insights:**
-        • Multi-tier governance untuk complex portfolio
-        • Clear business line segregation
-        • Strategic control dengan operational autonomy
-        
-        **Telkom Model Insights:**
-        • Technology platform integration
-        • Agile decision-making structures
-        • Digital governance protocols
-        
-        **Bank Mandiri Model Insights:**
-        • Customer-centric ecosystem design
-        • Cross-selling synergy optimization
-        • Financial risk integration
+        • **Interview delays** (H+22-36) dapat mengganggu draft completion
+        • **Validasi Internal feedback** complexity dapat extend finalization
+        • **Stakeholder availability** untuk interview dan validation sessions
+        • **Document quality** requirements untuk multiple iteration cycles
         """)
     
     with col2:
-        st.markdown("#### ⚡ Implementation Success Factors")
+        st.markdown("#### 🛡️ Mitigation Strategies")
         st.markdown("""
-        **Based on BUMN Best Practices:**
-        • Clear authority matrix (learned from all 3 models)
-        • Integrated risk management framework
-        • Performance measurement alignment
-        • Technology enablement approach
-        
-        **PT SI Specific Adaptations:**
-        • Service integration focus
-        • Quality governance emphasis
-        • Stakeholder engagement optimization
-        • Regulatory compliance excellence
+        • **Parallel activities** design memungkinkan flexibility
+        • **Early stakeholder engagement** untuk ensure availability
+        • **Quality checkpoints** pada setiap milestone
+        • **Buffer time** built-in dengan overlapping periods
         """)
 
 # Keep other pages (monitoring, documentation, nextsteps) with proper implementation
@@ -1635,31 +1743,58 @@ elif page == "documentation":
 elif page == "nextsteps":
     st.markdown('<div class="sub-header">🎯 Expected Outcomes & Strategic Action Plan</div>', unsafe_allow_html=True)
     
-    # Timeline for next steps
+    # Timeline for next steps based on 7 activities
     st.markdown(f"### 🚀 Immediate Next Steps (H+{st.session_state.project_day})")
     
-    # Dynamic next steps based on current day
-    if st.session_state.project_day <= 10:
-        next_steps = [
-            {'action': 'Complete BUMN structure analysis (Pertamina, Telkom, Bank Mandiri)', 'timeline': 'H+1-5', 'owner': 'Analysis Team', 'priority': 'Critical'},
-            {'action': 'Finalize stakeholder mapping and engagement plan', 'timeline': 'H+2-7', 'owner': 'Governance Team', 'priority': 'High'},
-            {'action': 'Conduct current state assessment', 'timeline': 'H+5-10', 'owner': 'Assessment Team', 'priority': 'High'},
-            {'action': 'Develop preliminary authority matrix framework', 'timeline': 'H+8-12', 'owner': 'Framework Team', 'priority': 'Critical'}
-        ]
-    elif st.session_state.project_day <= 30:
-        next_steps = [
-            {'action': 'Complete gap analysis using BUMN best practices', 'timeline': f'H+{st.session_state.project_day}-25', 'owner': 'Analysis Team', 'priority': 'Critical'},
-            {'action': 'Validate holding model selection (Strategic Control)', 'timeline': f'H+{st.session_state.project_day}-22', 'owner': 'Framework Team', 'priority': 'High'},
-            {'action': 'Develop detailed authority matrix', 'timeline': f'H+{st.session_state.project_day}-28', 'owner': 'Governance Team', 'priority': 'High'},
-            {'action': 'Prepare framework validation workshop', 'timeline': f'H+{st.session_state.project_day}-30', 'owner': 'Project Manager', 'priority': 'Medium'}
-        ]
-    else:
-        next_steps = [
-            {'action': 'Finalize governance framework documentation', 'timeline': f'H+{st.session_state.project_day}-50', 'owner': 'Documentation Team', 'priority': 'Critical'},
-            {'action': 'Prepare board presentation materials', 'timeline': f'H+{st.session_state.project_day}-55', 'owner': 'Communication Team', 'priority': 'High'},
-            {'action': 'Conduct implementation readiness assessment', 'timeline': f'H+{st.session_state.project_day}-58', 'owner': 'Implementation Team', 'priority': 'High'},
-            {'action': 'Prepare final handover documentation', 'timeline': f'H+{st.session_state.project_day}-60', 'owner': 'Project Manager', 'priority': 'Critical'}
-        ]
+    # Get timeline activities to determine current and next steps
+    timeline_activities = get_timeline_data()
+    
+    # Dynamic next steps based on current activities and upcoming activities
+    next_steps = []
+    
+    for activity in timeline_activities:
+        if activity['Status'] == '🔄 In Progress':
+            if activity['Progress'] < 100:
+                days_remaining = activity['End_Day'] - st.session_state.project_day
+                next_steps.append({
+                    'action': f"Complete {activity['Activity']}",
+                    'timeline': f"H+{st.session_state.project_day}-{activity['End_Day']} ({days_remaining} days)",
+                    'owner': 'Project Team',
+                    'priority': 'Critical',
+                    'description': activity['Description']
+                })
+        elif activity['Status'] == '⏳ Planned' and activity['Start_Day'] <= st.session_state.project_day + 7:
+            days_to_start = activity['Start_Day'] - st.session_state.project_day
+            next_steps.append({
+                'action': f"Prepare for {activity['Activity']}",
+                'timeline': f"H+{st.session_state.project_day}-{activity['Start_Day']} (Starts in {days_to_start} days)",
+                'owner': 'Project Team',
+                'priority': 'High',
+                'description': activity['Description']
+            })
+    
+    # If no specific activities, provide phase-based next steps
+    if not next_steps:
+        if st.session_state.project_day <= 7:
+            next_steps = [
+                {'action': 'Execute Kick-Off Meeting', 'timeline': 'H+1-7', 'owner': 'Project Manager', 'priority': 'Critical', 'description': 'Project initiation and team setup'},
+                {'action': 'Begin Document Review', 'timeline': 'H+1-21', 'owner': 'Analysis Team', 'priority': 'High', 'description': 'Review existing policies and regulations'},
+            ]
+        elif st.session_state.project_day <= 21:
+            next_steps = [
+                {'action': 'Continue Document Review', 'timeline': f'H+{st.session_state.project_day}-21', 'owner': 'Analysis Team', 'priority': 'Critical', 'description': 'Complete document analysis'},
+                {'action': 'Prepare Interview Materials', 'timeline': 'H+15-22', 'owner': 'Interview Team', 'priority': 'High', 'description': 'Preparation for stakeholder interviews'},
+            ]
+        elif st.session_state.project_day <= 42:
+            next_steps = [
+                {'action': 'Continue Interview Process', 'timeline': f'H+{st.session_state.project_day}-36', 'owner': 'Interview Team', 'priority': 'Critical', 'description': 'Stakeholder engagement process'},
+                {'action': 'Continue Draft Development', 'timeline': f'H+{st.session_state.project_day}-30', 'owner': 'Framework Team', 'priority': 'High', 'description': 'Framework development'},
+            ]
+        else:
+            next_steps = [
+                {'action': 'Continue Document Finalization', 'timeline': f'H+{st.session_state.project_day}-49', 'owner': 'Documentation Team', 'priority': 'Critical', 'description': 'Final document preparation'},
+                {'action': 'Execute Socialization Plan', 'timeline': f'H+{st.session_state.project_day}-56', 'owner': 'Communication Team', 'priority': 'High', 'description': 'Stakeholder socialization'},
+            ]
     
     for step in next_steps:
         priority_colors = {'Critical': '🔴', 'High': '🟠', 'Medium': '🟡'}
@@ -1735,7 +1870,7 @@ st.markdown(f"""
 <div style="text-align: center; color: #666; padding: 2rem; background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); border-radius: 10px; margin-top: 2rem;">
     <h3 style="color: #1f4e79; margin-bottom: 1rem;">🏢 Pemutakhiran Pedoman Tata Kelola Terintegrasi</h3>
     <h4 style="color: #2c5282;">PT Surveyor Indonesia</h4>
-    <p style="font-size: 1.1rem; margin: 1rem 0;"><strong>H+{st.session_state.project_day} Implementation - Timeline Intensif 60 Hari Kerja</strong></p>
+    <p style="font-size: 1.1rem; margin: 1rem 0;"><strong>H+{st.session_state.project_day} Implementation - Timeline 7 Aktivitas (56 Hari)</strong></p>
     <p style="font-style: italic; color: #4a5568;">Excellence in Corporate Governance & Strategic Control Model</p>
 </div>
 """, unsafe_allow_html=True)
@@ -1747,7 +1882,7 @@ with col1:
     st.markdown("**Dashboard Information:**")
     st.markdown(f"• Version 3.0 - H+{st.session_state.project_day}")
     st.markdown(f"• Last Updated: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M')}")
-    st.markdown("• BUMN Structure Analysis Integrated")
+    st.markdown("• 7 Aktivitas Timeline Implementation")
 
 with col2:
     st.markdown("**Created by:**")
@@ -1757,8 +1892,8 @@ with col2:
 
 with col3:
     st.markdown("**Methodology:**")
-    st.markdown("• 🚀 H+1 to H+60 Implementation")
-    st.markdown("• 📊 BUMN Best Practice Analysis")
+    st.markdown(f"• 🚀 H+1 to H+56 Implementation")
+    st.markdown("• 📊 7 Overlapping Activities")
     st.markdown("• 🎯 Strategic Control Framework")
 
 # Add disclaimer
@@ -1769,10 +1904,10 @@ st.markdown(f"""
     <p style="color: #856404; margin: 0.5rem 0; font-size: 0.9rem;">
         <strong>Materi sosialisasi ini untuk digunakan secara terbatas pada PT Surveyor Indonesia.</strong><br>
         Tidak untuk distribusi atau penggunaan eksternal tanpa izin tertulis.<br><br>
-        <strong>Data & Metodologi:</strong> Dashboard ini menyajikan framework governance dan metodologi konseptual. 
+        <strong>Timeline Implementation:</strong> Dashboard menggunakan struktur 7 aktivitas utama (H+1 hingga H+56) dengan overlapping periods.
         BUMN structure analysis berdasarkan Annual Reports (Pertamina 2022, Bank Mandiri 2024, Telkom 2024).
         Semua data numerik bersifat ilustratif untuk keperluan pengembangan framework dan benchmarking metodologi, 
-        bukan data finansial atau kinerja aktual. Penilaian dan skor berdasarkan analisis teoretis untuk keperluan perencanaan strategis.
+        bukan data finansial atau kinerja aktual.
     </p>
 </div>
 """, unsafe_allow_html=True)
