@@ -314,20 +314,6 @@ def get_timeline_data():
         }
     ]
     
-    # Calculate progress for each activity
-    for activity in timeline_activities:
-        if current_week < activity['Start_Week']:
-            activity['Progress'] = 0
-            activity['Status'] = '⏳ Planned'
-        elif current_week > activity['End_Week']:
-            activity['Progress'] = 100
-            activity['Status'] = '✅ Completed'
-        else:
-            weeks_in_activity = activity['End_Week'] - activity['Start_Week'] + 1
-            weeks_completed = current_week - activity['Start_Week'] + 1
-            activity['Progress'] = round((weeks_completed / weeks_in_activity) * 100)
-            activity['Status'] = '🔄 In Progress'
-    
     return timeline_activities
 
 @st.cache_data
@@ -498,12 +484,13 @@ if page == "dashboard":
         st.markdown(f"### 📋 Week {st.session_state.current_week} Focus")
         
         timeline_activities = get_timeline_data()
-        active_activities = [act for act in timeline_activities if act['Status'] == '🔄 In Progress']
+        active_activities = [act for act in timeline_activities 
+                           if act['Start_Week'] <= st.session_state.current_week <= act['End_Week']]
         
         focus_items = []
         if active_activities:
             for activity in active_activities:
-                focus_items.append(f"🔄 {activity['Activity']} ({activity['Progress']}%)")
+                focus_items.append(f"🔄 {activity['Activity']}")
         
         if not focus_items:
             if st.session_state.current_week <= 1:
@@ -582,8 +569,7 @@ elif page == "timeline":
             hovertemplate=f"<b>{activity['Activity']}</b><br>" +
                          f"Period: {activity['Period']}<br>" +
                          f"Week: {activity['Week']}<br>" +
-                         f"Progress: {activity['Progress']}%<br>" +
-                         f"Status: {activity['Status']}<extra></extra>"
+                         f"Description: {activity['Description']}<extra></extra>"
         ))
     
     # Add current week indicator
@@ -640,7 +626,7 @@ elif page == "timeline":
             <p><strong>Focus:</strong> {week_info['focus']}</p>
             <p><strong>Key Activities:</strong></p>
             <ul>
-                {''.join([f'<li>{act["Activity"]} ({act["Status"]})</li>' for act in week_activities])}
+                {''.join([f'<li>{act["Activity"]}</li>' for act in week_activities])}
             </ul>
         </div>
         """, unsafe_allow_html=True)
