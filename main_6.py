@@ -173,7 +173,7 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# Initialize session state with timeline 56 hari (8 weeks) - Bulan 1
+# Initialize session state with timeline 60 hari (8 weeks) - Bulan 1
 if 'project_start_date' not in st.session_state:
     st.session_state.project_start_date = date(2025, 1, 1)  # Bulan 1 start
 
@@ -226,7 +226,7 @@ st.sidebar.write(f"{st.session_state.overall_progress:.1f}% Complete")
 
 # Quick stats in sidebar
 st.sidebar.markdown("### 📈 Quick Stats")
-st.sidebar.metric("Project Day", f"Day {st.session_state.project_day}/56")
+st.sidebar.metric("Project Day", f"Day {st.session_state.project_day}/60")
 st.sidebar.metric("Current Week", f"Week {st.session_state.current_week}/8")
 st.sidebar.metric("Active Activities", "7")
 
@@ -235,7 +235,7 @@ st.markdown("""
 <div class="main-header">
     🏢 Pemutakhiran Pedoman Tata Kelola Terintegrasi<br>
     <span style="font-size: 1.5rem; opacity: 0.9;">PT Surveyor Indonesia</span><br>
-    <span style="font-size: 1rem; opacity: 0.8;">Timeline 56 Hari - Bulan 1 - Excellence in Corporate Governance</span>
+    <span style="font-size: 1rem; opacity: 0.8;">Timeline 60 Hari - Bulan 1 - Excellence in Corporate Governance</span>
 </div>
 """, unsafe_allow_html=True)
 
@@ -257,7 +257,7 @@ def get_timeline_data():
     start_date = st.session_state.project_start_date
     current_day = st.session_state.project_day
     
-    # Timeline Pekerjaan - 7 Aktivitas Utama (56 hari = 8 minggu)
+    # Timeline Pekerjaan - 7 Aktivitas Utama (60 hari = 8 minggu)
     timeline_activities = [
         {
             'Activity': 'Kick-Off Meeting',
@@ -312,7 +312,7 @@ def get_timeline_data():
             'Week': 'Minggu Ke-7 s/d Ke-8', 
             'Days': 'Hari 43-56',
             'Start_Day': 43,
-            'End_Day': 56,
+            'End_Day': 60,
             'Description': 'Sosialisasi kepada Insan Perusahaan dan stakeholders'
         }
     ]
@@ -601,7 +601,7 @@ elif page == "timeline":
                           annotation_text=f"W{week}", annotation_position="bottom")
     
     fig.update_layout(
-        title="Timeline 56 Hari - Bulan 1 - Aktivitas Overlapping",
+        title="Timeline 60 Hari - Bulan 1 - Aktivitas Overlapping",
         xaxis_title="Project Day",
         yaxis_title="Activities",
         yaxis=dict(
@@ -992,7 +992,7 @@ st.markdown(f"""
 <div style="text-align: center; color: #666; padding: 2rem; background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); border-radius: 10px; margin-top: 2rem;">
     <h3 style="color: #1f4e79; margin-bottom: 1rem;">🏢 Pemutakhiran Pedoman Tata Kelola Terintegrasi</h3>
     <h4 style="color: #2c5282;">PT Surveyor Indonesia</h4>
-    <p style="font-size: 1.1rem; margin: 1rem 0;"><strong>Week {st.session_state.current_week}/8 - Day {st.session_state.project_day}/56 Implementation</strong></p>
+    <p style="font-size: 1.1rem; margin: 1rem 0;"><strong>Week {st.session_state.current_week}/8 - Day {st.session_state.project_day}/60 Implementation</strong></p>
     <p style="font-style: italic; color: #4a5568;">Bulan 1 - Excellence in Corporate Governance & Strategic Control Model</p>
 </div>
 """, unsafe_allow_html=True)
@@ -1003,7 +1003,7 @@ with col1:
     st.markdown("**Dashboard Information:**")
     st.markdown(f"• Version 4.0 - Week {st.session_state.current_week}")
     st.markdown(f"• Last Updated: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M')}")
-    st.markdown("• 56-Day Timeline Bulan 1")
+    st.markdown("• 60-Day Timeline Bulan 1")
 
 with col2:
     st.markdown("**Created by:**")
@@ -1013,7 +1013,7 @@ with col2:
 
 with col3:
     st.markdown("**Methodology:**")
-    st.markdown("• 🚀 Bulan 1 - 56 Hari")
+    st.markdown("• 🚀 Bulan 1 - 60 Hari")
     st.markdown("• 📅 8 Minggu, 7 Aktivitas")
     st.markdown("• 🎯 Strategic Control Framework")
 
@@ -1023,7 +1023,7 @@ st.markdown(f"""
     <h4 style="color: #856404; margin: 0;">⚠️ COMPREHENSIVE DISCLAIMER - Week {st.session_state.current_week}</h4>
     <p style="color: #856404; margin: 0.5rem 0; font-size: 0.9rem;">
         <strong>Materi sosialisasi ini untuk digunakan secara terbatas pada PT Surveyor Indonesia.</strong><br>
-        Timeline menggunakan struktur 56 hari (8 minggu) dengan 7 aktivitas utama overlapping - Bulan 1.
+        Timeline menggunakan struktur 60 hari (8 minggu) dengan 7 aktivitas utama overlapping - Bulan 1.
         BUMN structure analysis berdasarkan Annual Reports. Semua data numerik bersifat ilustratif 
         untuk keperluan pengembangan framework dan benchmarking metodologi, bukan data aktual.
         Review pedoman berdasarkan SKD-002/DRU-XII/DPKMR/2023 tanggal 22 Desember 2023.
