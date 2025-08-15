@@ -994,14 +994,22 @@ elif page == "framework":
                 <li><strong>Disclosure kebijakan</strong> dan strategi material</li>
                 <li><strong>Open communication</strong> dengan stakeholders</li>
             </ul>
-            
+        </div>
+        """, unsafe_allow_html=True)
+        
+        st.markdown("""
+        <div class="governance-principle">
             <h4>📊 2. Accountability (Akuntabilitas)</h4>
             <ul>
                 <li><strong>Clear roles</strong> dan responsibilities</li>
                 <li><strong>Performance measurement</strong> yang objektif</li>
                 <li><strong>Regular evaluation</strong> dan feedback</li>
             </ul>
-            
+        </div>
+        """, unsafe_allow_html=True)
+        
+        st.markdown("""
+        <div class="governance-principle">
             <h4>🎯 3. Responsibility (Pertanggungjawaban)</h4>
             <ul>
                 <li><strong>Compliance</strong> terhadap regulasi dan standar</li>
@@ -1020,7 +1028,11 @@ elif page == "framework":
                 <li><strong>Objective decision making</strong> process</li>
                 <li><strong>Conflict of interest</strong> management</li>
             </ul>
-            
+        </div>
+        """, unsafe_allow_html=True)
+        
+        st.markdown("""
+        <div class="governance-principle">
             <h4>🤝 5. Fairness (Kesetaraan)</h4>
             <ul>
                 <li><strong>Fair treatment</strong> untuk semua stakeholders</li>
