@@ -173,20 +173,17 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# Initialize session state with timeline 60 hari (8 weeks) - Bulan 1
+# Initialize session state with timeline (2 bulan) - Bulan 1
 if 'project_start_date' not in st.session_state:
     st.session_state.project_start_date = date(2025, 1, 1)  # Bulan 1 start
 
 if 'current_week' not in st.session_state:
-    current_day = (date.today() - st.session_state.project_start_date).days + 1
-    st.session_state.current_week = max(1, (current_day - 1) // 7 + 1)  # Week 1-8
-
-if 'project_day' not in st.session_state:
-    current_day = (date.today() - st.session_state.project_start_date).days + 1
-    st.session_state.project_day = max(1, current_day)
+    current_week = ((date.today() - st.session_state.project_start_date).days // 7) + 1
+    st.session_state.current_week = max(1, min(current_week, 8))  # Week 1-8
 
 if 'overall_progress' not in st.session_state:
-    st.session_state.overall_progress = min((st.session_state.project_day / 56) * 100, 100)
+    weeks_passed = st.session_state.current_week - 1
+    st.session_state.overall_progress = min((weeks_passed / 8) * 100, 100)
 
 # Sidebar with enhanced navigation
 st.sidebar.markdown("""
@@ -226,8 +223,8 @@ st.sidebar.write(f"{st.session_state.overall_progress:.1f}% Complete")
 
 # Quick stats in sidebar
 st.sidebar.markdown("### 📈 Quick Stats")
-st.sidebar.metric("Project Day", f"Day {st.session_state.project_day}/60")
 st.sidebar.metric("Current Week", f"Week {st.session_state.current_week}/8")
+st.sidebar.metric("Current Month", "Bulan 1/2")
 st.sidebar.metric("Active Activities", "7")
 
 # Main header
@@ -235,9 +232,9 @@ st.markdown("""
 <div class="main-header">
     🏢 Pemutakhiran Pedoman Tata Kelola Terintegrasi<br>
     <span style="font-size: 1.5rem; opacity: 0.9;">PT Surveyor Indonesia</span><br>
-    <span style="font-size: 1rem; opacity: 0.8;">Timeline 60 Hari - Bulan 1 - Excellence in Corporate Governance</span>
+    <span style="font-size: 1rem; opacity: 0.8;">Timeline 2 Bulan - Week {st.session_state.current_week} - Excellence in Corporate Governance</span>
 </div>
-""", unsafe_allow_html=True)
+""".format(st.session_state.current_week), unsafe_allow_html=True)
 
 # Add disclaimer
 st.markdown(f"""
@@ -255,80 +252,80 @@ st.markdown(f"""
 @st.cache_data
 def get_timeline_data():
     start_date = st.session_state.project_start_date
-    current_day = st.session_state.project_day
+    current_week = st.session_state.current_week
     
-    # Timeline Pekerjaan - 7 Aktivitas Utama (60 hari = 8 minggu)
+    # Timeline Pekerjaan - 7 Aktivitas Utama (8 minggu = 2 bulan)
     timeline_activities = [
         {
             'Activity': 'Kick-Off Meeting',
             'Week': 'Minggu Ke-1',
-            'Days': 'Hari 1-7',
-            'Start_Day': 1,
-            'End_Day': 7,
+            'Period': 'Minggu 1',
+            'Start_Week': 1,
+            'End_Week': 1,
             'Description': 'Project initiation, team mobilization, dan stakeholder alignment'
         },
         {
             'Activity': 'Review Dokumen',
             'Week': 'Minggu Ke-1 s/d Ke-3', 
-            'Days': 'Hari 1-21',
-            'Start_Day': 1,
-            'End_Day': 21,
+            'Period': 'Minggu 1-3',
+            'Start_Week': 1,
+            'End_Week': 3,
             'Description': 'Review Pedoman eksisting, regulasi, Anggaran Dasar, Kebijakan Internal'
         },
         {
             'Activity': 'Interview',
-            'Week': 'Minggu Ke-3 s/d Ke-4',
-            'Days': 'Hari 22-36', 
-            'Start_Day': 22,
-            'End_Day': 36,
+            'Week': 'Minggu Ke-3 s/d Ke-5',
+            'Period': 'Minggu 3-5', 
+            'Start_Week': 3,
+            'End_Week': 5,
             'Description': 'Melakukan wawancara dengan Dewan Komisaris, Direksi, dan Unit lain untuk mendapatkan insight serta mengetahui tantangan dan ekspektasi dalam hubungan kerja organisasi (Induk Perusahaan) dan Anak Perusahaan'
         },
         {
             'Activity': 'Pemutakhiran Pedoman',
             'Week': 'Minggu Ke-2 s/d Ke-5',
-            'Days': 'Hari 8-30',
-            'Start_Day': 8, 
-            'End_Day': 30,
+            'Period': 'Minggu 2-5',
+            'Start_Week': 2, 
+            'End_Week': 5,
             'Description': 'Menyusun draft awal pedoman yang telah dimutakhirkan berdasarkan hasil analisis, diskusi, dan masukan dari seluruh pemangku kepentingan yang terlibat'
         },
         {
             'Activity': 'Validasi Internal',
             'Week': 'Minggu Ke-5 s/d Ke-6',
-            'Days': 'Hari 29-42',
-            'Start_Day': 29,
-            'End_Day': 42,
+            'Period': 'Minggu 5-6',
+            'Start_Week': 5,
+            'End_Week': 6,
             'Description': 'Pembahasan draft awal dengan Internal Perusahaan (Dewan Komisaris, Direksi, dan Unit lain yang diperlukan)'
         },
         {
             'Activity': 'Finalisasi Dokumen',
             'Week': 'Minggu Ke-6 s/d Ke-7',
-            'Days': 'Hari 31-49',
-            'Start_Day': 31,
-            'End_Day': 49,
+            'Period': 'Minggu 6-7',
+            'Start_Week': 6,
+            'End_Week': 7,
             'Description': 'Menindaklanjuti hasil validasi internal untuk finalisasi draft'
         },
         {
             'Activity': 'Sosialisasi',
             'Week': 'Minggu Ke-7 s/d Ke-8', 
-            'Days': 'Hari 43-56',
-            'Start_Day': 43,
-            'End_Day': 60,
+            'Period': 'Minggu 7-8',
+            'Start_Week': 7,
+            'End_Week': 8,
             'Description': 'Sosialisasi kepada Insan Perusahaan dan stakeholders'
         }
     ]
     
     # Calculate progress for each activity
     for activity in timeline_activities:
-        if current_day < activity['Start_Day']:
+        if current_week < activity['Start_Week']:
             activity['Progress'] = 0
             activity['Status'] = '⏳ Planned'
-        elif current_day > activity['End_Day']:
+        elif current_week > activity['End_Week']:
             activity['Progress'] = 100
             activity['Status'] = '✅ Completed'
         else:
-            days_in_activity = activity['End_Day'] - activity['Start_Day'] + 1
-            days_completed = current_day - activity['Start_Day'] + 1
-            activity['Progress'] = round((days_completed / days_in_activity) * 100)
+            weeks_in_activity = activity['End_Week'] - activity['Start_Week'] + 1
+            weeks_completed = current_week - activity['Start_Week'] + 1
+            activity['Progress'] = round((weeks_completed / weeks_in_activity) * 100)
             activity['Status'] = '🔄 In Progress'
     
     return timeline_activities
@@ -354,7 +351,7 @@ def get_kpi_data():
 
 # Dashboard Page
 if page == "dashboard":
-    st.markdown(f'<div class="sub-header">📊 Executive Dashboard - Week {st.session_state.current_week}, Day {st.session_state.project_day}</div>', unsafe_allow_html=True)
+    st.markdown(f'<div class="sub-header">📊 Executive Dashboard - Week {st.session_state.current_week}, Bulan 1</div>', unsafe_allow_html=True)
     
     # Key metrics
     col1, col2, col3, col4 = st.columns(4)
@@ -363,11 +360,11 @@ if page == "dashboard":
         st.markdown(f"""
         <div class="metric-card">
             <h3 style="color: #1f4e79; margin-bottom: 0.5rem;">⏰ Timeline</h3>
-            <h1 style="color: #e53e3e; margin: 0; font-size: 2.5rem;">56</h1>
-            <h3 style="color: #e53e3e; margin: 0;">Hari</h3>
-            <p style="margin: 0; color: #666;">Bulan 1 - 8 Minggu</p>
+            <h1 style="color: #e53e3e; margin: 0; font-size: 2.5rem;">2</h1>
+            <h3 style="color: #e53e3e; margin: 0;">Bulan</h3>
+            <p style="margin: 0; color: #666;">8 Minggu</p>
             <div style="margin-top: 0.5rem;">
-                <small style="color: #28a745;">✓ Currently Day {st.session_state.project_day}</small>
+                <small style="color: #28a745;">✓ Currently Week {st.session_state.current_week}</small>
             </div>
         </div>
         """, unsafe_allow_html=True)
@@ -449,7 +446,7 @@ if page == "dashboard":
         )
         
         # Week Progress
-        week_progress = ((st.session_state.project_day - 1) % 7 + 1) / 7 * 100
+        week_progress = min((st.session_state.current_week / 8) * 100, 100)
         fig.add_trace(
             go.Indicator(
                 mode="gauge+number",
@@ -551,14 +548,14 @@ if page == "dashboard":
 
 # Timeline Page with week-based structure
 elif page == "timeline":
-    st.markdown('<div class="sub-header">⏱️ Timeline 56 Hari - Bulan 1 Implementation Schedule</div>', unsafe_allow_html=True)
+    st.markdown('<div class="sub-header">⏱️ Timeline 8 Minggu - Bulan 1 Implementation Schedule</div>', unsafe_allow_html=True)
     
     # Current status indicator
     st.markdown(f"""
     <div class="info-box">
-        <h4 style="color: #1f4e79; margin: 0;">📅 Current Status: Week {st.session_state.current_week}, Day {st.session_state.project_day}</h4>
+        <h4 style="color: #1f4e79; margin: 0;">📅 Current Status: Week {st.session_state.current_week}, Bulan 1</h4>
         <p style="color: #1f4e79; margin: 0.5rem 0;">
-            Progress: {st.session_state.overall_progress:.1f}% | Timeline: Bulan 1 - 56 Hari (8 Minggu)
+            Progress: {st.session_state.overall_progress:.1f}% | Timeline: Bulan 1 - 8 Minggu
         </p>
     </div>
     """, unsafe_allow_html=True)
@@ -576,33 +573,26 @@ elif page == "timeline":
     
     for i, activity in enumerate(timeline_activities):
         fig.add_trace(go.Scatter(
-            x=[activity['Start_Day'], activity['End_Day']],
+            x=[activity['Start_Week'], activity['End_Week']],
             y=[i, i],
             mode='lines+markers',
             line=dict(width=20, color=colors[i]),
             marker=dict(size=12),
             name=activity['Activity'],
             hovertemplate=f"<b>{activity['Activity']}</b><br>" +
-                         f"Period: {activity['Days']}<br>" +
+                         f"Period: {activity['Period']}<br>" +
                          f"Week: {activity['Week']}<br>" +
                          f"Progress: {activity['Progress']}%<br>" +
                          f"Status: {activity['Status']}<extra></extra>"
         ))
     
-    # Add current day indicator
-    fig.add_vline(x=st.session_state.project_day, line_dash="dash", line_color="red", 
-                  annotation_text=f"Day {st.session_state.project_day}", annotation_position="top")
-    
-    # Add week markers
-    for week in range(1, 9):
-        week_day = (week - 1) * 7 + 1
-        if week_day <= 56:
-            fig.add_vline(x=week_day, line_dash="dot", line_color="gray", opacity=0.5,
-                          annotation_text=f"W{week}", annotation_position="bottom")
+    # Add current week indicator
+    fig.add_vline(x=st.session_state.current_week, line_dash="dash", line_color="red", 
+                  annotation_text=f"Week {st.session_state.current_week}", annotation_position="top")
     
     fig.update_layout(
-        title="Timeline 60 Hari - Bulan 1 - Aktivitas Overlapping",
-        xaxis_title="Project Day",
+        title="Timeline 8 Minggu - Bulan 1 - Aktivitas Overlapping",
+        xaxis_title="Project Week",
         yaxis_title="Activities",
         yaxis=dict(
             tickmode='array',
@@ -638,9 +628,7 @@ elif page == "timeline":
         # Get activities for this week
         week_activities = []
         for activity in timeline_activities:
-            week_start = (week_num - 1) * 7 + 1
-            week_end = week_num * 7
-            if (activity['Start_Day'] <= week_end and activity['End_Day'] >= week_start):
+            if (activity['Start_Week'] <= week_num and activity['End_Week'] >= week_num):
                 week_activities.append(activity)
         
         status_icon = "✅" if is_completed else "🔄" if is_current else "⏳"
@@ -657,12 +645,65 @@ elif page == "timeline":
         </div>
         """, unsafe_allow_html=True)
 
-# Corporate Parenting Page
+# Corporate Parenting Page - UPDATED WITH NEW CONTENT
 elif page == "parenting":
     st.markdown('<div class="sub-header">🏗️ Corporate Parenting Model Framework</div>', unsafe_allow_html=True)
     
-    # Fundamental Principles
-    st.markdown("### 🎯 Prinsip Fundamental Tata Kelola Terintegrasi")
+    # Tata Kelola Hubungan Induk dan Anak Perusahaan
+    st.markdown("### 🏛️ Tata Kelola Hubungan Induk dan Anak Perusahaan")
+    
+    col1, col2 = st.columns(2)
+    
+    with col1:
+        st.markdown("""
+        <div class="governance-principle">
+            <h4>🎯 Peran dan Tanggung Jawab Perusahaan Induk</h4>
+            <h5>1. Sebagai Pemegang Saham Pengendali:</h5>
+            <ul>
+                <li><strong>Strategic Direction:</strong> Menetapkan visi, misi, dan strategi korporat</li>
+                <li><strong>Capital Allocation:</strong> Optimasi alokasi sumber daya dan investasi</li>
+                <li><strong>Performance Oversight:</strong> Monitoring dan evaluasi kinerja anak perusahaan</li>
+                <li><strong>Risk Management:</strong> Penetapan risk appetite dan framework manajemen risiko</li>
+                <li><strong>Compliance Assurance:</strong> Memastikan kepatuhan terhadap regulasi dan standar</li>
+            </ul>
+            <h5>2. Sebagai Corporate Parent:</h5>
+            <ul>
+                <li><strong>Value Creation:</strong> Menciptakan sinergi dan value-added activities</li>
+                <li><strong>Capability Building:</strong> Pengembangan kapabilitas dan competency</li>
+                <li><strong>Knowledge Management:</strong> Transfer knowledge dan best practices</li>
+                <li><strong>Resource Sharing:</strong> Optimasi penggunaan sumber daya bersama</li>
+                <li><strong>Brand Management:</strong> Pengelolaan reputasi dan brand portfolio</li>
+            </ul>
+        </div>
+        """, unsafe_allow_html=True)
+    
+    with col2:
+        st.markdown("""
+        <div class="governance-principle">
+            <h4>🎯 Tanggung Jawab Anak Perusahaan</h4>
+            <h5>1. Operational Excellence:</h5>
+            <ul>
+                <li>Mencapai target kinerja yang ditetapkan</li>
+                <li>Menjalankan operasional sesuai standar korporat</li>
+                <li>Melaporkan kinerja secara transparan dan akurat</li>
+            </ul>
+            <h5>2. Compliance & Governance:</h5>
+            <ul>
+                <li>Mematuhi kebijakan dan prosedur induk perusahaan</li>
+                <li>Menerapkan sistem governance yang efektif</li>
+                <li>Melaksanakan manajemen risiko sesuai framework korporat</li>
+            </ul>
+            <h5>3. Strategic Alignment:</h5>
+            <ul>
+                <li>Menyelaraskan strategi dengan arah korporat</li>
+                <li>Berkontribusi pada pencapaian target konsolidasi</li>
+                <li>Berpartisipasi aktif dalam inisiatif sinergi</li>
+            </ul>
+        </div>
+        """, unsafe_allow_html=True)
+    
+    # Prinsip Dasar Tata Kelola Terintegrasi
+    st.markdown("### 🎯 Prinsip Dasar Tata Kelola Terintegrasi")
     
     col1, col2, col3 = st.columns(3)
     
@@ -673,8 +714,7 @@ elif page == "parenting":
             <ul>
                 <li><strong>Kesatuan visi dan misi korporat</strong></li>
                 <li>Fleksibilitas implementasi sesuai karakteristik bisnis</li>
-                <li>Standardisasi pada aspek kritis</li>
-                <li>Lokalisasi pada aspek operasional</li>
+                <li>Standardisasi pada aspek kritis, lokalisasi pada aspek operasional</li>
             </ul>
         </div>
         """, unsafe_allow_html=True)
@@ -687,7 +727,6 @@ elif page == "parenting":
                 <li><strong>Orientasi pada penciptaan nilai jangka panjang</strong></li>
                 <li>Optimasi sinergi lintas anak perusahaan</li>
                 <li>Balance antara growth dan profitability</li>
-                <li>Sustainable competitive advantage</li>
             </ul>
         </div>
         """, unsafe_allow_html=True)
@@ -700,10 +739,159 @@ elif page == "parenting":
                 <li><strong>Risk appetite yang selaras di seluruh grup</strong></li>
                 <li>Early warning system terintegrasi</li>
                 <li>Coordination dalam crisis management</li>
-                <li>Proactive risk mitigation</li>
             </ul>
         </div>
         """, unsafe_allow_html=True)
+    
+    # Prinsip-Prinsip Hubungan Induk-Anak Perusahaan
+    st.markdown("### 🤝 Prinsip-Prinsip Hubungan Induk-Anak Perusahaan")
+    
+    col1, col2, col3 = st.columns(3)
+    
+    with col1:
+        st.markdown("""
+        <div class="parenting-model">
+            <h4>⚖️ Prinsip Subsidiaritas</h4>
+            <ul>
+                <li>Delegasi kewenangan yang jelas dan proporsional</li>
+                <li>Decision making di level yang paling efektif</li>
+                <li>Accountability yang tegas pada setiap level</li>
+            </ul>
+        </div>
+        """, unsafe_allow_html=True)
+    
+    with col2:
+        st.markdown("""
+        <div class="parenting-model">
+            <h4>🔍 Prinsip Transparansi</h4>
+            <ul>
+                <li>Open communication dan information sharing</li>
+                <li>Regular reporting yang komprehensif</li>
+                <li>Clear performance measurement</li>
+            </ul>
+        </div>
+        """, unsafe_allow_html=True)
+    
+    with col3:
+        st.markdown("""
+        <div class="parenting-model">
+            <h4>🔗 Prinsip Sinergi</h4>
+            <ul>
+                <li>Koordinasi strategis lintas anak perusahaan</li>
+                <li>Sharing resources dan capabilities</li>
+                <li>Joint initiatives untuk value creation</li>
+            </ul>
+        </div>
+        """, unsafe_allow_html=True)
+    
+    # Corporate Parenting Model Types
+    st.markdown("### 🏗️ Macam Corporate Parenting Model")
+    
+    parenting_models = [
+        {
+            "model": "Financial Control Model",
+            "characteristics": [
+                "Focus pada financial performance",
+                "Limited strategic intervention", 
+                "Decentralized decision making"
+            ],
+            "suitable": "Portfolio dengan bisnis yang tidak saling terkait",
+            "examples": "Berkshire Hathaway, Jardine Matheson"
+        },
+        {
+            "model": "Strategic Control Model",
+            "characteristics": [
+                "Balance antara financial dan strategic control",
+                "Selective intervention pada strategic decisions",
+                "Coordination pada key initiatives"
+            ],
+            "suitable": "Related diversification strategy",
+            "examples": "General Electric, Samsung Group"
+        },
+        {
+            "model": "Strategic Planning Model",
+            "characteristics": [
+                "Centralized strategic planning",
+                "Detailed performance monitoring",
+                "Extensive coordination mechanisms"
+            ],
+            "suitable": "Integrated business portfolio",
+            "examples": "McKinsey & Company portfolio approach"
+        },
+        {
+            "model": "Financial Engineering Model",
+            "characteristics": [
+                "Focus pada financial restructuring",
+                "Short to medium-term value creation",
+                "Active portfolio management"
+            ],
+            "suitable": "Turnaround situations",
+            "examples": "Private equity firms"
+        }
+    ]
+    
+    for i, model in enumerate(parenting_models):
+        if i % 2 == 0:
+            col1, col2 = st.columns(2)
+        
+        with col1 if i % 2 == 0 else col2:
+            st.markdown(f"""
+            <div class="parenting-model">
+                <h4>🏛️ {model['model']}</h4>
+                <h5>Karakteristik:</h5>
+                <ul>
+                    {''.join([f'<li>{char}</li>' for char in model['characteristics']])}
+                </ul>
+                <p><strong>Cocok untuk:</strong> {model['suitable']}</p>
+                <p><strong>Contoh:</strong> {model['examples']}</p>
+            </div>
+            """, unsafe_allow_html=True)
+    
+    # Fit Assessment Matrix
+    st.markdown("### 📊 Fit Assessment Matrix")
+    
+    st.markdown("""
+    <div class="info-box">
+        <h4>🎯 Metode Menentukan Parenting Model yang Fit</h4>
+        <h5>1. Portfolio Analysis Framework</h5>
+        <p><strong>Business Relatedness Assessment:</strong></p>
+        <ul>
+            <li>Market similarity (customer, channel, competitor)</li>
+            <li>Technology dan capability overlap</li>
+            <li>Value chain integration potential</li>
+            <li>Brand dan reputation synergy</li>
+        </ul>
+        <p><strong>Parenting Opportunity Identification:</strong></p>
+        <ul>
+            <li>Scale economies potential</li>
+            <li>Skill transfer opportunities</li>
+            <li>Shared activities benefits</li>
+            <li>Corporate brand leverage</li>
+        </ul>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    # Create fit assessment matrix table
+    fit_data = {
+        'Kriteria': ['Business Diversity', 'Synergy Potential', 'Management Capability', 'Market Volatility', 'Innovation Requirement'],
+        'Financial Control': ['High', 'Low', 'Independent', 'High', 'Low'],
+        'Strategic Control': ['Medium', 'Medium', 'Collaborative', 'Medium', 'Medium'],
+        'Strategic Planning': ['Low', 'High', 'Integrated', 'Low', 'High']
+    }
+    
+    df_fit = pd.DataFrame(fit_data)
+    
+    fig = go.Figure(data=[go.Table(
+        header=dict(values=list(df_fit.columns),
+                   fill_color='paleturquoise',
+                   align='left'),
+        cells=dict(values=[df_fit[col] for col in df_fit.columns],
+                  fill_color='lavender',
+                  align='left'))
+    ])
+    
+    fig.update_layout(title="Fit Assessment Matrix - Corporate Parenting Models")
+    st.plotly_chart(fig, use_container_width=True)
 
 # Benchmarking Page
 elif page == "benchmarking":
@@ -788,11 +976,103 @@ elif page == "benchmarking":
     
     st.plotly_chart(fig, use_container_width=True)
 
-# Framework Page
+# Framework Page - UPDATED WITH NEW GCG CONTENT
 elif page == "framework":
     st.markdown('<div class="sub-header">📋 Good Corporate Governance (GCG) & GRC Framework</div>', unsafe_allow_html=True)
     
+    # Good Corporate Governance Framework
     st.markdown("### 🎯 Good Corporate Governance (GCG) Framework")
+    
+    col1, col2 = st.columns(2)
+    
+    with col1:
+        st.markdown("""
+        <div class="governance-principle">
+            <h4>🔍 1. Transparency (Keterbukaan)</h4>
+            <ul>
+                <li><strong>Financial reporting</strong> yang akurat dan tepat waktu</li>
+                <li><strong>Disclosure kebijakan</strong> dan strategi material</li>
+                <li><strong>Open communication</strong> dengan stakeholders</li>
+            </ul>
+            
+            <h4>📊 2. Accountability (Akuntabilitas)</h4>
+            <ul>
+                <li><strong>Clear roles</strong> dan responsibilities</li>
+                <li><strong>Performance measurement</strong> yang objektif</li>
+                <li><strong>Regular evaluation</strong> dan feedback</li>
+            </ul>
+            
+            <h4>🎯 3. Responsibility (Pertanggungjawaban)</h4>
+            <ul>
+                <li><strong>Compliance</strong> terhadap regulasi dan standar</li>
+                <li><strong>Environmental dan social</strong> responsibility</li>
+                <li><strong>Stakeholder engagement</strong> yang efektif</li>
+            </ul>
+        </div>
+        """, unsafe_allow_html=True)
+    
+    with col2:
+        st.markdown("""
+        <div class="governance-principle">
+            <h4>⚖️ 4. Independence (Kemandirian)</h4>
+            <ul>
+                <li><strong>Independent oversight</strong> melalui komisaris independen</li>
+                <li><strong>Objective decision making</strong> process</li>
+                <li><strong>Conflict of interest</strong> management</li>
+            </ul>
+            
+            <h4>🤝 5. Fairness (Kesetaraan)</h4>
+            <ul>
+                <li><strong>Fair treatment</strong> untuk semua stakeholders</li>
+                <li><strong>Equal access</strong> terhadap informasi material</li>
+                <li><strong>Protection of minority</strong> shareholders rights</li>
+            </ul>
+        </div>
+        """, unsafe_allow_html=True)
+    
+    # GRC Integration Framework
+    st.markdown("### 🔗 Governance, Risk, and Compliance (GRC) Integration")
+    
+    col1, col2, col3 = st.columns(3)
+    
+    with col1:
+        st.markdown("""
+        <div class="parenting-model">
+            <h4>🏛️ Governance Layer</h4>
+            <ul>
+                <li><strong>Board effectiveness</strong> dan oversight</li>
+                <li><strong>Management accountability</strong></li>
+                <li><strong>Strategic decision making</strong> process</li>
+            </ul>
+        </div>
+        """, unsafe_allow_html=True)
+    
+    with col2:
+        st.markdown("""
+        <div class="parenting-model">
+            <h4>⚠️ Risk Management Layer</h4>
+            <ul>
+                <li><strong>Enterprise risk management</strong> framework</li>
+                <li><strong>Risk appetite</strong> dan tolerance setting</li>
+                <li><strong>Risk monitoring</strong> dan reporting</li>
+            </ul>
+        </div>
+        """, unsafe_allow_html=True)
+    
+    with col3:
+        st.markdown("""
+        <div class="parenting-model">
+            <h4>✅ Compliance Layer</h4>
+            <ul>
+                <li><strong>Regulatory compliance</strong> management</li>
+                <li><strong>Internal control</strong> systems</li>
+                <li><strong>Audit dan assurance</strong> functions</li>
+            </ul>
+        </div>
+        """, unsafe_allow_html=True)
+    
+    # GCG Assessment Chart
+    st.markdown("### 📊 GCG Framework Development Assessment")
     
     gcg_principles = {
         'Prinsip': ['Transparency', 'Accountability', 'Responsibility', 'Independence', 'Fairness'],
@@ -814,8 +1094,25 @@ elif page == "framework":
     )
     
     st.plotly_chart(fig, use_container_width=True)
+    
+    # Display priority table
+    st.markdown("### 🎯 GCG Development Priority Matrix")
+    
+    fig_priority = go.Figure(data=[go.Table(
+        header=dict(values=['Prinsip GCG', 'Baseline (%)', 'Target (%)', 'Gap', 'Priority Level'],
+                   fill_color='paleturquoise',
+                   align='left'),
+        cells=dict(values=[df_gcg['Prinsip'], df_gcg['Baseline Assessment'], 
+                          df_gcg['Target Framework'], df_gcg['Development Gap'], 
+                          df_gcg['Priority']],
+                  fill_color='lavender',
+                  align='left'))
+    ])
+    
+    fig_priority.update_layout(title="GCG Development Priority Assessment")
+    st.plotly_chart(fig_priority, use_container_width=True)
 
-# Review Pedoman Page - NEW PAGE
+# Review Pedoman Page
 elif page == "pedoman":
     st.markdown('<div class="sub-header">📖 Sekilas Review Pedoman Tata Kelola Terlampir</div>', unsafe_allow_html=True)
     
@@ -992,8 +1289,8 @@ st.markdown(f"""
 <div style="text-align: center; color: #666; padding: 2rem; background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); border-radius: 10px; margin-top: 2rem;">
     <h3 style="color: #1f4e79; margin-bottom: 1rem;">🏢 Pemutakhiran Pedoman Tata Kelola Terintegrasi</h3>
     <h4 style="color: #2c5282;">PT Surveyor Indonesia</h4>
-    <p style="font-size: 1.1rem; margin: 1rem 0;"><strong>Week {st.session_state.current_week}/8 - Day {st.session_state.project_day}/60 Implementation</strong></p>
-    <p style="font-style: italic; color: #4a5568;">Bulan 1 - Excellence in Corporate Governance & Strategic Control Model</p>
+    <p style="font-size: 1.1rem; margin: 1rem 0;"><strong>Week {st.session_state.current_week}/8 - Bulan 1 Implementation</strong></p>
+    <p style="font-style: italic; color: #4a5568;">Excellence in Corporate Governance & Strategic Control Model</p>
 </div>
 """, unsafe_allow_html=True)
 
@@ -1001,9 +1298,9 @@ col1, col2, col3 = st.columns(3)
 
 with col1:
     st.markdown("**Dashboard Information:**")
-    st.markdown(f"• Version 4.0 - Week {st.session_state.current_week}")
+    st.markdown(f"• Version 5.0 - Week {st.session_state.current_week}")
     st.markdown(f"• Last Updated: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M')}")
-    st.markdown("• 60-Day Timeline Bulan 1")
+    st.markdown("• 8-Week Timeline Bulan 1")
 
 with col2:
     st.markdown("**Created by:**")
@@ -1013,8 +1310,8 @@ with col2:
 
 with col3:
     st.markdown("**Methodology:**")
-    st.markdown("• 🚀 Bulan 1 - 60 Hari")
-    st.markdown("• 📅 8 Minggu, 7 Aktivitas")
+    st.markdown("• 🚀 Bulan 1 - 8 Minggu")
+    st.markdown("• 📅 7 Aktivitas Overlapping")
     st.markdown("• 🎯 Strategic Control Framework")
 
 st.markdown("---")
@@ -1023,7 +1320,7 @@ st.markdown(f"""
     <h4 style="color: #856404; margin: 0;">⚠️ COMPREHENSIVE DISCLAIMER - Week {st.session_state.current_week}</h4>
     <p style="color: #856404; margin: 0.5rem 0; font-size: 0.9rem;">
         <strong>Materi sosialisasi ini untuk digunakan secara terbatas pada PT Surveyor Indonesia.</strong><br>
-        Timeline menggunakan struktur 60 hari (8 minggu) dengan 7 aktivitas utama overlapping - Bulan 1.
+        Timeline menggunakan struktur 8 minggu dengan 7 aktivitas utama overlapping - Bulan 1.
         BUMN structure analysis berdasarkan Annual Reports. Semua data numerik bersifat ilustratif 
         untuk keperluan pengembangan framework dan benchmarking metodologi, bukan data aktual.
         Review pedoman berdasarkan SKD-002/DRU-XII/DPKMR/2023 tanggal 22 Desember 2023.
