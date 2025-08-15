@@ -152,12 +152,30 @@ st.markdown("""
         margin: 0.8rem 0;
         box-shadow: 0 3px 12px rgba(0,0,0,0.08);
     }
+    
+    .pedoman-section {
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        padding: 1.5rem;
+        border-radius: 12px;
+        border-left: 4px solid #28a745;
+        margin: 1rem 0;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    }
+    
+    .pedoman-highlight {
+        background: linear-gradient(135deg, #fff5f5 0%, #fed7d7 100%);
+        border: 2px solid #e53e3e;
+        border-radius: 10px;
+        padding: 1.2rem;
+        margin: 1rem 0;
+        box-shadow: 0 4px 15px rgba(229, 62, 62, 0.2);
+    }
 </style>
 """, unsafe_allow_html=True)
 
-# Initialize session state with timeline 56 hari (8 weeks)
+# Initialize session state with timeline 56 hari (8 weeks) - Bulan 1
 if 'project_start_date' not in st.session_state:
-    st.session_state.project_start_date = date(2025, 8, 1)  # Agustus 2025 start
+    st.session_state.project_start_date = date(2025, 1, 1)  # Bulan 1 start
 
 if 'current_week' not in st.session_state:
     current_day = (date.today() - st.session_state.project_start_date).days + 1
@@ -188,10 +206,8 @@ pages = {
     "📊 Benchmarking": {"id": "benchmarking", "desc": "Best Practices Analysis"},
     "🏗️ Corporate Parenting": {"id": "parenting", "desc": "Parent-Subsidiary Model"},
     "📋 GCG Framework": {"id": "framework", "desc": "Governance Structure & GRC"},
-    "⏱️ Timeline 60 Hari": {"id": "timeline", "desc": "Week-based Schedule"},
-    "📈 Monitoring": {"id": "monitoring", "desc": "Progress & KPIs"},
-    "📁 Dokumentasi": {"id": "documentation", "desc": "Resources & Files"},
-    "🎯 Next Steps": {"id": "nextsteps", "desc": "Action Plans"}
+    "⏱️ Timeline Bulan 1": {"id": "timeline", "desc": "Week-based Schedule"},
+    "📖 Review Pedoman": {"id": "pedoman", "desc": "Pedoman Terlampir Analysis"}
 }
 
 # Create enhanced sidebar menu
@@ -219,7 +235,7 @@ st.markdown("""
 <div class="main-header">
     🏢 Pemutakhiran Pedoman Tata Kelola Terintegrasi<br>
     <span style="font-size: 1.5rem; opacity: 0.9;">PT Surveyor Indonesia</span><br>
-    <span style="font-size: 1rem; opacity: 0.8;">Timeline 56 Hari - Agustus 2025 - Excellence in Corporate Governance</span>
+    <span style="font-size: 1rem; opacity: 0.8;">Timeline 56 Hari - Bulan 1 - Excellence in Corporate Governance</span>
 </div>
 """, unsafe_allow_html=True)
 
@@ -349,7 +365,7 @@ if page == "dashboard":
             <h3 style="color: #1f4e79; margin-bottom: 0.5rem;">⏰ Timeline</h3>
             <h1 style="color: #e53e3e; margin: 0; font-size: 2.5rem;">56</h1>
             <h3 style="color: #e53e3e; margin: 0;">Hari</h3>
-            <p style="margin: 0; color: #666;">Agustus 2025 - 8 Minggu</p>
+            <p style="margin: 0; color: #666;">Bulan 1 - 8 Minggu</p>
             <div style="margin-top: 0.5rem;">
                 <small style="color: #28a745;">✓ Currently Day {st.session_state.project_day}</small>
             </div>
@@ -364,7 +380,7 @@ if page == "dashboard":
             <h3 style="color: #38a169; margin: 0;">Utama</h3>
             <p style="margin: 0; color: #666;">Timeline Overlapping</p>
             <div style="margin-top: 0.5rem;">
-                <small style="color: #28a745;">✓ Agustus 2025</small>
+                <small style="color: #28a745;">✓ Bulan 1</small>
             </div>
         </div>
         """, unsafe_allow_html=True)
@@ -535,14 +551,14 @@ if page == "dashboard":
 
 # Timeline Page with week-based structure
 elif page == "timeline":
-    st.markdown('<div class="sub-header">⏱️ Timeline 56 Hari - Agustus 2025 Implementation Schedule</div>', unsafe_allow_html=True)
+    st.markdown('<div class="sub-header">⏱️ Timeline 56 Hari - Bulan 1 Implementation Schedule</div>', unsafe_allow_html=True)
     
     # Current status indicator
     st.markdown(f"""
     <div class="info-box">
         <h4 style="color: #1f4e79; margin: 0;">📅 Current Status: Week {st.session_state.current_week}, Day {st.session_state.project_day}</h4>
         <p style="color: #1f4e79; margin: 0.5rem 0;">
-            Progress: {st.session_state.overall_progress:.1f}% | Timeline: Agustus 2025 - 56 Hari (8 Minggu)
+            Progress: {st.session_state.overall_progress:.1f}% | Timeline: Bulan 1 - 56 Hari (8 Minggu)
         </p>
     </div>
     """, unsafe_allow_html=True)
@@ -585,7 +601,7 @@ elif page == "timeline":
                           annotation_text=f"W{week}", annotation_position="bottom")
     
     fig.update_layout(
-        title="Timeline 56 Hari - Agustus 2025 - Aktivitas Overlapping",
+        title="Timeline 56 Hari - Bulan 1 - Aktivitas Overlapping",
         xaxis_title="Project Day",
         yaxis_title="Activities",
         yaxis=dict(
@@ -600,7 +616,7 @@ elif page == "timeline":
     st.plotly_chart(fig, use_container_width=True)
     
     # Weekly breakdown
-    st.markdown("### 📅 Breakdown per Minggu - Agustus 2025")
+    st.markdown("### 📅 Breakdown per Minggu - Bulan 1")
     
     # Create weekly structure for 8 weeks
     weeks = [
@@ -640,36 +656,8 @@ elif page == "timeline":
             </ul>
         </div>
         """, unsafe_allow_html=True)
-    
-    # Detailed activity breakdown
-    st.markdown("### 📋 Detailed Activity Breakdown")
-    
-    for i, activity in enumerate(timeline_activities, 1):
-        status_box = "success-box" if activity['Status'] == '🔄 In Progress' else "info-box" if activity['Status'] == '✅ Completed' else "warning-box"
-        
-        st.markdown(f"""
-        <div class="{status_box}">
-            <h4>{i}. {activity['Activity']} {activity['Status']}</h4>
-            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem;">
-                <div>
-                    <strong>Timeline:</strong> {activity['Week']}<br>
-                    <strong>Days:</strong> {activity['Days']}
-                </div>
-                <div>
-                    <strong>Progress:</strong> {activity['Progress']}%<br>
-                    <strong>Duration:</strong> {activity['End_Day'] - activity['Start_Day'] + 1} days
-                </div>
-                <div>
-                    <div style="background: #e2e8f0; border-radius: 4px; height: 8px;">
-                        <div style="background: #3182ce; height: 8px; border-radius: 4px; width: {activity['Progress']}%;"></div>
-                    </div>
-                </div>
-            </div>
-            <p style="margin-top: 1rem;"><strong>Description:</strong> {activity['Description']}</p>
-        </div>
-        """, unsafe_allow_html=True)
 
-# Corporate Parenting Page (keeping existing structure)
+# Corporate Parenting Page
 elif page == "parenting":
     st.markdown('<div class="sub-header">🏗️ Corporate Parenting Model Framework</div>', unsafe_allow_html=True)
     
@@ -827,121 +815,176 @@ elif page == "framework":
     
     st.plotly_chart(fig, use_container_width=True)
 
-# Monitoring Page
-elif page == "monitoring":
-    st.markdown('<div class="sub-header">📈 Real-time Monitoring Dashboard</div>', unsafe_allow_html=True)
+# Review Pedoman Page - NEW PAGE
+elif page == "pedoman":
+    st.markdown('<div class="sub-header">📖 Sekilas Review Pedoman Tata Kelola Terlampir</div>', unsafe_allow_html=True)
     
-    col1, col2, col3, col4 = st.columns(4)
+    # Document overview
+    st.markdown(f"""
+    <div class="pedoman-highlight">
+        <h4 style="color: #c53030; margin: 0;">📋 Dokumen: SKD-002 Pedoman Tata Kelola Hubungan Perusahaan Induk dan Anak Perusahaan</h4>
+        <p style="color: #c53030; margin: 0.5rem 0;">
+            <strong>PT Surveyor Indonesia | Nomor: SKD-002/DRU-XII/DPKMR/2023 | Tanggal: 22 Desember 2023</strong><br>
+            <strong>Total Halaman:</strong> 99 halaman | <strong>Revisi:</strong> 00
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
     
-    kpi_data = get_kpi_data()
+    # Executive Summary
+    st.markdown("### 📊 Executive Summary Pedoman")
     
-    for i, col in enumerate([col1, col2, col3, col4]):
-        with col:
-            current = kpi_data['Current'][i]
-            target = kpi_data['Target'][i]
-            trend = kpi_data['Trend'][i]
-            
-            st.markdown(f"""
-            <div class="metric-container">
-                <h5 style="margin: 0; color: #1f4e79;">{kpi_data['KPI'][i]}</h5>
-                <h2 style="margin: 0.2rem 0; color: #2d3748;">{current}%</h2>
-                <p style="margin: 0; color: {'#38a169' if trend >= 0 else '#e53e3e'};">
-                    {'↗️' if trend >= 0 else '↘️'} {trend:+d}% trend
-                </p>
-                <div style="background: #e2e8f0; border-radius: 4px; height: 4px; margin-top: 0.5rem;">
-                    <div style="background: #3182ce; height: 4px; border-radius: 4px; width: {min(current/target*100, 100)}%;"></div>
-                </div>
-            </div>
-            """, unsafe_allow_html=True)
-
-# Documentation Page
-elif page == "documentation":
-    st.markdown('<div class="sub-header">📁 Comprehensive Documentation Center</div>', unsafe_allow_html=True)
-    
-    doc_categories = ['Assessment Reports', 'Framework Documents', 'Implementation Plans', 'Templates & Tools']
-    
-    col1, col2 = st.columns([3, 1])
+    col1, col2 = st.columns([2, 1])
     
     with col1:
-        selected_category = st.selectbox("Select Document Category:", doc_categories)
-        
-        documents = {
-            'Assessment Reports': [
-                {'name': 'Current State Assessment', 'status': 'Completed', 'date': '2025-08-10'},
-                {'name': 'Gap Analysis Report', 'status': 'In Progress', 'date': '2025-08-15'},
-                {'name': 'Benchmarking Study', 'status': 'Draft', 'date': '2025-08-20'}
-            ]
-        }
-        
-        for doc in documents.get(selected_category, []):
-            status_color = {'Completed': '🟢', 'In Progress': '🟡', 'Draft': '🟠'}
-            
-            with st.expander(f"{doc['name']} {status_color.get(doc['status'], '⚪')}"):
-                st.markdown(f"**Status:** {doc['status']}")
-                st.markdown(f"**Date:** {doc['date']}")
+        st.markdown("""
+        <div class="pedoman-section">
+            <h4>🎯 Maksud dan Tujuan Pedoman</h4>
+            <ol>
+                <li><strong>Landasan dan pedoman bagi PT Surveyor Indonesia</strong> sebagai Perusahaan Induk dalam mengelola Anak Perusahaan</li>
+                <li><strong>Pedoman bagi Anak Perusahaan</strong> dalam mengelola perusahaan yang selaras dengan arah dan kebijakan PT Surveyor Indonesia</li>
+                <li><strong>Perangkat pendukung penerapan tata kelola perusahaan yang baik</strong>, berbasis risiko dan kepatuhan (Governance, Risk and Compliance - GRC)</li>
+            </ol>
+        </div>
+        """, unsafe_allow_html=True)
     
     with col2:
-        st.markdown("### 📊 Document Statistics")
-        st.metric("Total Documents", 12)
-        st.metric("Completed", 4)
-        st.metric("Completion Rate", "33%")
-
-# Next Steps Page
-elif page == "nextsteps":
-    st.markdown('<div class="sub-header">🎯 Expected Outcomes & Strategic Action Plan</div>', unsafe_allow_html=True)
+        st.markdown("""
+        <div class="metric-container">
+            <h4>📋 Struktur Pedoman</h4>
+            <ul>
+                <li><strong>14 Bab Utama</strong></li>
+                <li><strong>99 Halaman</strong></li>
+                <li><strong>7 Aspek Operasional</strong></li>
+                <li><strong>5 Prinsip GCG</strong></li>
+            </ul>
+        </div>
+        """, unsafe_allow_html=True)
     
-    st.markdown(f"### 🚀 Immediate Next Steps (Week {st.session_state.current_week}, Day {st.session_state.project_day})")
+    # Struktur Pedoman
+    st.markdown("### 📚 Struktur Lengkap Pedoman (14 Bab)")
     
-    next_steps = [
-        {'action': 'Complete Current Week Activities', 'timeline': f'Week {st.session_state.current_week}', 'owner': 'Project Team', 'priority': 'Critical'},
-        {'action': 'Prepare for Next Week', 'timeline': f'Week {min(st.session_state.current_week + 1, 8)}', 'owner': 'Project Manager', 'priority': 'High'},
-        {'action': 'Update Documentation', 'timeline': 'Ongoing', 'owner': 'Documentation Team', 'priority': 'Medium'}
+    bab_pedoman = [
+        {"bab": 1, "judul": "PENDAHULUAN", "fokus": "Latar Belakang, Maksud & Tujuan, Dasar Hukum, Ruang Lingkup"},
+        {"bab": 2, "judul": "KETENTUAN UMUM TATA KELOLA ANAK PERUSAHAAN", "fokus": "Prinsip, Pendirian, Anggaran Dasar, Organ, GCG"},
+        {"bab": 3, "judul": "ARAH DAN KEBIJAKAN ANAK PERUSAHAAN", "fokus": "Struktur Organisasi, Hubungan Induk-Anak, Koordinasi, Sinergi"},
+        {"bab": 4, "judul": "SELEKSI, PENGANGKATAN DAN PEMBERHENTIAN KOMISARIS & DIREKSI", "fokus": "Proses Seleksi, Pengangkatan, Pemberhentian"},
+        {"bab": 5, "judul": "REMUNERASI DIREKSI, KOMISARIS DAN KOMITE", "fokus": "Ketentuan, Penetapan, Tantiem/Insentif"},
+        {"bab": 6, "judul": "RAPAT UMUM PEMEGANG SAHAM (RUPS)", "fokus": "RUPS Tahunan, RUPSLB, Penyelenggaraan"},
+        {"bab": 7, "judul": "PENDANAAN DAN INVESTASI ANAK PERUSAHAAN", "fokus": "Kebijakan, Pengawasan, Pelaporan"},
+        {"bab": 8, "judul": "PERENCANAAN ANAK PERUSAHAAN", "fokus": "RJPP, RKAP, Kontrak Manajemen, RKAT"},
+        {"bab": 9, "judul": "KEBIJAKAN PENGELOLAAN OPERASIONAL", "fokus": "Hukum, SPI, Keuangan, SDM, Pengadaan, TI, Risiko, Mutu, K3L, CSR"},
+        {"bab": 10, "judul": "PELAPORAN ANAK PERUSAHAAN", "fokus": "Laporan Manajemen, Tahunan, Tugas Pengawasan"},
+        {"bab": 11, "judul": "PENILAIAN KINERJA ANAK PERUSAHAAN", "fokus": "Kinerja Komisaris, Direksi, Operasional"},
+        {"bab": 12, "judul": "PENGGUNAAN LABA BERSIH DAN DIVIDEN", "fokus": "Tinjauan Hukum, Laba Bersih, Dividen"},
+        {"bab": 13, "judul": "RESTRUKTURISASI DAN LIKUIDASI", "fokus": "Restrukturisasi, Pembubaran/Likuidasi"},
+        {"bab": 14, "judul": "PENUTUP", "fokus": "Penutup dan Implementasi"}
     ]
     
-    for step in next_steps:
-        priority_colors = {'Critical': '🔴', 'High': '🟠', 'Medium': '🟡'}
+    # Display dalam format grid
+    for i in range(0, len(bab_pedoman), 2):
+        col1, col2 = st.columns(2)
         
-        with st.expander(f"{priority_colors.get(step['priority'], '⚪')} {step['action']} - {step['priority']} Priority"):
-            col1, col2 = st.columns(2)
-            with col1:
-                st.markdown(f"**Timeline:** {step['timeline']}")
+        with col1:
+            bab = bab_pedoman[i]
+            st.markdown(f"""
+            <div class="pedoman-section">
+                <h5>Bab {bab['bab']}: {bab['judul']}</h5>
+                <p><strong>Fokus:</strong> {bab['fokus']}</p>
+            </div>
+            """, unsafe_allow_html=True)
+        
+        if i + 1 < len(bab_pedoman):
             with col2:
-                st.markdown(f"**Owner:** {step['owner']}")
+                bab = bab_pedoman[i + 1]
+                st.markdown(f"""
+                <div class="pedoman-section">
+                    <h5>Bab {bab['bab']}: {bab['judul']}</h5>
+                    <p><strong>Fokus:</strong> {bab['fokus']}</p>
+                </div>
+                """, unsafe_allow_html=True)
     
-    # Success metrics
-    st.markdown("### 📊 Success Metrics Framework - Timeline 56 Hari")
+    # Key highlights dari pedoman
+    st.markdown("### 🎯 Key Highlights Pedoman")
     
     col1, col2, col3 = st.columns(3)
     
     with col1:
-        st.markdown("#### 🎯 Quality Metrics")
         st.markdown("""
-        • Stakeholder satisfaction >85%  
-        • Framework completeness >90%  
-        • BUMN best practice integration >95%
-        • Expert validation approval  
-        • Compliance verification 100%
-        """)
+        <div class="governance-principle">
+            <h4>🏛️ Prinsip GCG (Bab 2)</h4>
+            <ul>
+                <li><strong>Keterbukaan (Transparency)</strong></li>
+                <li><strong>Akuntabilitas (Accountability)</strong></li>
+                <li><strong>Pertanggungjawaban (Responsibility)</strong></li>
+                <li><strong>Kemandirian (Independency)</strong></li>
+                <li><strong>Kewajaran (Fairness)</strong></li>
+            </ul>
+        </div>
+        """, unsafe_allow_html=True)
     
     with col2:
-        st.markdown("#### ⚡ Efficiency Metrics")
-        st.markdown(f"""
-        • Week {st.session_state.current_week}/8 timeline adherence  
-        • Budget adherence ±5%  
-        • Resource utilization >80%  
-        • Risk mitigation effectiveness
-        • 7 aktivitas overlapping efficiency
-        """)
+        st.markdown("""
+        <div class="governance-principle">
+            <h4>📋 Aspek Operasional (Bab 9)</h4>
+            <ul>
+                <li><strong>Hukum dan Kepatuhan</strong></li>
+                <li><strong>Sistem Pengendalian Internal</strong></li>
+                <li><strong>Keuangan dan Akuntansi</strong></li>
+                <li><strong>Sumber Daya Manusia</strong></li>
+                <li><strong>Pengadaan Barang & Jasa</strong></li>
+                <li><strong>Teknologi Informasi</strong></li>
+                <li><strong>Manajemen Risiko</strong></li>
+            </ul>
+        </div>
+        """, unsafe_allow_html=True)
     
     with col3:
-        st.markdown("#### 📈 Effectiveness Metrics")
         st.markdown("""
-        • Implementation readiness >85%  
-        • Change management adoption  
-        • Governance score improvement  
-        • Long-term sustainability
-        • BUMN benchmark achievement
-        """)
+        <div class="governance-principle">
+            <h4>🎯 Struktur Korporasi (Bab 3)</h4>
+            <ul>
+                <li><strong>Perusahaan Induk:</strong> Strategic Control</li>
+                <li><strong>Anak Perusahaan PT:</strong> Operational Execution</li>
+                <li><strong>Perusahaan Afiliasi:</strong> Strategic Partnership</li>
+                <li><strong>Target: 8 Entities</strong> Optimal Structure</li>
+            </ul>
+        </div>
+        """, unsafe_allow_html=True)
+    
+    # Tata Nilai dan Dasar Hukum
+    st.markdown("### 📜 Tata Nilai dan Dasar Hukum")
+    
+    col1, col2 = st.columns(2)
+    
+    with col1:
+        st.markdown("""
+        <div class="info-box">
+            <h4>🌟 Tata Nilai Anak Perusahaan (AKHLAK)</h4>
+            <ul>
+                <li><strong>A</strong>manah - Dapat dipercaya</li>
+                <li><strong>K</strong>ompeten - Profesional dan berkualitas</li>
+                <li><strong>H</strong>armoni - Keselarasan dalam bekerja</li>
+                <li><strong>L</strong>oyal - Setia pada perusahaan</li>
+                <li><strong>A</strong>daptif - Fleksibel menghadapi perubahan</li>
+                <li><strong>K</strong>olaboratif - Bekerja sama dengan baik</li>
+            </ul>
+        </div>
+        """, unsafe_allow_html=True)
+    
+    with col2:
+        st.markdown("""
+        <div class="warning-box">
+            <h4>⚖️ Dasar Hukum Utama</h4>
+            <ul>
+                <li><strong>UU No. 19/2003</strong> - Badan Usaha Milik Negara</li>
+                <li><strong>UU No. 40/2007</strong> - Perseroan Terbatas</li>
+                <li><strong>Perpu No. 2/2022</strong> - Cipta Kerja</li>
+                <li><strong>PER-04/MBU/2014</strong> - Penghasilan Direksi & Komisaris</li>
+                <li><strong>PER-2/MBU/03/2023</strong> - Tata Kelola BUMN</li>
+                <li><strong>Anggaran Dasar PT Surveyor Indonesia</strong></li>
+            </ul>
+        </div>
+        """, unsafe_allow_html=True)
 
 # Footer
 st.markdown("---")
@@ -950,7 +993,7 @@ st.markdown(f"""
     <h3 style="color: #1f4e79; margin-bottom: 1rem;">🏢 Pemutakhiran Pedoman Tata Kelola Terintegrasi</h3>
     <h4 style="color: #2c5282;">PT Surveyor Indonesia</h4>
     <p style="font-size: 1.1rem; margin: 1rem 0;"><strong>Week {st.session_state.current_week}/8 - Day {st.session_state.project_day}/56 Implementation</strong></p>
-    <p style="font-style: italic; color: #4a5568;">Agustus 2025 - Excellence in Corporate Governance & Strategic Control Model</p>
+    <p style="font-style: italic; color: #4a5568;">Bulan 1 - Excellence in Corporate Governance & Strategic Control Model</p>
 </div>
 """, unsafe_allow_html=True)
 
@@ -960,7 +1003,7 @@ with col1:
     st.markdown("**Dashboard Information:**")
     st.markdown(f"• Version 4.0 - Week {st.session_state.current_week}")
     st.markdown(f"• Last Updated: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M')}")
-    st.markdown("• 56-Day Timeline Agustus 2025")
+    st.markdown("• 56-Day Timeline Bulan 1")
 
 with col2:
     st.markdown("**Created by:**")
@@ -970,7 +1013,7 @@ with col2:
 
 with col3:
     st.markdown("**Methodology:**")
-    st.markdown("• 🚀 Agustus 2025 - 56 Hari")
+    st.markdown("• 🚀 Bulan 1 - 56 Hari")
     st.markdown("• 📅 8 Minggu, 7 Aktivitas")
     st.markdown("• 🎯 Strategic Control Framework")
 
@@ -980,9 +1023,10 @@ st.markdown(f"""
     <h4 style="color: #856404; margin: 0;">⚠️ COMPREHENSIVE DISCLAIMER - Week {st.session_state.current_week}</h4>
     <p style="color: #856404; margin: 0.5rem 0; font-size: 0.9rem;">
         <strong>Materi sosialisasi ini untuk digunakan secara terbatas pada PT Surveyor Indonesia.</strong><br>
-        Timeline menggunakan struktur 56 hari (8 minggu) dengan 7 aktivitas utama overlapping - Agustus 2025.
+        Timeline menggunakan struktur 56 hari (8 minggu) dengan 7 aktivitas utama overlapping - Bulan 1.
         BUMN structure analysis berdasarkan Annual Reports. Semua data numerik bersifat ilustratif 
         untuk keperluan pengembangan framework dan benchmarking metodologi, bukan data aktual.
+        Review pedoman berdasarkan SKD-002/DRU-XII/DPKMR/2023 tanggal 22 Desember 2023.
     </p>
 </div>
 """, unsafe_allow_html=True)
